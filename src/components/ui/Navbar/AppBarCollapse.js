@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from 'react-redux';
 import { Button, MenuItem } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonAppBarCollapse from "./ButtonAppBarCollapse";
@@ -7,6 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core'
+import { startLogout } from "../../../actions/auth";
 
 const styles = theme => ({
     _root: {
@@ -37,13 +39,21 @@ const useStyles = makeStyles((theme) => {
       background: "#384AA9"
     }
   }
-})
+});
+
 
 const AppBarCollapse = props => {
-    const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
-    return(
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  const dispatch = useDispatch();
+  
+  const handleLogout = () => {
+      dispatch( startLogout() );
+  }
+
+  return(
 
     <>
     <div className={props.classes._root}>
@@ -95,10 +105,26 @@ const AppBarCollapse = props => {
     </div>
     <div className={props.classes.root}>
         <ButtonAppBarCollapse>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem>
+          <ListItem 
+              button 
+              key={'Logout'} 
+              onClick={handleLogout}
+            >
+              <ListItemText primary={'Logout'} />
+            </ListItem>
+        </MenuItem>
         </ButtonAppBarCollapse>
         <div className={props.classes.buttonBar} id="appbar-collapse">
-        <Button color="inherit">Logout</Button>
+        <Button color="inherit">
+          <ListItem 
+              button 
+              key={'Logout'} 
+              onClick={handleLogout}
+            >
+              <ListItemText primary={'Logout'} />
+            </ListItem>
+        </Button>
         </div>
     </div>
   </>

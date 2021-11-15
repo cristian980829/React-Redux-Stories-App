@@ -1,6 +1,7 @@
 import { fetchConToken, fetchSinToken } from '../helpers/fetch';
 import { types } from '../types/types';
 import Swal from 'sweetalert2';
+import { storieLogout } from './storie';
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
@@ -77,3 +78,14 @@ const login = ( user ) => ({
 });
 
 const checkingFinish = () => ({ type: types.authCheckingFinish });
+
+export const startLogout = () => {
+    return ( dispatch ) => {
+
+        localStorage.clear();
+        dispatch( storieLogout() );
+        dispatch( logout() );
+    }
+}
+
+const logout = () => ({ type: types.authLogout })
