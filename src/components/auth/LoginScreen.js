@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,20 +15,24 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+
 import validator from 'validator';
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
+import { startLogin } from '../../actions/auth';
 
 const theme = createTheme();
 
 export const LoginScreen = () => {
 
+    const dispatch = useDispatch();
+
     const [error, setError] = useState("");
 
     const [ formValues, handleInputChange ] = useForm({
-        email: '',
-        password: ''
+        email: 'cristian980829@gmail.com',
+        password: '123456'
     });
 
     const { email, password } = formValues;
@@ -35,7 +40,7 @@ export const LoginScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            console.log(formValues);
+            dispatch( startLogin( email, password ) );
         }
     };
 
