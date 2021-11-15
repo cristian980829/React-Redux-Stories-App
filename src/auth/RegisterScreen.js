@@ -22,16 +22,18 @@ import { useForm } from '../hooks/useForm';
 
 const theme = createTheme();
 
-export const LoginScreen = () => {
+export const RegisterScreen = () => {
 
     const [error, setError] = useState("");
 
     const [ formValues, handleInputChange ] = useForm({
         email: '',
-        password: ''
+        password: '',
+        password2: '',
+        name: ''
     });
 
-    const { email, password } = formValues;
+    const { email, name, password, password2 } = formValues;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,11 +43,15 @@ export const LoginScreen = () => {
     };
 
     const isFormValid = () => {
+        
         if ( !validator.isEmail( email ) ) {
             setError('Email is not valid');
             return false;
-        } else if (password.length < 5 ) {
-            setError('Password should be at least 6 characters');
+        } else if ( name.trim().length === 0 ) {
+            setError('Name is required'); 
+            return false;
+        } else if ( password !== password2 || password.length < 5 ) {
+            setError('Password should be at least 6 characters and match each other');
             return false
         }
         setError("");
@@ -68,7 +74,7 @@ export const LoginScreen = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign In
+                        Sign Up
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         {
@@ -83,7 +89,6 @@ export const LoginScreen = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
                             type="email"
                             label="Email Address"
                             name="email"
@@ -96,12 +101,33 @@ export const LoginScreen = () => {
                             margin="normal"
                             required
                             fullWidth
+                            name="name"
+                            label="Name"
+                            type="text"
+                            autoComplete="off"
+                                value={ name }
+                                onChange={ handleInputChange }
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
                             label="Password"
                             type="password"
-                            id="password"
                             autoComplete="off"
                                 value={ password }
+                                onChange={ handleInputChange }
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password2"
+                            label="Confirm password"
+                            type="password"
+                            autoComplete="off"
+                                value={ password2 }
                                 onChange={ handleInputChange }
                         />
                         {/* <FormControlLabel
@@ -114,7 +140,7 @@ export const LoginScreen = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
                         <Grid container>
                             {/* <Grid item xs>
@@ -124,10 +150,10 @@ export const LoginScreen = () => {
                             </Grid> */}
                             <Grid item>
                                 <Link 
-                                    to="/auth/signup"
+                                    to="/auth/signin"
                                     className="link"
                                 >
-                                    Don't have an account? Sign Up
+                                    Do you have an account? Sign In
                                 </Link>
                             </Grid>
                         </Grid>
@@ -137,4 +163,4 @@ export const LoginScreen = () => {
             </Container>
         </ThemeProvider>
     );
-    }
+}
