@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,11 +19,14 @@ import validator from 'validator';
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
+import { startRegister } from '../../actions/auth';
 
 
 const theme = createTheme();
 
 export const RegisterScreen = () => {
+
+    const dispatch = useDispatch();
 
     const [error, setError] = useState("");
 
@@ -38,7 +42,7 @@ export const RegisterScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            console.log(formValues);
+            dispatch( startRegister( email, password, name ) );
         }
     };
 
