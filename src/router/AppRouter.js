@@ -15,7 +15,7 @@ export const AppRouter = () => {
 
     // const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
-    const isLoggedIn = false;
+    const isLoggedIn = true;
     return (
         <Router>
             <Switch>
