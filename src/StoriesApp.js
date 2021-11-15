@@ -1,9 +1,8 @@
 import React from 'react';
+import { AppRouter } from './router/AppRouter';
 
 export const StoriesApp = () => {
     return (
-        <div>
-            <h1>Stories App</h1>
-        </div>
+        <AppRouter/>
     )
 }
