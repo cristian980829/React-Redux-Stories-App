@@ -2,11 +2,9 @@ import React from "react";
 import { Button, MenuItem } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonAppBarCollapse from "./ButtonAppBarCollapse";
-import { NavLink, Link } from 'react-router-dom';
 
 import { useHistory, useLocation } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core'
 
@@ -36,8 +34,7 @@ const styles = theme => ({
 const useStyles = makeStyles((theme) => {
   return {
     active: {
-      background: "#384AA9",
-    //   active: "transparent"
+      background: "#384AA9"
     }
   }
 })
