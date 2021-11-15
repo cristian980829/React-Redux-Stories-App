@@ -2,32 +2,34 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Redirect,
-    Route
+    Redirect
   } from 'react-router-dom';
-import { LoginScreen } from '../auth/LoginScreen';
-import { RegisterScreen } from '../auth/RegisterScreen';
+import { AuthRouter } from './AuthRouter';
+
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import { StorieRouter } from './StorieRouter';
   
-
-
-
 
 export const AppRouter = () => {
 
+    // const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+    const isLoggedIn = false;
     return (
         <Router>
             <Switch>
-
-                <Route 
-                    exact 
-                    path="/auth/signin" 
-                    component={ LoginScreen }
+                
+                <PublicRoute 
+                    path="/auth"
+                    component={ AuthRouter }
+                    isAuthenticated={ isLoggedIn }
                 />
 
-                <Route 
-                    exact 
-                    path="/auth/signup" 
-                    component={ RegisterScreen }
+                <PrivateRoute 
+                    isAuthenticated={ isLoggedIn }
+                    path="/"
+                    component={ StorieRouter }
                 />
 
                 <Redirect to="/auth/signin" />
