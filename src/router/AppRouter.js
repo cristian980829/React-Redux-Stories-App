@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     BrowserRouter as Router,
     Switch,
     Redirect
   } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { startChecking } from '../actions/auth';
 import { AuthRouter } from './AuthRouter';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -13,23 +16,40 @@ import { StorieRouter } from './StorieRouter';
 
 export const AppRouter = () => {
 
-    // const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const dispatch = useDispatch();
+    const { checking, uid } = useSelector( state => state.auth);
 
-    const isLoggedIn = false;
+    useEffect(() => {
+        
+        dispatch( startChecking() );
+
+    }, [dispatch])
+
+    if ( checking ) {
+        Swal.fire({
+            text:'Wait...',
+            showConfirmButton: false,
+            allowOutsideClick: false
+            });
+        Swal.showLoading();
+    }else{
+        Swal.close();
+    }
+
     return (
         <Router>
             <Switch>
                 
                 <PublicRoute 
-                    path="/auth"
                     component={ AuthRouter }
-                    isAuthenticated={ isLoggedIn }
+                    isAuthenticated={ !!uid }
+                    path="/auth"
                 />
 
                 <PrivateRoute 
-                    isAuthenticated={ isLoggedIn }
-                    path="/"
                     component={ StorieRouter }
+                    isAuthenticated={ !!uid }
+                    path="/"
                 />
 
                 <Redirect to="/auth/signin" />
