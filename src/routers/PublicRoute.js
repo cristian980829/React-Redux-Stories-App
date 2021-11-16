@@ -6,10 +6,10 @@ import { Route, Redirect } from 'react-router-dom';
 
 export const PublicRoute = ({
     isAuthenticated,
+    error,
     component: Component,
     ...rest
 }) => {
-
     return (
         <Route { ...rest }
             component={ (props) => (

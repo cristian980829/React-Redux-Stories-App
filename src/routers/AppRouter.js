@@ -3,27 +3,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     BrowserRouter as Router,
     Switch,
-    Redirect
+    Redirect,
+    Route
   } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { startChecking } from '../actions/auth';
+
 import { AuthRouter } from './AuthRouter';
 
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { StorieRouter } from './StorieRouter';
+
+import { ErrorScreen } from '../components/ui/ErrorScreen';
+
   
 
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
-    const { checking, uid } = useSelector( state => state.auth);
+    const { checking, uid, serverError } = useSelector( state => state.auth);
 
-    // console.log(!!uid)
-    // console.log(uid)
+    console.log(serverError)
 
     useEffect(() => {
-        
         dispatch( startChecking() );
 
     }, [dispatch])
@@ -40,23 +43,37 @@ export const AppRouter = () => {
         Swal.close();
     }
 
+
     return (
         <Router>
             <Switch>
-                
-                <PublicRoute 
-                    component={ AuthRouter }
-                    isAuthenticated={ !!uid }
-                    path="/auth"
-                />
+                { (serverError) 
+                    ? <>
+                        <Route
+                            exact
+                            path="/error"
+                            component={ ErrorScreen }
+                        />
+                        <Redirect to="/error" />
+                    </>
+                    : <>
+                        <PublicRoute 
+                            component={ AuthRouter }
+                            isAuthenticated={ !!uid }
+                            path="/auth"
+                        />
 
-                <PrivateRoute 
-                    component={ StorieRouter }
-                    isAuthenticated={ !!uid }
-                    path="/"
-                />
+                        <PrivateRoute 
+                            component={ StorieRouter }
+                            isAuthenticated={ !!uid }
+                            path="/"
+                        />
 
-                <Redirect to="/auth/signin" />
+                        { (!serverError) ? <Redirect to="/auth/signin" /> : console.log() }
+
+                        <Redirect to="/auth/signin" />
+                    </>
+                }
 
             </Switch>
         </Router>

@@ -75,7 +75,7 @@ export const startRegister = ( email, password, name, urlimage = 'https://res.cl
     }
 }
 
-export const startChecking = ( props ) => {
+export const startChecking = () => {
     return async(dispatch) => {
 
         try {
@@ -98,10 +98,13 @@ export const startChecking = ( props ) => {
         } catch (error) {
             Swal.close();
             dispatch( checkingFinish() );
+            dispatch( setServerError() );
         }
     }
         
 }
+
+const setServerError = () => ({ type: types.authSetServerError });
 
 const login = ( user ) => ({
     type: types.authLogin,

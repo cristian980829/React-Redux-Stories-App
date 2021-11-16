@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import { fetchConToken } from "../helpers/fetch";
 import { prepareStories } from "../helpers/prepareStories";
 import { types } from "../types/types";
@@ -17,7 +19,7 @@ export const storieStartLoading = () => {
             dispatch( storieLoaded( stories ) );
 
         } catch (error) {
-            console.log(error)
+            Swal.fire('Error', 'There was an error connecting to the server', 'error');
         }
 
     }

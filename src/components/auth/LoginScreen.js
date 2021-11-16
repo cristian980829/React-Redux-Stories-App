@@ -48,7 +48,7 @@ export const LoginScreen = () => {
         if ( !validator.isEmail( email ) ) {
             setError('Email is not valid');
             return false;
-        } else if (password.length < 5 ) {
+        } else if (password.length < 6 ) {
             setError('Password should be at least 6 characters');
             return false
         }

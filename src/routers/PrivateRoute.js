@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 
+
 export const PrivateRoute = ({
     isAuthenticated,
+    error,
     component: Component,
     ...rest
 }) => {
@@ -13,7 +15,7 @@ export const PrivateRoute = ({
     return (
         <Route { ...rest }
             component={ (props) => (
-                ( isAuthenticated )
+                (isAuthenticated)
                     ? ( <Component { ...props } /> )
                     : ( <Redirect to="/auth/signin" /> )
             )}
