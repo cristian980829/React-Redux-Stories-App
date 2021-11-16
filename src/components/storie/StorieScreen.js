@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { StorieCard } from './StorieCard';
+
 
 export const StorieScreen = () => {
     return (
-        <div>
-            <h1>Storie screen</h1>
-        </div>
+        <>
+            <h1>Stories</h1>
+            <StorieCard />
+        </>
     )
 }

@@ -5,10 +5,15 @@ import { storieLogout } from './storie';
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
+        Swal.fire({
+            text:'Wait...',
+            showConfirmButton: false,
+            allowOutsideClick: false
+            });
+        Swal.showLoading();
         
         const resp = await fetchSinToken( 'auth', { email, password }, 'POST' );
         const body = await resp.json();
-        console.log(email, password)
 
         if( body.ok ) {
             localStorage.setItem('token', body.token );
@@ -21,7 +26,9 @@ export const startLogin = ( email, password ) => {
                 urlimage: body.urlimage,
                 rol: body.rol
             }) )
+            Swal.close();
         } else {
+            Swal.close();
             Swal.fire('Error', body.msg, 'error');
         }
     }

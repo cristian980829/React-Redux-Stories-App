@@ -25,7 +25,7 @@ const styles = {
 function Navbar(props) {
   const { classes } = props;
   return (
-    <AppBar position="fixed" className={classes.navigation}>
+    <AppBar position="relative" className={classes.navigation}>
       <Toolbar>
 
         <Typography
