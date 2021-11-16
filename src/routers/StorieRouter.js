@@ -4,13 +4,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
-import { StorieScreen } from '../components/storie/StorieScreen';
+import { StoriesScreen } from '../components/storie/StoriesScreen';
 import  Navbar  from '../components/ui/Navbar/Navbar';
 import { MyStories } from '../components/storie/MyStories';
 import { Box } from '@mui/system';
-
-
-
 
 export const StorieRouter = () => {
     return (
@@ -25,13 +22,13 @@ export const StorieRouter = () => {
                         <Route 
                             exact
                             path="/"
-                            component={ StorieScreen }
+                            component={ StoriesScreen }
                         />
 
                         <Route 
                             exact
                             path="/stories"
-                            component={ StorieScreen }
+                            component={ StoriesScreen }
                         />
 
                         <Route 

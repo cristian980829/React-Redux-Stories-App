@@ -1,6 +1,9 @@
 
 export const types = {
 
+    uiOpenModal: '[ui] Open modal',
+    uiCloseModal: '[ui] Close modal',
+
     storieLogout: '[storie] Logout storie',
 
     storieStartAddNew: '[storie] Start add new',

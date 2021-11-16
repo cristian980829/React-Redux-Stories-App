@@ -38,12 +38,6 @@ const fetchConToken = ( endpoint, data, method = 'GET' ) => {
             body: JSON.stringify( data )
         });
     }
-    // try {
-        
-    // } catch (error) {
-    //     console.log(error)
-    // }
-
 }
 
 

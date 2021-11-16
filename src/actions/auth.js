@@ -12,7 +12,6 @@ export const startLogin = ( email, password ) => {
             });
         Swal.showLoading();
         
-        
         try {
             const resp = await fetchSinToken( 'auth', { email, password }, 'POST' );
             const body = await resp.json();

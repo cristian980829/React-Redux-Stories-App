@@ -24,8 +24,6 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const { checking, uid, serverError } = useSelector( state => state.auth);
 
-    console.log(serverError)
-
     useEffect(() => {
         dispatch( startChecking() );
 
@@ -69,7 +67,7 @@ export const AppRouter = () => {
                             path="/"
                         />
 
-                        { (!serverError) ? <Redirect to="/auth/signin" /> : console.log() }
+                        { (!serverError) && <Redirect to="/auth/signin" /> }
 
                         <Redirect to="/auth/signin" />
                     </>
