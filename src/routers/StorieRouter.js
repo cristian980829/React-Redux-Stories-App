@@ -7,12 +7,15 @@ import Container from '@mui/material/Container';
 import { StorieScreen } from '../components/storie/StorieScreen';
 import  Navbar  from '../components/ui/Navbar/Navbar';
 import { MyStories } from '../components/storie/MyStories';
+import { Box } from '@mui/system';
 
 export const StorieRouter = () => {
     return (
         <>
-            <Navbar />
             <div className="animate__animated animate__fadeIn">
+                <Navbar />
+
+                <Box sx={{ mt: 6 }} />
                 <CssBaseline />
                 <Container fixed>
                     <Switch>

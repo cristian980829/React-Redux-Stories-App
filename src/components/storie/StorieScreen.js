@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { storieStartLoading } from '../../actions/storie';
 import { StorieCard } from './StorieCard';
 
 
 export const StorieScreen = () => {
+
+    const { stories } = useSelector( state => state.storie );
+
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        
+        dispatch( storieStartLoading() );
+
+    }, [ dispatch ])
+
     return (
         <>
-            <h1>Stories</h1>
-            <StorieCard />
+            {
+                stories.map( storie => <StorieCard key={storie._id} data={storie} /> )
+            }
         </>
     )
 }

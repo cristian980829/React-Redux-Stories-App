@@ -30,8 +30,9 @@ export const AppRouter = () => {
             text:'Wait...',
             showConfirmButton: false,
             allowOutsideClick: false
-            });
+        });
         Swal.showLoading();
+        return( <div></div> )
     }else{
         Swal.close();
     }

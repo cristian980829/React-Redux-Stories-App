@@ -4,38 +4,48 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { Box } from '@material-ui/core'
+import moment from 'moment';
 
-export const StorieCard = () => {
-    let str = "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lorem ipsum dolor  sit amet consectetur adipisicing elit. Quod provident doloremque cum ipsa  voluptatum hic dignissimos magni ipsam quia. Nulla quo quia iste, iure blanditiis error nihil natus laborum quod!";
-    let res = str.substring(0, 300);
-    let final = res +"...";
+export const StorieCard = ( {data} ) => {
+    const { title, description, registration_date, user  } = data;
+    const short_description = description.substring(0, 300) + "...";
+    const date_format = moment(registration_date).format('LL');
+
     return (
-        <Card sx={{ maxWidth: 1000 }}>
-            <CardActionArea>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Titulo
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {final}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Cristian Morales
-                </Button>
+        <>
             <Box 
                 display="flex" 
-                width={675}
-                alignItems="right"
-                justifyContent="right"
+                justifyContent="center"
             >
-            <Typography variant="body2" color="text.secondary">
-                12/08/2021
-            </Typography>
+                <Card sx={{ maxWidth: 1000 }}>
+                    <CardActionArea>
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {title}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {short_description}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button size="small" color="primary">
+                        { user.name }
+                        </Button>
+                    <Box 
+                        display="flex" 
+                        width={890}
+                        alignItems="right"
+                        justifyContent="right"
+                    >
+                    <Typography variant="body2" color="text.secondary">
+                        { date_format }
+                    </Typography>
+                    </Box>
+                    </CardActions>
+                </Card>
             </Box>
-            </CardActions>
-        </Card>
+            <Box sx={{ mb: 4 }} />
+        </>
     )
 }
