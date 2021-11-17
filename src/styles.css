@@ -1,3 +1,8 @@
+@use "@material/fab";
+
+@include fab.core-styles;
+
+
 /* Modal */
 .ReactModalPortal > div{
     opacity: 0;
@@ -48,3 +53,22 @@
 .react-datetime-picker__wrapper {
     border: 0px solid gray !important;
 }
+
+/* FABS */
+.fab {
+    border-radius: 100%;
+    bottom: 25px;
+    border: 0;
+    padding: 0px; 
+    position: fixed;
+    right: 25px;
+}
+
+.fab-danger {
+    bottom: 25px;
+    padding: 10px;
+    position: fixed;
+    left: 25px;
+}
+
+
