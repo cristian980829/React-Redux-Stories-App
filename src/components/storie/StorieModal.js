@@ -1,33 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 import Modal from 'react-modal';
+import moment from 'moment';
 
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-import AddIcon from '@mui/icons-material/Add';
+import Dialog from '@mui/material/Dialog';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
 
 import { uiCloseModal } from '../../actions/ui';
 import { storieStartAddNew } from '../../actions/storie';
-
-const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto%',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, 0%)'
-    }
-};
+import { StorieForm } from './StorieForm';
 
 Modal.setAppElement('#root');
 
@@ -37,7 +24,9 @@ const initStorie = {
     registration_date: moment().toDate(),
 }
 
-const theme = createTheme();
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const StorieModal = () => {
 
@@ -52,6 +41,7 @@ export const StorieModal = () => {
 
     const { description, title } = formValues;
 
+
     useEffect(() => {
         if ( activeStorie ) {
             setFormValues( activeStorie );
@@ -60,23 +50,6 @@ export const StorieModal = () => {
         }
     }, [activeStorie, setFormValues])
 
-
-
-    const handleInputChange = ({ target }) => {
-        setFormValues({
-            ...formValues,
-            [target.name]: target.value
-        });
-    }
-
-
-    const closeModal = () => {
-        dispatch( uiCloseModal() );
-        //TODO: CLEAR ACTIVE STORIE
-        setFormValues( initStorie );
-    }
-    
-
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
@@ -84,9 +57,7 @@ export const StorieModal = () => {
             dispatch( storieStartAddNew(formValues) );
         }
 
-
         closeModal();
-        
     }
 
     const isFormValid = () => {
@@ -102,78 +73,51 @@ export const StorieModal = () => {
        return true;
     }
 
+
+    const closeModal = () => {
+        dispatch( uiCloseModal() );
+        //TODO: CLEAR ACTIVE STORIE
+        setFormValues( initStorie );
+    }
+    
+
+    const handleClose = () => {
+        closeModal();
+    };
+
     return (
-        <Modal
-          isOpen={ modalOpen }
-          onRequestClose={ closeModal }
-          style={ customStyles }
-          closeTimeoutMS={ 200 }
-          className="modal"
-          overlayClassName="modal-fondo"
+        <Dialog
+            fullScreen
+            open={modalOpen}
+            onClose={handleClose}
+            TransitionComponent={Transition}
         >
-            <ThemeProvider theme={theme}>
-                <Container component="main" >
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                        marginTop: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <AddIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            { (activeStorie)? 'Edit storis': 'New storie' }
-                        </Typography>
-                        <Box component="form" onSubmit={handleSubmitForm}  >
-                            {
-                                error &&
-                                (
-                                    <Stack sx={{ width: '100%' }} spacing={2}>
-                                        <Alert severity="error">{error}</Alert>
-                                    </Stack>
-                                )
-                            } 
-
-                             <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="title"
-                                label="Title"
-                                type="text"
-                                autoComplete="off"
-                                    value={ title }
-                                    onChange={ handleInputChange }
-                            />
- 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="description"
-                                label="Description"
-                                type="text"
-                                autoComplete="off"
-                                    value={ description }
-                                    onChange={ handleInputChange }
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Save
-                            </Button>
-                        </Box>
-                    </Box>
-                </Container>
-            </ThemeProvider>
-
-        </Modal>
+            <AppBar sx={{ position: 'relative' }}>
+            <Toolbar>
+                <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+                >
+                <CloseIcon />
+                </IconButton>
+                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                New storie
+                </Typography>
+                <Button autoFocus color="inherit" onClick={handleSubmitForm}>
+                save
+                </Button>
+            </Toolbar>
+            </AppBar>
+            
+            <StorieForm 
+                formValues={formValues}
+                setFormValues={setFormValues}
+                error={error}
+            />
+            
+      </Dialog>
+      
     )
 }

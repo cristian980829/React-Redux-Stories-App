@@ -3,7 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Modal from 'react-modal';
 
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import AddIcon from '@mui/icons-material/Add';
+
 import { uiCloseModal } from '../../actions/ui';
+import { storieStartAddNew } from '../../actions/storie';
 
 const customStyles = {
     content : {
@@ -12,27 +25,28 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
+      transform             : 'translate(-50%, 00%)'
     }
 };
 
 Modal.setAppElement('#root');
 
-const now = moment().minutes(0).seconds(0).add(1,'hours');
-
 const initStorie = {
     title: '',
     description: '',
-    registrationDate: now.toDate(),
+    registration_date: moment().toDate(),
 }
 
+const theme = createTheme();
+
 export const StorieModal = () => {
+
+    const [error, setError] = useState("");
 
     const { modalOpen } = useSelector( state => state.ui );
     const { activeStorie } = useSelector( state => state.storie );
     const dispatch = useDispatch();
 
-    const [ titleValid, setTitleValid ] = useState(true);
     
     const [formValues, setFormValues] = useState( initStorie );
 
@@ -66,17 +80,26 @@ export const StorieModal = () => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
-        if ( title.trim().length < 2 ) {
-            return setTitleValid(false);
+        if(isFormValid()){
+            dispatch( storieStartAddNew(formValues) );
         }
 
-        console.log(formValues);
 
-        //add or update storie
-
-        setTitleValid(true);
         closeModal();
         
+    }
+
+    const isFormValid = () => {
+        
+        if ( title.trim().length === 0 ) {
+            setError('Title is not valid');
+            return false;
+        } else if ( description.trim().length === 0 ) {
+            setError('Description is required'); 
+            return false;
+        } 
+        setError("");
+       return true;
     }
 
     return (
@@ -88,48 +111,68 @@ export const StorieModal = () => {
           className="modal"
           overlayClassName="modal-fondo"
         >
-            <h1> { (activeStorie)? 'Edita history': 'New history' } </h1>
-            <hr />
-            <form 
-                className="container"
-                onSubmit={ handleSubmitForm }
-            >
+            <ThemeProvider theme={theme}>
+                <Container component="main" >
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                        marginTop: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <AddIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            { (activeStorie)? 'Edit storis': 'New storie' }
+                        </Typography>
+                        <Box component="form" onSubmit={handleSubmitForm}  >
+                            {
+                                error &&
+                                (
+                                    <Stack sx={{ width: '100%' }} spacing={2}>
+                                        <Alert severity="error">{error}</Alert>
+                                    </Stack>
+                                )
+                            } 
 
-                <hr />
-                <div className="form-group">
-                    <input 
-                        type="text" 
-                        className={ `form-control ${ !titleValid && 'is-invalid' } `}
-                        placeholder="Title"
-                        name="title"
-                        autoComplete="off"
-                        value={ title }
-                        onChange={ handleInputChange }
-                    />
-                    <small id="emailHelp" className="form-text text-muted">Una descripción corta</small>
-                </div>
-
-                <div className="form-group">
-                    <textarea 
-                        type="text" 
-                        className="form-control"
-                        placeholder="Description"
-                        rows="5"
-                        name="notes"
-                        value={ description }
-                        onChange={ handleInputChange }
-                    ></textarea>
-                    <small id="emailHelp" className="form-text text-muted">Información adicional</small>
-                </div>
-
-                <button
-                    type="submit"
-                    className="btn btn-outline-primary btn-block"
-                >
-                    <span> Save</span>
-                </button>
-
-            </form>
+                             <TextField
+                                required
+                                margin="normal"
+                                fullWidth
+                                name="title"
+                                label="Title"
+                                type="text"
+                                autoComplete="off"
+                                    value={ title }
+                                    onChange={ handleInputChange }
+                            />
+ 
+                            <TextField
+                                required
+                                margin="normal"
+                                fullWidth
+                                name="description"
+                                label="Description"
+                                type="text"
+                                autoComplete="off"
+                                    value={ description }
+                                    onChange={ handleInputChange }
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Save
+                            </Button>
+                        </Box>
+                    </Box>
+                </Container>
+            </ThemeProvider>
 
         </Modal>
     )
