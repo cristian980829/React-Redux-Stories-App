@@ -6,6 +6,7 @@ import { RegisterScreen } from '../components/auth/RegisterScreen';
 
 export const AuthRouter = () => {
     return (
+        
         <Switch>
             <Route 
                 exact

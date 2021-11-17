@@ -28,8 +28,7 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                 <CssBaseline />
                 <Box
                     sx={{
-                    
-                    marginTop: 3,
+                    marginTop: 8,
                     flexDirection: 'column',
                     alignItems: 'center',
                     }}

@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 
 import { StoriesScreen } from '../components/storie/StoriesScreen';
 import  Navbar  from '../components/ui/Navbar/Navbar';
-import { MyStories } from '../components/storie/MyStories';
+import { MyStoriesScreen } from '../components/storie/MyStoriesScreen';
 import { Box } from '@mui/system';
 
 export const StorieRouter = () => {
@@ -34,7 +34,7 @@ export const StorieRouter = () => {
                         <Route 
                             exact
                             path="/mystories"
-                            component={ MyStories }
+                            component={ MyStoriesScreen }
                         />
 
                         <Redirect to="/" />

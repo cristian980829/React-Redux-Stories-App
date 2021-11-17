@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { storieStartLoading } from '../../actions/storie';
 import { StorieCard } from './StorieCard';
-
 import { StorieModal } from './StorieModal';
 
-import { AddNewFab } from '../ui/AddNewFab';
-
-
-
-export const StoriesScreen = () => {
+export const MyStoriesScreen = () => {
 
     const { stories } = useSelector( state => state.storie );
-    
-
-
+    const { uid } = useSelector( state => state.auth );
 
     const dispatch = useDispatch();
 
@@ -27,13 +21,9 @@ export const StoriesScreen = () => {
     return (
         <div className="animate__animated animate__fadeIn">
             {
-                stories.map( storie => <StorieCard key={storie._id} data={storie} /> )
+                stories.map( storie => (storie.user._id===uid) && <StorieCard key={storie._id} data={storie} /> )
             }
-
-            <AddNewFab />
-
             <StorieModal/>
-
         </div>
     )
 }
