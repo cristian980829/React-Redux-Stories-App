@@ -71,4 +71,8 @@
     left: 25px;
 }
 
-
+#custom-target {
+    position: fixed;
+    width: 600px;
+    height: 300px;
+}

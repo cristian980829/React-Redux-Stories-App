@@ -13,8 +13,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
 import { uiCloseModal } from '../../actions/ui';
-import { storieClearActiveStorie, storieStartAddNew, storieStartLoading, storieStartUpdate } from '../../actions/storie';
+import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
+import { DeleteFab } from '../ui/DeleteFab';
 
 Modal.setAppElement('#root');
 
@@ -97,7 +98,7 @@ export const StorieModal = () => {
             onClose={handleClose}
             TransitionComponent={Transition}
         >
-            <AppBar sx={{ position: 'relative' }}>
+            <AppBar sx={{ position: 'fixed' }}>
             <Toolbar>
                 <IconButton
                 edge="start"
@@ -122,7 +123,9 @@ export const StorieModal = () => {
                 error={error}
             />
             
+        {activeStorie && <DeleteFab />}
       </Dialog>
+
       
     )
 }

@@ -63,6 +63,31 @@ const storieUpdated = ( storie ) => ({
     payload: storie
 });
 
+export const storieStartDelete = () => {
+    return async ( dispatch, getState ) => {
+
+        const { _id } = getState().storie.activeStorie;
+        try {
+            const resp = await fetchConToken(`stories/${ _id }`, {}, 'DELETE' );
+            const body = await resp.json();
+
+            if ( body.ok ) {
+                dispatch( storieDeleted() );
+            } else {
+                Swal.fire('Error', body.msg, 'error');
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}
+
+
+const storieDeleted = () => ({ type: types.storieDeleted });
+
 export const storieSetActive = (storie) => ({
     type: types.storieSetActive,
     payload: storie

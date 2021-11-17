@@ -30,6 +30,15 @@ export const storieReducer = ( state = initialState, action ) => {
                     e => ( e._id === action.payload._id ) ? action.payload : e
                 )
             }
+
+        case types.storieDeleted:
+            return {
+                ...state,
+                stories: state.stories.filter(
+                    e => ( e._id !== state.activeStorie._id )
+                ),
+                activeStorie: null
+            }
     
         case types.storieClearActivestorie:
             return {
