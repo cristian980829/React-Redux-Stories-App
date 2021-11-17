@@ -4,8 +4,8 @@ export const types = {
     uiOpenModal: '[ui] Open modal',
     uiCloseModal: '[ui] Close modal',
 
+    storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',
-
     storieStartAddNew: '[storie] Start add new',
     storieAddNew: '[storie] Add new',
     storieClearActivestorie: '[storie] Clear active storie',

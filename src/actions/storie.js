@@ -37,6 +37,13 @@ const storieAddNew = (storie) => ({
     payload: storie
 });
 
+export const storieSetActive = (storie) => ({
+    type: types.storieSetActive,
+    payload: storie
+});
+
+export const storieClearActiveStorie = () => ({ type: types.storieClearActivestorie});
+
 export const storieStartLoading = () => {
     return async(dispatch) => {
 

@@ -12,9 +12,6 @@ import { AddNewFab } from '../ui/AddNewFab';
 export const StoriesScreen = () => {
 
     const { stories } = useSelector( state => state.storie );
-    
-
-
 
     const dispatch = useDispatch();
 

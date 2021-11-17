@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
 import { uiCloseModal } from '../../actions/ui';
-import { storieStartAddNew } from '../../actions/storie';
+import { storieClearActiveStorie, storieStartAddNew } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 
 Modal.setAppElement('#root');
@@ -76,7 +76,7 @@ export const StorieModal = () => {
 
     const closeModal = () => {
         dispatch( uiCloseModal() );
-        //TODO: CLEAR ACTIVE STORIE
+        dispatch( storieClearActiveStorie() );
         setFormValues( initStorie );
     }
     
@@ -103,7 +103,7 @@ export const StorieModal = () => {
                 <CloseIcon />
                 </IconButton>
                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                New storie
+                    {activeStorie ? 'Edit storie' : 'New storie'} 
                 </Typography>
                 <Button autoFocus color="inherit" onClick={handleSubmitForm}>
                 save
