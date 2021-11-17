@@ -9,7 +9,7 @@ import moment from 'moment';
 export const StorieCard = ( {data} ) => {
     const { title, description, registration_date, user  } = data;
     const short_description = description.substring(0, 300) + "...";
-    const date_format = moment(registration_date).format('LL');
+    const date_format = moment(registration_date).format('lll');
 
     return (
         <>

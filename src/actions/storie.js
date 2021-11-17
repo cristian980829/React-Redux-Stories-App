@@ -6,6 +6,37 @@ import { types } from "../types/types";
 
 export const storieLogout =() => ({ type: types.storieLogout });
 
+export const storieStartAddNew = ( storie ) => {
+    return async( dispatch, getState ) => {
+
+        const { uid, name } = getState().auth;
+
+        try {
+            const resp = await fetchConToken('stories', storie, 'POST');
+            const body = await resp.json();
+
+
+            if ( body.ok ) {
+                storie._id = body.storie._id;
+                storie.user = {
+                    _id: uid,
+                    name: name
+                }
+                dispatch( storieAddNew( storie ) );
+            }
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const storieAddNew = (storie) => ({
+    type: types.storieAddNew,
+    payload: storie
+});
+
 export const storieStartLoading = () => {
     return async(dispatch) => {
 

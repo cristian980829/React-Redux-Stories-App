@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
 import { uiCloseModal } from '../../actions/ui';
+import { storieStartAddNew } from '../../actions/storie';
 
 const customStyles = {
     content : {
@@ -33,7 +34,7 @@ Modal.setAppElement('#root');
 const initStorie = {
     title: '',
     description: '',
-    registrationDate: moment().toDate(),
+    registration_date: moment().toDate(),
 }
 
 const theme = createTheme();
@@ -80,10 +81,9 @@ export const StorieModal = () => {
         e.preventDefault();
 
         if(isFormValid()){
-            console.log(formValues);
+            dispatch( storieStartAddNew(formValues) );
         }
 
-        //add or update storie
 
         closeModal();
         

@@ -22,9 +22,6 @@ export const StoriesScreen = () => {
 
     }, [ dispatch ])
 
-
-
-
     return (
         <>
             {
