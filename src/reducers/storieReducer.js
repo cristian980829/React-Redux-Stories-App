@@ -22,6 +22,14 @@ export const storieReducer = ( state = initialState, action ) => {
                     ...state.stories
                 ]
             }
+
+        case types.storieUpdated:
+            return {
+                ...state,
+                stories: state.stories.map(
+                    e => ( e._id === action.payload._id ) ? action.payload : e
+                )
+            }
     
         case types.storieClearActivestorie:
             return {

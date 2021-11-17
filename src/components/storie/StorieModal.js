@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
 import { uiCloseModal } from '../../actions/ui';
-import { storieClearActiveStorie, storieStartAddNew } from '../../actions/storie';
+import { storieClearActiveStorie, storieStartAddNew, storieStartLoading, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 
 Modal.setAppElement('#root');
@@ -52,18 +52,23 @@ export const StorieModal = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
+        console.log(formValues);
 
         if(isFormValid()){
-            dispatch( storieStartAddNew(formValues) );
+            if(activeStorie){
+                formValues.registration_date = moment().toDate();
+                dispatch( storieStartUpdate(formValues) );
+            }else{
+                dispatch( storieStartAddNew(formValues) );
+            }
+            closeModal();
         }
-
-        closeModal();
     }
 
     const isFormValid = () => {
         
         if ( title.trim().length === 0 ) {
-            setError('Title is not valid');
+            setError('Title is required');
             return false;
         } else if ( description.trim().length === 0 ) {
             setError('Description is required'); 
