@@ -17,6 +17,9 @@ import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '.
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
 
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from '../../helpers/theme';
+
 Modal.setAppElement('#root');
 
 const initStorie = {
@@ -53,7 +56,6 @@ export const StorieModal = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        console.log(formValues);
 
         if(isFormValid()){
             if(activeStorie){
@@ -98,24 +100,26 @@ export const StorieModal = () => {
             onClose={handleClose}
             TransitionComponent={Transition}
         >
-            <AppBar sx={{ position: 'fixed' }}>
-            <Toolbar>
-                <IconButton
-                edge="start"
-                color="inherit"
-                onClick={handleClose}
-                aria-label="close"
-                >
-                <CloseIcon />
-                </IconButton>
-                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                    {activeStorie ? 'Edit storie' : 'New storie'} 
-                </Typography>
-                <Button autoFocus color="inherit" onClick={handleSubmitForm}>
-                save
-                </Button>
-            </Toolbar>
-            </AppBar>
+            <ThemeProvider theme={theme}>
+                <AppBar color="primary" sx={{ position: 'fixed' }}>
+                <Toolbar>
+                    <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={handleClose}
+                    aria-label="close"
+                    >
+                    <CloseIcon />
+                    </IconButton>
+                    <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                        {activeStorie ? 'Edit storie' : 'New storie'} 
+                    </Typography>
+                    <Button autoFocus color="inherit" onClick={handleSubmitForm}>
+                    save
+                    </Button>
+                </Toolbar>
+                </AppBar>
+            </ThemeProvider>
             
             <StorieForm 
                 formValues={formValues}

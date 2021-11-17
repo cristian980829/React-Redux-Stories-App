@@ -73,6 +73,11 @@ export const storieStartDelete = () => {
 
             if ( body.ok ) {
                 dispatch( storieDeleted() );
+                Swal.fire(
+                    'Deleted!',
+                    'Your storie has been deleted.',
+                    'success',
+                    )
             } else {
                 Swal.fire('Error', body.msg, 'error');
             }
