@@ -20,8 +20,9 @@ export const StorieCard = ( {data} ) => {
     const date_format = moment(registration_date).format('lll');
     const location = useLocation();
 
-    const handelEdit = (storie) =>{
+    const handelEdit = (storie) => {
         if(location.pathname === '/mystories'){
+            dispatch( uiModalViewModel() );
             dispatch( storieSetActive(storie) );
             dispatch( uiOpenModal() );
         }else{
@@ -53,6 +54,7 @@ export const StorieCard = ( {data} ) => {
                     </div>
 
                     <CardActions>
+                        <Box sx={{ ml: 2 }} />
                         <Button size="small" color="primary">
                             { user.name }
                         </Button>

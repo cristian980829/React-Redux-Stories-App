@@ -19,6 +19,7 @@ import { DeleteFab } from '../ui/DeleteFab';
 
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../helpers/theme';
+import { EditFab } from '../ui/EditFab';
 
 Modal.setAppElement('#root');
 
@@ -38,6 +39,7 @@ export const StorieModal = () => {
 
     const { modalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeStorie } = useSelector( state => state.storie );
+    const { uid } = useSelector( state => state.auth );
     const dispatch = useDispatch();
 
     
@@ -137,6 +139,8 @@ export const StorieModal = () => {
             />
             
             {(activeStorie && !modalViewModel) && <DeleteFab />}
+
+            {(modalViewModel && activeStorie.user._id===uid)  && <EditFab />}
             
       </Dialog>
 
