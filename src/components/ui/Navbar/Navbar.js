@@ -6,6 +6,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBarCollapse from "./AppBarCollapse";
 
+import { useHistory } from 'react-router-dom';
+import { Button } from "@material-ui/core";
+
+import ListItem from '@material-ui/core/ListItem'
+
+
+
 const styles = {
   root: {
     flexGrow: 1
@@ -19,22 +26,34 @@ const styles = {
   },
   navigation: {},
   toggleDrawer: {},
-  appTitle: {}
+  appTitle: {
+    position: 'absolute',
+    width: 150,
+    marginLeft: 30
+  }
 };
 
 function Navbar(props) {
   const { classes } = props;
+  const history = useHistory();
   return (
     <AppBar position="relative" className={classes.navigation}>
       <Toolbar>
-
-        <Typography
-          variant="h5"
-          color="inherit"
-          className={classes.appTitle}
-        >
-          MyApp
-        </Typography>
+        <Button color="inherit">
+            <ListItem 
+              button 
+              key={'Main'} 
+              onClick={() => history.push('/')}
+              className={classes.appTitle}
+            >
+              <Typography
+                variant="h5"
+                color="inherit"
+              >
+                My App
+              </Typography>
+            </ListItem>
+        </Button>
         <AppBarCollapse />
       </Toolbar>
     </AppBar>

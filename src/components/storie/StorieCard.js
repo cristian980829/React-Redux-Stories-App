@@ -20,18 +20,23 @@ export const StorieCard = ( {data} ) => {
     const date_format = moment(registration_date).format('lll');
     const location = useLocation();
 
-    const handelEdit = (storie) => {
+    const handelEdit = () => {
         if(location.pathname === '/mystories'){
             dispatch( uiModalViewModel() );
-            dispatch( storieSetActive(storie) );
+            dispatch( storieSetActive(data) );
             dispatch( uiOpenModal() );
         }else{
             dispatch( uiModalViewModel() );
-            dispatch( storieSetActive(storie) );
+            dispatch( storieSetActive(data) );
             dispatch( uiOpenModal() );
         }
-        
-    }   
+    }  
+    
+    const handleInfoUser = () => {
+        console.log("ir a info de usuario", user)
+    }  
+
+    
     return (
         <>
             <Box 
@@ -40,7 +45,7 @@ export const StorieCard = ( {data} ) => {
                 justifyContent="left"
             >
                 <Card sx={{ maxWidth: 1000 }}>
-                    <div className="pointer" onClick={()=>handelEdit(data)}>
+                    <div className="pointer" onClick={handelEdit}>
                         <CardActions>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" >
@@ -55,7 +60,7 @@ export const StorieCard = ( {data} ) => {
 
                     <CardActions>
                         <Box sx={{ ml: 2 }} />
-                        <Button size="small" color="primary">
+                        <Button onClick={handleInfoUser} size="small" color="primary">
                             { user.name }
                         </Button>
                         <Box 

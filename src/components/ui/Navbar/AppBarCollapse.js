@@ -4,11 +4,16 @@ import { Button, MenuItem } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonAppBarCollapse from "./ButtonAppBarCollapse";
 
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core'
 import { startLogout } from "../../../actions/auth";
+
+import LogoutIcon from '@mui/icons-material/Logout';
+import { ListItemIcon } from "@mui/material";
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import { grey } from '@mui/material/colors';
 
 const styles = theme => ({
     _root: {
@@ -37,6 +42,9 @@ const useStyles = makeStyles((theme) => {
   return {
     active: {
       background: "#384AA9"
+    },
+    activeButton: {
+      background: "#ECECEC"
     }
   }
 });
@@ -58,27 +66,24 @@ const AppBarCollapse = props => {
     <>
     <div className={props.classes._root}>
         <ButtonAppBarCollapse>
-        
-        <MenuItem>
-            <ListItem 
-              button 
-              key={'Stories'} 
-              onClick={() => history.push('/stories')}
-              className={location.pathname === '/stories' ? classes.active : null}
-            >
-              {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
-              <ListItemText primary={'Stories'} />
-            </ListItem>
-            <ListItem 
-              button 
-              key={'My_Stories'} 
-              onClick={() => history.push('/mystories')}
-              className={location.pathname === '/mystories' ? classes.active : null}
-            >
-              {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
-              <ListItemText primary={'My_Stories'} />
-            </ListItem>
-        </MenuItem>
+          <MenuItem>
+              <ListItem 
+                button 
+                key={'Stories'} 
+                onClick={() => history.push('/stories')}
+                className={location.pathname === '/stories' ? classes.activeButton : null}
+              >
+                <ListItemText primary={'Stories'} />
+              </ListItem>
+              <ListItem 
+                button 
+                key={'My_Stories'} 
+                onClick={() => history.push('/mystories')}
+                className={location.pathname === '/mystories' ? classes.activeButton : null}
+              >
+                <ListItemText primary={'My_Stories'} />
+              </ListItem>
+          </MenuItem>
         </ButtonAppBarCollapse>
         <div className={props.classes.buttonBar} id="appbar-collapse">
         <Button color="inherit">
@@ -88,7 +93,6 @@ const AppBarCollapse = props => {
               onClick={() => history.push('/stories')}
               className={location.pathname === '/stories' ? classes.active : null}
             >
-              {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
               <ListItemText primary={'Stories'} />
             </ListItem>
             <ListItem 
@@ -97,7 +101,6 @@ const AppBarCollapse = props => {
               onClick={() => history.push('/mystories')}
               className={location.pathname === '/mystories' ? classes.active : null}
             >
-              {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
               <ListItemText primary={'My_Stories'} />
             </ListItem>
         </Button>
@@ -105,25 +108,39 @@ const AppBarCollapse = props => {
     </div>
     <div className={props.classes.root}>
         <ButtonAppBarCollapse>
-        <MenuItem>
+          <MenuItem>
           <ListItem 
-              button 
-              key={'Logout'} 
-              onClick={handleLogout}
+                button 
+                key={'UserInfo'} 
+                onClick={handleLogout}
+            >
+              <ListItemText primary={'Your info'} />
+            </ListItem>
+            <ListItem 
+                button 
+                key={'Logout'} 
+                onClick={handleLogout}
             >
               <ListItemText primary={'Logout'} />
-            </ListItem>
-        </MenuItem>
+              </ListItem>
+          </MenuItem>
         </ButtonAppBarCollapse>
         <div className={props.classes.buttonBar} id="appbar-collapse">
         <Button color="inherit">
           <ListItem 
+                button 
+                key={'UserInfo'} 
+                onClick={handleLogout}
+              >
+                <ListItemIcon><AccountCircleTwoToneIcon sx={{ color: grey[50] }}/></ListItemIcon>
+            </ListItem>
+          <ListItem 
               button 
               key={'Logout'} 
               onClick={handleLogout}
             >
-              <ListItemText primary={'Logout'} />
-            </ListItem>
+              <ListItemIcon><LogoutIcon sx={{ color: grey[50] }}/></ListItemIcon>
+          </ListItem>
         </Button>
         </div>
     </div>

@@ -2,7 +2,8 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
+
 const styles = theme => ({
   buttonCollapse: {
     [theme.breakpoints.up("sm")]: {
@@ -35,7 +36,7 @@ class ButtonAppBarCollapse extends React.Component {
     return (
       <div className={classes.buttonCollapse}>
         <IconButton onClick={this.handleMenu}>
-          <LockOutlinedIcon />
+          <MenuTwoToneIcon />
         </IconButton>
         <Menu
           id="menu-appbar"
