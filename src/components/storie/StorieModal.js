@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
-import { uiCloseModal } from '../../actions/ui';
+import { uiCloseModal, uiModalEditModel } from '../../actions/ui';
 import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
@@ -25,7 +25,7 @@ Modal.setAppElement('#root');
 const initStorie = {
     title: '',
     description: '',
-    registration_date: moment().toDate(),
+    registration_date: moment().toDate()
 }
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -36,7 +36,7 @@ export const StorieModal = () => {
 
     const [error, setError] = useState("");
 
-    const { modalOpen } = useSelector( state => state.ui );
+    const { modalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeStorie } = useSelector( state => state.storie );
     const dispatch = useDispatch();
 
@@ -86,6 +86,7 @@ export const StorieModal = () => {
         dispatch( uiCloseModal() );
         dispatch( storieClearActiveStorie() );
         setFormValues( initStorie );
+        dispatch( uiModalEditModel() );
     }
     
 
@@ -102,22 +103,30 @@ export const StorieModal = () => {
         >
             <ThemeProvider theme={theme}>
                 <AppBar color="primary" sx={{ position: 'fixed' }}>
-                <Toolbar>
-                    <IconButton
-                    edge="start"
-                    color="inherit"
-                    onClick={handleClose}
-                    aria-label="close"
-                    >
-                    <CloseIcon />
-                    </IconButton>
-                    <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                        {activeStorie ? 'Edit storie' : 'New storie'} 
-                    </Typography>
-                    <Button autoFocus color="inherit" onClick={handleSubmitForm}>
-                    save
-                    </Button>
-                </Toolbar>
+                    <Toolbar>
+                        <IconButton
+                        edge="start"
+                        color="inherit"
+                        onClick={handleClose}
+                        aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        
+                        {
+                            !modalViewModel ? <>
+                                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                                    {activeStorie ? 'Edit storie' : 'New storie'} 
+                                </Typography>
+                                <Button autoFocus color="inherit" onClick={handleSubmitForm}>
+                                    save
+                                </Button>
+                            </>
+                            : <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                                    { title }
+                                </Typography>
+                        }
+                    </Toolbar>
                 </AppBar>
             </ThemeProvider>
             
@@ -127,7 +136,8 @@ export const StorieModal = () => {
                 error={error}
             />
             
-        {activeStorie && <DeleteFab />}
+            {(activeStorie && !modalViewModel) && <DeleteFab />}
+            
       </Dialog>
 
       

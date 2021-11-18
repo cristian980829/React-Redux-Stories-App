@@ -6,10 +6,11 @@ import moment from 'moment';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import { Box } from '@material-ui/core'
+import { Button, CardActions } from '@mui/material';
+import Box from '@mui/material/Box';
+
 import { storieSetActive } from '../../actions/storie';
-import { uiOpenModal } from '../../actions/ui';
+import { uiModalViewModel, uiOpenModal } from '../../actions/ui';
 
 
 export const StorieCard = ( {data} ) => {
@@ -23,41 +24,49 @@ export const StorieCard = ( {data} ) => {
         if(location.pathname === '/mystories'){
             dispatch( storieSetActive(storie) );
             dispatch( uiOpenModal() );
+        }else{
+            dispatch( uiModalViewModel() );
+            dispatch( storieSetActive(storie) );
+            dispatch( uiOpenModal() );
         }
-
+        
     }   
     return (
         <>
             <Box 
-                onClick={()=>handelEdit(data)}
                 display="flex" 
-                justifyContent="center"
+                alignItems="left"
+                justifyContent="left"
             >
                 <Card sx={{ maxWidth: 1000 }}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {short_description}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
+                    <div className="pointer" onClick={()=>handelEdit(data)}>
+                        <CardActions>
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" >
+                                    {title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {short_description}
+                                </Typography>
+                            </CardContent>
+                        </CardActions>
+                    </div>
+
                     <CardActions>
                         <Button size="small" color="primary">
-                        { user.name }
+                            { user.name }
                         </Button>
-                    <Box 
-                        display="flex" 
-                        width={890}
-                        alignItems="right"
-                        justifyContent="right"
-                    >
-                    <Typography variant="body2" color="text.secondary">
-                        { date_format }
-                    </Typography>
-                    </Box>
+                        <Box 
+                            sx={{ mr: 2 }}
+                            display="flex" 
+                            width={1000}
+                            alignItems="right"
+                            justifyContent="right"
+                        >
+                            <Typography variant="caption" color="text.secondary">
+                                { date_format }
+                            </Typography>
+                        </Box>
                     </CardActions>
                 </Card>
             </Box>

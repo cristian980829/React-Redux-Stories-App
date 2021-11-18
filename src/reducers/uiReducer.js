@@ -2,6 +2,7 @@ import { types } from "../types/types";
 
 const initialState = {
     modalOpen: false,
+    modalViewModel: false
 }
 
 export const uiReducer = ( state = initialState, action ) => {
@@ -17,6 +18,18 @@ export const uiReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 modalOpen: false
+            }
+
+        case types.uiModalViewModel:
+            return {
+                ...state,
+                modalViewModel: true
+            }
+
+        case types.uiModalEditModel:
+            return {
+                ...state,
+                modalViewModel: false
             }
     
         default:

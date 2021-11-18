@@ -1,11 +1,18 @@
 import React  from 'react';
-
+import moment from 'moment';                        
+import { useSelector } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { CardActions } from '@mui/material';
+import Box from '@mui/material/Box';
+
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -13,8 +20,13 @@ const theme = createTheme();
 
 export const StorieForm = ( { formValues, setFormValues, error } ) => {
 
-    const { description, title } = formValues;
+    const { description, title, registration_date, user } = formValues;
+    
+    const date_format = moment(registration_date).format('lll');
 
+    const { modalViewModel } = useSelector( state => state.ui );
+
+    
     const handleInputChange = ({ target }) => {
         setFormValues({
             ...formValues,
@@ -28,48 +40,88 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                 <CssBaseline />
                 <Box
                     sx={{
-                    marginTop: 9,
+                    marginTop: 11,
                     flexDirection: 'column',
                     alignItems: 'center',
                     }}
                 >
-                    <Box component="form">
-                        {
-                            error &&
-                            (
-                                <Stack sx={{ width: '100%' }} spacing={2}>
-                                    <Alert severity="error">{error}</Alert>
-                                </Stack>
-                            )
-                        } 
+                    {!modalViewModel ?
+                        <Box component="form">
+                            {
+                                error &&
+                                (
+                                    <Stack sx={{ width: '100%' }} spacing={2}>
+                                        <Alert severity="error">{error}</Alert>
+                                    </Stack>
+                                )
+                            } 
 
-                        <TextField
-                            required
-                            margin="normal"
-                            fullWidth
-                            name="title"
-                            label="Title"
-                            type="text"
-                            autoComplete="off"
-                                value={ title }
-                                onChange={ handleInputChange }
-                        />
+                            <TextField
+                                required
+                                margin="normal"
+                                fullWidth
+                                name="title"
+                                label="Title"
+                                type="text"
+                                autoComplete="off"
+                                    value={ title }
+                                    onChange={ handleInputChange }
+                            />
 
-                        <TextField
-                            required
-                            margin="normal"
-                            fullWidth
-                            name="description"
-                            label="Description"
-                            type="text"
-                            multiline
-                            rows={15}
-                            autoComplete="off"
-                                value={ description }
-                                onChange={ handleInputChange }
-                        />
-
-                    </Box>
+                            <TextField
+                                required
+                                margin="normal"
+                                fullWidth
+                                name="description"
+                                label="Description"
+                                type="text"
+                                multiline
+                                rows={15}
+                                autoComplete="off"
+                                    value={ description }
+                                    onChange={ handleInputChange }
+                            />
+                        </Box> 
+                
+                    : <Box 
+                        display="flex" 
+                        justifyContent="center"
+                    >
+                        <Card sx={{ maxWidth: 1000 }}>
+                            <CardActions>
+                                <Box
+                                    sx={{ ml: 2 }}
+                                    display="flex" 
+                                    width={890}
+                                    alignItems="left"
+                                    justifyContent="left"
+                                >
+                                    <Typography variant="body1" color="text.secondary">
+                                        Author: { user.name }
+                                    </Typography>
+                                </Box>
+                                <Box 
+                                    sx={{ mr: 2 }}
+                                    display="flex"
+                                    width={890}
+                                    alignItems="right"
+                                    justifyContent="right"
+                                >
+                                    <Typography variant="caption" color="text.secondary">
+                                        Published on { date_format }
+                                    </Typography>
+                                </Box>
+                            </CardActions>
+                            <CardActions>
+                                <CardContent>
+                                    <Typography variant="p">
+                                        {description}
+                                    </Typography>
+                                </CardContent>
+                            </CardActions>
+                        </Card>
+                    </Box> 
+                    }
                 </Box>
             </Container>
         </ThemeProvider>

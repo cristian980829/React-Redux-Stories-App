@@ -3,6 +3,8 @@ export const types = {
 
     uiOpenModal: '[ui] Open modal',
     uiCloseModal: '[ui] Close modal',
+    uiModalViewModel: '[ui] Modal View Model',
+    uiModalEditModel: '[ui] Modal Edit Model',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',
