@@ -6,6 +6,8 @@ export const types = {
     uiModalViewModel: '[ui] Modal View Model',
     uiModalEditModel: '[ui] Modal Edit Model',
 
+    userInfo: '[user] User Info',
+
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',
     storieStartAddNew: '[storie] Start add new',
