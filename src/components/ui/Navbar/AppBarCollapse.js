@@ -114,7 +114,7 @@ const AppBarCollapse = props => {
                 key={'UserInfo'} 
                 onClick={handleLogout}
             >
-              <ListItemText primary={'Your info'} />
+              <ListItemText primary={'My info'} />
             </ListItem>
             <ListItem 
                 button 

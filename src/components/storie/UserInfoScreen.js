@@ -1,0 +1,38 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { storieStartLoading } from '../../actions/storie';
+import { StorieCard } from './StorieCard';
+import { StorieModal } from './StorieModal';
+
+export const UserInfoScreen = () => {
+
+    const { stories } = useSelector( state => state.storie );
+
+    const { userid, username } = useParams();
+
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        
+        dispatch( storieStartLoading() );
+
+    }, [ dispatch ])
+
+    return (
+        <div className="animate__animated animate__fadeIn">
+
+            <h1>Historias de  {username}</h1>
+
+            {
+                stories.map( storie => (storie.user._id===userid) && <StorieCard key={storie._id} data={storie} /> )
+            }
+
+            {/* <AddNewFab /> */}
+
+            <StorieModal/>
+
+        </div>
+    )
+}
