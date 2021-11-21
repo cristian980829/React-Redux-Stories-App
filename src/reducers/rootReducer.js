@@ -13,4 +13,3 @@ export const rootReducer = combineReducers({
     ui: uiReducer,
     user: userReducer
 })
-
