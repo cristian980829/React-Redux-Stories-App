@@ -11,19 +11,32 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import Card from '@mui/material/Card';
+import { CardActions } from '@mui/material';
+import Box from '@mui/material/Box';
+
+import CssBaseline from '@mui/material/CssBaseline';
+
+import Container from '@mui/material/Container';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+
 
 import { uiCloseModal, uiModalEditModel } from '../../actions/ui';
 
-import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 
+const theme1 = createTheme();
+
 Modal.setAppElement('#root');
 
-const initStorie = {
-    name: '',
+const initUser = {
     email: '',
-    registration_date: moment().toDate()
+    name: '',
+    urlimage: ''
 }
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -40,9 +53,17 @@ export const UserModal = () => {
     const dispatch = useDispatch();
 
     
-    const [formValues, setFormValues] = useState( initStorie );
+    const [formValues, setFormValues] = useState( initUser );
 
-    const { email, name } = formValues;
+    const { email, name, urlimage } = formValues;
+
+     useEffect(() => {
+        if ( activeUser ) {
+            setFormValues( activeUser );
+        } else {
+            setFormValues( initUser );
+        }
+    }, [activeUser, setFormValues])
 
 
     const handleSubmitForm = (e) => {
@@ -59,7 +80,7 @@ export const UserModal = () => {
     const closeModal = () => {
         dispatch( uiCloseModal() );
         // TODO: CLEAR ACTIVE USER
-        setFormValues( initStorie );
+        setFormValues( initUser );
         dispatch( uiModalEditModel() );
     }
     
@@ -75,7 +96,7 @@ export const UserModal = () => {
             onClose={handleClose}
             TransitionComponent={Transition}
         >
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme1}>
                 <AppBar color="primary" sx={{ position: 'fixed' }}>
                     <Toolbar>
                         <IconButton
@@ -100,13 +121,69 @@ export const UserModal = () => {
                                     { name }
                                 </Typography>
                         }
+
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>
             
             
+            <ThemeProvider theme={theme}>
+            <Container component="main" >
+                <CssBaseline />
+                <Box
+                    sx={{
+                    marginTop: 11,
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    }}
+                >
 
-            {(modalViewModel && activeUser.user._id===uid)  && <EditFab />}
+
+            <Box 
+                        display="flex" 
+                        justifyContent="center"
+                    >
+                        <Card sx={{ maxWidth: 1000 }}>
+                            <CardActions>
+                                <Box
+                                    sx={{ ml: 2 }}
+                                    display="flex" 
+                                    width={890}
+                                    alignItems="left"
+                                    justifyContent="left"
+                                >
+                                    <Typography variant="body1" color="text.secondary">
+                                        Name: { name }
+                                    </Typography>
+                                </Box>
+
+                            </CardActions>
+                            <CardActions>
+                                <Box
+                                    sx={{ ml: 2 }}
+                                    display="flex" 
+                                    width={890}
+                                    alignItems="left"
+                                    justifyContent="left"
+                                >
+                                    <Typography variant="body1" color="text.secondary">
+                                        Email: { email }
+                                    </Typography>
+                                </Box>
+                            </CardActions>
+                        </Card>
+                    </Box> 
+
+                    </Box>
+            </Container>
+        </ThemeProvider>
+
+
+
+
+
+
+            {(modalViewModel && activeUser._id===uid)  && <EditFab />}
             
       </Dialog>
 
