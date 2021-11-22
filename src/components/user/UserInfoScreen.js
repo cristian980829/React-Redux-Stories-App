@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { storieStartLoading } from '../../actions/storie';
 import { StorieCard } from '../storie/StorieCard';
-import { StorieModal } from '../storie/StorieModal';
+import { UserModal } from '../user/UserModal';
 import { startUserSetActive } from '../../actions/user';
+import { uiOpenModal } from '../../actions/ui';
 
 export const UserInfoScreen = () => {
 
@@ -17,7 +18,11 @@ export const UserInfoScreen = () => {
     const dispatch = useDispatch();
 
     const handleViewProfile = () =>{
-        dispatch( startUserSetActive(userid) )
+        dispatch( startUserSetActive(userid) );
+
+        dispatch( uiOpenModal() );
+        
+
     }
 
     useEffect(() => {
@@ -44,7 +49,7 @@ export const UserInfoScreen = () => {
 
             {/* <AddNewFab /> */}
 
-            <StorieModal/>
+            <UserModal/>
 
         </div>
     )
