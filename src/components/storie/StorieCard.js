@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, Link, useHistory, useParams } from 'react-router-dom'
+import { useLocation, Link, useParams } from 'react-router-dom'
 import moment from 'moment';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,7 +13,6 @@ import { uiModalViewModel, uiOpenModal } from '../../actions/ui';
 
 
 export const StorieCard = ( {data} ) => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const { title, description, registration_date, user  } = data;
     const short_description = description.substring(0, 300) + "...";
@@ -33,11 +32,6 @@ export const StorieCard = ( {data} ) => {
             dispatch( uiOpenModal() );
         }
     }  
-    
-    const handleInfoUser = () => {
-        history.push(`?userid=${ user._id }`);
-    }  
-
     
     return (
         <>
@@ -61,9 +55,9 @@ export const StorieCard = ( {data} ) => {
                     </div>
 
                     <CardActions>
-                        <Box sx={{ ml: 2 }} onClick={handleInfoUser} />
+                        <Box sx={{ ml: 2 }} />
                             {!userid ? 
-                                <Link to={ `./userinfo/${ user._id }/${ user.name }` } className="text-link">
+                                <Link to={ `./user/${ user._id }/${ user.name }` } className="text-link">
                                     { user.name }
                                 </Link>   
                                 : <span>{ user.name }</span>                                                                              

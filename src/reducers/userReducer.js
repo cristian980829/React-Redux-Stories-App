@@ -1,17 +1,17 @@
 import { types } from '../types/types';
 
 const initialState = {
-    user: {}
+    activeUser: {}
 }
 
 export const userReducer = ( state = initialState, action ) => {
 
     switch ( action.type ) {
         
-        case types.userInfo:
+        case types.userSetActive:
             return {
                 ...state,
-                user: action.payload 
+                activeUser: action.payload 
             }
 
         default:

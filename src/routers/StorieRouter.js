@@ -8,7 +8,7 @@ import { StoriesScreen } from '../components/storie/StoriesScreen';
 import  Navbar  from '../components/ui/Navbar/Navbar';
 import { MyStoriesScreen } from '../components/storie/MyStoriesScreen';
 import { Box } from '@mui/system';
-import { UserInfoScreen } from '../components/storie/UserInfoScreen';
+import { UserInfoScreen } from '../components/user/UserInfoScreen';
 
 export const StorieRouter = () => {
     return (
@@ -27,8 +27,8 @@ export const StorieRouter = () => {
                         />
 
                         <Route 
-                            // exact
-                            path="/userinfo/:userid/:username"
+                            exact
+                            path="/user/:userid/:username"
                             component={ UserInfoScreen }
                         />
 

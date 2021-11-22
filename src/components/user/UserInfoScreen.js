@@ -1,9 +1,11 @@
+import { CardActions } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { storieStartLoading } from '../../actions/storie';
-import { StorieCard } from './StorieCard';
-import { StorieModal } from './StorieModal';
+import { StorieCard } from '../storie/StorieCard';
+import { StorieModal } from '../storie/StorieModal';
+import { startUserSetActive } from '../../actions/user';
 
 export const UserInfoScreen = () => {
 
@@ -13,6 +15,10 @@ export const UserInfoScreen = () => {
 
 
     const dispatch = useDispatch();
+
+    const handleViewProfile = () =>{
+        dispatch( startUserSetActive(userid) )
+    }
 
     useEffect(() => {
         
@@ -24,6 +30,13 @@ export const UserInfoScreen = () => {
         <div className="animate__animated animate__fadeIn">
 
             <h1>Historias de  {username}</h1>
+            <hr/>
+
+            <CardActions>
+                <div className="text-link pointer" onClick={handleViewProfile}>
+                    View profile
+                </div>  
+            </CardActions>
 
             {
                 stories.map( storie => (storie.user._id===userid) && <StorieCard key={storie._id} data={storie} /> )
