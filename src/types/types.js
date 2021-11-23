@@ -9,6 +9,7 @@ export const types = {
     uiModalEditModel: '[ui] Modal Edit Model',
 
     userSetActive: '[user] User Set Active',
+    userClearActive: '[user] Clear active user',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',

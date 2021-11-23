@@ -1,7 +1,7 @@
 import { types } from '../types/types';
 
 const initialState = {
-    activeUser: {}
+    activeUser: null
 }
 
 export const userReducer = ( state = initialState, action ) => {
@@ -12,6 +12,12 @@ export const userReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 activeUser: action.payload 
+            }
+
+        case types.userClearActive:
+            return {
+                ...state,
+                activeUser: null
             }
 
         default:

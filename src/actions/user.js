@@ -26,3 +26,5 @@ export const userSetActive = (user) => ({
     type: types.userSetActive,
     payload: user
 });
+
+export const userClearActive = () => ({ type: types.userClearActive});

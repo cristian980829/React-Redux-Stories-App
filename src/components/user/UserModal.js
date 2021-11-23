@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import moment from 'moment';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -19,15 +18,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import Container from '@mui/material/Container';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
-
+import { ThemeProvider } from '@mui/material/styles';
 
 import { uiUserCloseModal, uiModalEditModel } from '../../actions/ui';
 
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
+import { userClearActive } from '../../actions/user';
 
 Modal.setAppElement('#root');
 
@@ -43,7 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const UserModal = () => {
 
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
 
     const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
@@ -70,14 +67,14 @@ export const UserModal = () => {
 
     }
 
-    const isFormValid = () => {
+    // const isFormValid = () => {
 
-    }
+    // }
 
 
     const closeModal = () => {
         dispatch( uiUserCloseModal() );
-        // TODO: CLEAR ACTIVE USER
+        dispatch( userClearActive() );
         setFormValues( initUser );
         dispatch( uiModalEditModel() );
     }
