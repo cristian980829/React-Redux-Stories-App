@@ -198,7 +198,7 @@ export const UserModal = () => {
 
 
 
-            {(modalViewModel && activeUser._id===uid)  && <EditFab />}
+            {(modalViewModel && activeUser.uid===uid)  && <EditFab />}
             
       </Dialog>
 

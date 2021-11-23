@@ -3,17 +3,25 @@ import { fetchConToken } from "../helpers/fetch";
 
 import Swal from 'sweetalert2';
 
-export const startUserSetActive = (id) => {
-    return async(dispatch) => {
+export const startUserSetActive = (id = null) => {
+    return async(dispatch, getState) => {
 
         try {
-            
-            const resp = await fetchConToken( `user/${id}` );
-            const body = await resp.json();
-            
-            const user = body.user;
 
-            dispatch( userSetActive( user ) );
+            if(id === null){
+                const user = getState().auth;
+                delete user.checking;
+                delete user.serverError;
+                dispatch( userSetActive( user ) );
+            }else{
+                const resp = await fetchConToken( `user/${id}` );
+                const body = await resp.json();
+                
+                const user = body.user;
+    
+                dispatch( userSetActive( user ) );
+            }
+            
 
         } catch (error) {
             Swal.fire('Error', 'There was an error connecting to the server', 'error');

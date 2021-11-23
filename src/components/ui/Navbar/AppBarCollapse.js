@@ -15,6 +15,11 @@ import { ListItemIcon } from "@mui/material";
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import { grey } from '@mui/material/colors';
 
+
+import { startUserSetActive } from '../../../actions/user';
+import { uiUserOpenModal, uiModalViewModel } from '../../../actions/ui';
+import { UserModal } from "../../user/UserModal";
+
 const styles = theme => ({
     _root: {
     position: "absolute",
@@ -59,6 +64,12 @@ const AppBarCollapse = props => {
   
   const handleLogout = () => {
       dispatch( startLogout() );
+  }
+
+  const handleOpenInfoModal = () => {
+    dispatch( startUserSetActive() );
+    dispatch( uiModalViewModel() );
+    dispatch( uiUserOpenModal() );
   }
 
   return(
@@ -130,7 +141,7 @@ const AppBarCollapse = props => {
           <ListItem 
                 button 
                 key={'UserInfo'} 
-                onClick={handleLogout}
+                onClick={handleOpenInfoModal}
               >
                 <ListItemIcon><AccountCircleTwoToneIcon sx={{ color: grey[50] }}/></ListItemIcon>
             </ListItem>
@@ -144,6 +155,8 @@ const AppBarCollapse = props => {
         </Button>
         </div>
     </div>
+
+    <UserModal/>
   </>
     )
 }
