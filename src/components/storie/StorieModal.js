@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
-import { uiCloseModal, uiModalEditModel } from '../../actions/ui';
+import { uiStorieCloseModal, uiModalEditModel } from '../../actions/ui';
 import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
@@ -37,7 +37,7 @@ export const StorieModal = () => {
 
     const [error, setError] = useState("");
 
-    const { modalOpen, modalViewModel } = useSelector( state => state.ui );
+    const { storieModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeStorie } = useSelector( state => state.storie );
     const { uid } = useSelector( state => state.auth );
     const dispatch = useDispatch();
@@ -85,7 +85,7 @@ export const StorieModal = () => {
 
 
     const closeModal = () => {
-        dispatch( uiCloseModal() );
+        dispatch( uiStorieCloseModal() );
         dispatch( storieClearActiveStorie() );
         setFormValues( initStorie );
         dispatch( uiModalEditModel() );
@@ -99,7 +99,7 @@ export const StorieModal = () => {
     return (
         <Dialog
             fullScreen
-            open={modalOpen}
+            open={storieModalOpen}
             onClose={handleClose}
             TransitionComponent={Transition}
         >

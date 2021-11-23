@@ -56,7 +56,9 @@ export const LoginScreen = () => {
        return true;
     }
 
+
     return (
+
         <div className="animate__animated animate__fadeIn">
 
             <ThemeProvider theme={theme}>

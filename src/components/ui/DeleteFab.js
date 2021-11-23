@@ -5,7 +5,7 @@ import Fab from "@material-ui/core/Fab";
 import Swal from 'sweetalert2';
 
 import { storieStartDelete } from '../../actions/storie';
-import { uiCloseModal } from '../../actions/ui';
+import { uiStorieCloseModal } from '../../actions/ui';
 
 
 export const DeleteFab = () => {
@@ -27,7 +27,7 @@ export const DeleteFab = () => {
             }).then((result) => {
                 if (result.isConfirmed) {
                     dispatch( storieStartDelete() );
-                    dispatch( uiCloseModal() );
+                    dispatch( uiStorieCloseModal() );
                 }
             })
        

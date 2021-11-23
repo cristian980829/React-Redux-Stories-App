@@ -9,7 +9,7 @@ import { CardActions } from '@mui/material';
 import Box from '@mui/material/Box';
 
 import { storieSetActive } from '../../actions/storie';
-import { uiModalViewModel, uiOpenModal } from '../../actions/ui';
+import { uiModalViewModel, uiStorieOpenModal } from '../../actions/ui';
 
 
 export const StorieCard = ( {data} ) => {
@@ -19,19 +19,20 @@ export const StorieCard = ( {data} ) => {
     const date_format = moment(registration_date).format('lll');
     const location = useLocation();
 
-    const { userid } = useParams();
+    const { userid } =useParams();
 
     const handelEdit = () => {
         if(location.pathname === '/mystories'){
             dispatch( uiModalViewModel() );
             dispatch( storieSetActive(data) );
-            dispatch( uiOpenModal() );
+            dispatch( uiStorieOpenModal() );
         }else{
             dispatch( uiModalViewModel() );
             dispatch( storieSetActive(data) );
-            dispatch( uiOpenModal() );
+            dispatch( uiStorieOpenModal() );
         }
     }  
+
     
     return (
         <>
@@ -56,11 +57,11 @@ export const StorieCard = ( {data} ) => {
 
                     <CardActions>
                         <Box sx={{ ml: 2 }} />
-                            {!userid ? 
+                            {!userid && location.pathname !== '/mystories' ? 
                                 <Link to={ `./user/${ user._id }/${ user.name }` } className="text-link">
                                     { user.name }
-                                </Link>   
-                                : <span>{ user.name }</span>                                                                              
+                                </Link>
+                                : <span>{ user.name }</span>
                             }
                         <Box 
                             sx={{ mr: 2 }}

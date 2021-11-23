@@ -1,8 +1,8 @@
 
 export const types = {
 
-    uiOpenModal: '[ui] Open modal',
-    uiCloseModal: '[ui] Close modal',
+    uiStorieOpenModal: '[ui] Open storie modal',
+    uiStorieCloseModal: '[ui] Close storie modal',
     uiModalViewModel: '[ui] Modal View Model',
     uiModalEditModel: '[ui] Modal Edit Model',
 

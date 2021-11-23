@@ -24,12 +24,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
-import { uiCloseModal, uiModalEditModel } from '../../actions/ui';
+import { uiStorieCloseModal, uiModalEditModel } from '../../actions/ui';
 
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
-
-const theme1 = createTheme();
 
 Modal.setAppElement('#root');
 
@@ -47,7 +45,7 @@ export const UserModal = () => {
 
     const [error, setError] = useState("");
 
-    const { modalOpen, modalViewModel } = useSelector( state => state.ui );
+    const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
     const { uid } = useSelector( state => state.auth );
     const dispatch = useDispatch();
@@ -78,7 +76,7 @@ export const UserModal = () => {
 
 
     const closeModal = () => {
-        dispatch( uiCloseModal() );
+        dispatch( uiStorieCloseModal() );
         // TODO: CLEAR ACTIVE USER
         setFormValues( initUser );
         dispatch( uiModalEditModel() );
@@ -92,11 +90,11 @@ export const UserModal = () => {
     return (
         <Dialog
             fullScreen
-            open={modalOpen}
+            open={userModalOpen}
             onClose={handleClose}
             TransitionComponent={Transition}
         >
-            <ThemeProvider theme={theme1}>
+            <ThemeProvider theme={theme}>
                 <AppBar color="primary" sx={{ position: 'fixed' }}>
                     <Toolbar>
                         <IconButton
