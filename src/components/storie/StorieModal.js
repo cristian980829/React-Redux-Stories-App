@@ -139,8 +139,8 @@ export const StorieModal = () => {
             />
             
             {(activeStorie && !modalViewModel) && <DeleteFab />}
-
-            {(modalViewModel && activeStorie.user._id===uid)  && <EditFab />}
+            
+            { activeStorie && ((modalViewModel && activeStorie.user._id===uid)  && <EditFab />)}
             
       </Dialog>
 

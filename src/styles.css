@@ -100,3 +100,8 @@
     background-color: rgb(169, 221, 255);
     border-radius: 10px;
 }
+
+.img {
+    width: 200px;
+    height: 200px;
+}

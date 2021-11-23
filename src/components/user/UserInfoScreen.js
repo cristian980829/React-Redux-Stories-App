@@ -6,7 +6,7 @@ import { storieStartLoading } from '../../actions/storie';
 import { StorieCard } from '../storie/StorieCard';
 import { UserModal } from '../user/UserModal';
 import { startUserSetActive } from '../../actions/user';
-import { uiStorieOpenModal, uiModalViewModel } from '../../actions/ui';
+import { uiUserOpenModal, uiModalViewModel } from '../../actions/ui';
 import { StorieModal } from '../storie/StorieModal';
 
 export const UserInfoScreen = () => {
@@ -21,7 +21,7 @@ export const UserInfoScreen = () => {
     const handleViewProfile = () => {
         dispatch( startUserSetActive(userid) );
         dispatch( uiModalViewModel() );
-        dispatch( uiStorieOpenModal() );
+        dispatch( uiUserOpenModal() );
     }
 
     useEffect(() => {

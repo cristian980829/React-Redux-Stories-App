@@ -24,7 +24,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
-import { uiStorieCloseModal, uiModalEditModel } from '../../actions/ui';
+import { uiUserCloseModal, uiModalEditModel } from '../../actions/ui';
 
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
@@ -76,7 +76,7 @@ export const UserModal = () => {
 
 
     const closeModal = () => {
-        dispatch( uiStorieCloseModal() );
+        dispatch( uiUserCloseModal() );
         // TODO: CLEAR ACTIVE USER
         setFormValues( initUser );
         dispatch( uiModalEditModel() );
@@ -169,6 +169,26 @@ export const UserModal = () => {
                                     </Typography>
                                 </Box>
                             </CardActions>
+
+                            <CardActions>
+                                <Box
+                                    sx={{ ml: 2 }}
+                                    display="flex" 
+                                    width={890}
+                                    alignItems="left"
+                                    justifyContent="left"
+                                >
+                                    <Typography variant="body1" color="text.secondary">
+                                        
+                                        <img
+                                            src={`${urlimage}`}
+                                            alt={name}
+                                            className="img"
+                                        />
+                                    </Typography>
+                                </Box>
+                            </CardActions>
+
                         </Card>
                     </Box> 
 
