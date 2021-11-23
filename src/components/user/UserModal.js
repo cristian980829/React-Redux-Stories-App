@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import validator from 'validator';
 
-import Button from '@mui/material/Button';
+
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -35,8 +34,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const UserModal = () => {
 
-    const [error, setError] = useState("");
-
     const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
     const { uid } = useSelector( state => state.auth );
@@ -45,7 +42,7 @@ export const UserModal = () => {
     
     const [formValues, setFormValues] = useState( initUser );
 
-    const { email, name } = formValues;
+    const { name } = formValues;
 
      useEffect(() => {
         if ( activeUser ) {
@@ -55,43 +52,11 @@ export const UserModal = () => {
         }
     }, [activeUser, setFormValues])
 
-
-    const handleSubmitForm = (e) => {
-        e.preventDefault();
-        if(isFormValid()){
-            if(activeUser){
-                // dispatch( StartUpdate(formValues) );
-            }else{
-                // dispatch( storieStartAddNew(formValues) );
-            }
-            closeModal();
-        }
-
-    }
-
-    const isFormValid = () => {
-        if ( !validator.isEmail( email ) ) {
-            setError('Email is not valid');
-            return false;
-        } else if ( name.trim().length === 0 ) {
-            setError('Name is required'); 
-            return false;
-        } 
-        setError("");
-       return true;
-    }
-
-
-    const closeModal = () => {
+    const handleClose = () => {
         dispatch( uiUserCloseModal() );
         dispatch( userClearActive() );
         setFormValues( initUser );
         dispatch( uiModalEditModel() );
-    }
-    
-
-    const handleClose = () => {
-        closeModal();
     };
 
     return (
@@ -119,9 +84,6 @@ export const UserModal = () => {
                                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                     {activeUser ? 'User' : 'Edit User Information'} 
                                 </Typography>
-                                <Button autoFocus color="inherit" onClick={handleSubmitForm}>
-                                    save
-                                </Button>
                             </>
                             : <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                     { name }
@@ -136,7 +98,7 @@ export const UserModal = () => {
         <UserForm 
                 formValues={formValues}
                 setFormValues={setFormValues}
-                error={error}
+                activeUser={activeUser}
             />
 
             {(modalViewModel && activeUser.uid===uid)  && <EditFab />}

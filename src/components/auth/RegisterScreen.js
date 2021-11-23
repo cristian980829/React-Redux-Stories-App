@@ -10,17 +10,18 @@ import Box from '@mui/material/Box';
 import AutoStories from '@mui/icons-material/AutoStories';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import validator from 'validator';
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
 import { startRegister } from '../../actions/auth';
+import { theme } from '../../helpers/theme';
 
 
-const theme = createTheme();
 
 export const RegisterScreen = () => {
 
@@ -138,6 +139,7 @@ export const RegisterScreen = () => {
                                 label="Remember me"
                             /> */}
                             <Button
+                                startIcon={<CreateNewFolderIcon />}
                                 type="submit"
                                 fullWidth
                                 variant="contained"

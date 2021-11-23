@@ -12,17 +12,18 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import LoginIcon from '@mui/icons-material/Login';
 
 import validator from 'validator';
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
 import { startLogin } from '../../actions/auth';
+import { theme } from '../../helpers/theme';
 
-const theme = createTheme();
 
 export const LoginScreen = () => {
 
@@ -117,6 +118,7 @@ export const LoginScreen = () => {
                                 label="Remember me"
                             /> */}
                             <Button
+                                startIcon={<LoginIcon />}
                                 type="submit"
                                 fullWidth
                                 variant="contained"

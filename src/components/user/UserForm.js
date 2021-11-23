@@ -1,5 +1,6 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import { useSelector } from 'react-redux';
+import validator from 'validator';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,14 +12,17 @@ import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import SaveIcon from '@mui/icons-material/Save';
+import { theme } from '../../helpers/theme';
 
 
-const theme = createTheme();
 
-export const UserForm = ( { formValues, setFormValues, error } ) => {
+export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
 
-    const { email, name, urlimage } = formValues;
+     const [error, setError] = useState("");
+    
+    const { email, name, urlimage, rol } = formValues;
     
 
     const { modalViewModel } = useSelector( state => state.ui );
@@ -31,20 +35,52 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
         });
     }
 
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+        console.log('Buenas noches')
+        if(isFormValid()){
+            if(activeUser){
+                // dispatch( StartUpdate(formValues) );
+            }else{
+                // dispatch( storieStartAddNew(formValues) );
+            }
+        }
+
+    }
+
+    const isFormValid = () => {
+        if ( !validator.isEmail( email ) ) {
+            setError('Email is not valid');
+            return false;
+        } else if ( name.trim().length === 0 ) {
+            setError('Name is required'); 
+            return false;
+        } 
+        setError("");
+       return true;
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" >
+            <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <Box
                     sx={{
-                    marginTop: 11,
+                    marginBottom: 5,
+                    marginTop: 13,
                     flexDirection: 'column',
                     alignItems: 'center',
                     }}
                 >
                     {!modalViewModel ?
                         <>
-                            <Box component="form">
+                            <Box 
+                                component="form"
+                                onClick={handleSubmitForm}
+                                sx={{
+                                    marginBottom: 3,
+                                }}
+                            >
                                 {
                                     error &&
                                     (
@@ -54,7 +90,7 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                     )
                                 } 
 
-                                <h3>Update Your User Info</h3>
+                                <h3>Update Your User Information</h3>
 
                                 <TextField
                                     margin="normal"
@@ -83,6 +119,7 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                 />
 
                                 <Button
+                                    startIcon={<SaveIcon />}
                                     type="submit"
                                     fullWidth
                                     variant="contained"
@@ -91,10 +128,14 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                     Save
                                 </Button>
 
-                                <hr />
                             </Box> 
-
-                            <Box component="form">
+                            <hr />
+                            <Box 
+                                component="form" 
+                                sx={{
+                                    marginTop: 5,
+                                }}
+                            >
                                 {
                                     error &&
                                     (
@@ -104,6 +145,7 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                     )
                                 } 
 
+                               
                                 <h3>Update Your Password</h3>
 
                                 <TextField
@@ -131,6 +173,7 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                 />
 
                                 <Button
+                                    startIcon={<SaveIcon />}
                                     type="submit"
                                     fullWidth
                                     variant="contained"
@@ -158,11 +201,11 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                     justifyContent="left"
                                 >
                                     <Typography variant="body1" color="text.secondary">
-                                        Name: { name }
+                                        Email: { email }
                                     </Typography>
                                 </Box>
-
                             </CardActions>
+
                             <CardActions>
                                 <Box
                                     sx={{ ml: 2 }}
@@ -172,7 +215,21 @@ export const UserForm = ( { formValues, setFormValues, error } ) => {
                                     justifyContent="left"
                                 >
                                     <Typography variant="body1" color="text.secondary">
-                                        Email: { email }
+                                        Name: { name }
+                                    </Typography>
+                                </Box>
+                            </CardActions>
+
+                            <CardActions>
+                                <Box
+                                    sx={{ ml: 2 }}
+                                    display="flex" 
+                                    width={890}
+                                    alignItems="left"
+                                    justifyContent="left"
+                                >
+                                    <Typography variant="body1" color="text.secondary">
+                                        Rol: { rol }
                                     </Typography>
                                 </Box>
                             </CardActions>
