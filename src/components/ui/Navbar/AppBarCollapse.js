@@ -123,7 +123,7 @@ const AppBarCollapse = props => {
           <ListItem 
                 button 
                 key={'UserInfo'} 
-                onClick={handleLogout}
+                onClick={handleOpenInfoModal}
             >
               <ListItemText primary={'My info'} />
             </ListItem>

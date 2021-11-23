@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link, useParams } from 'react-router-dom'
 import moment from 'moment';
 import Card from '@mui/material/Card';
@@ -13,6 +13,7 @@ import { uiModalViewModel, uiStorieOpenModal } from '../../actions/ui';
 
 
 export const StorieCard = ( {data} ) => {
+    const { uid } = useSelector( state => state.auth );
     const dispatch = useDispatch();
     const { title, description, registration_date, user  } = data;
     const short_description = description.substring(0, 300) + "...";
@@ -57,7 +58,7 @@ export const StorieCard = ( {data} ) => {
 
                     <CardActions>
                         <Box sx={{ ml: 2 }} />
-                            {!userid && location.pathname !== '/mystories' ? 
+                            {!userid && location.pathname !== '/mystories' && user._id !== uid ? 
                                 <Link to={ `./user/${ user._id }/${ user.name }` } className="text-link">
                                     { user.name }
                                 </Link>

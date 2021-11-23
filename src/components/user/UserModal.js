@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
+import validator from 'validator';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -10,13 +11,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import Card from '@mui/material/Card';
-import { CardActions } from '@mui/material';
-import Box from '@mui/material/Box';
-
-import CssBaseline from '@mui/material/CssBaseline';
-
-import Container from '@mui/material/Container';
 
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -25,6 +19,7 @@ import { uiUserCloseModal, uiModalEditModel } from '../../actions/ui';
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { userClearActive } from '../../actions/user';
+import { UserForm } from './UserForm';
 
 Modal.setAppElement('#root');
 
@@ -40,7 +35,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const UserModal = () => {
 
-    // const [error, setError] = useState("");
+    const [error, setError] = useState("");
 
     const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
@@ -50,7 +45,7 @@ export const UserModal = () => {
     
     const [formValues, setFormValues] = useState( initUser );
 
-    const { email, name, urlimage } = formValues;
+    const { email, name } = formValues;
 
      useEffect(() => {
         if ( activeUser ) {
@@ -63,13 +58,28 @@ export const UserModal = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-
+        if(isFormValid()){
+            if(activeUser){
+                // dispatch( StartUpdate(formValues) );
+            }else{
+                // dispatch( storieStartAddNew(formValues) );
+            }
+            closeModal();
+        }
 
     }
 
-    // const isFormValid = () => {
-
-    // }
+    const isFormValid = () => {
+        if ( !validator.isEmail( email ) ) {
+            setError('Email is not valid');
+            return false;
+        } else if ( name.trim().length === 0 ) {
+            setError('Name is required'); 
+            return false;
+        } 
+        setError("");
+       return true;
+    }
 
 
     const closeModal = () => {
@@ -86,6 +96,7 @@ export const UserModal = () => {
 
     return (
         <Dialog
+            disableEnforceFocus
             fullScreen
             open={userModalOpen}
             onClose={handleClose}
@@ -121,82 +132,12 @@ export const UserModal = () => {
                 </AppBar>
             </ThemeProvider>
             
-            
-            <ThemeProvider theme={theme}>
-            <Container component="main" >
-                <CssBaseline />
-                <Box
-                    sx={{
-                    marginTop: 11,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    }}
-                >
 
-
-            <Box 
-                        display="flex" 
-                        justifyContent="center"
-                    >
-                        <Card sx={{ maxWidth: 1000 }}>
-                            <CardActions>
-                                <Box
-                                    sx={{ ml: 2 }}
-                                    display="flex" 
-                                    width={890}
-                                    alignItems="left"
-                                    justifyContent="left"
-                                >
-                                    <Typography variant="body1" color="text.secondary">
-                                        Name: { name }
-                                    </Typography>
-                                </Box>
-
-                            </CardActions>
-                            <CardActions>
-                                <Box
-                                    sx={{ ml: 2 }}
-                                    display="flex" 
-                                    width={890}
-                                    alignItems="left"
-                                    justifyContent="left"
-                                >
-                                    <Typography variant="body1" color="text.secondary">
-                                        Email: { email }
-                                    </Typography>
-                                </Box>
-                            </CardActions>
-
-                            <CardActions>
-                                <Box
-                                    sx={{ ml: 2 }}
-                                    display="flex" 
-                                    width={890}
-                                    alignItems="left"
-                                    justifyContent="left"
-                                >
-                                    <Typography variant="body1" color="text.secondary">
-                                        
-                                        <img
-                                            src={`${urlimage}`}
-                                            alt={name}
-                                            className="img"
-                                        />
-                                    </Typography>
-                                </Box>
-                            </CardActions>
-
-                        </Card>
-                    </Box> 
-
-                    </Box>
-            </Container>
-        </ThemeProvider>
-
-
-
-
-
+        <UserForm 
+                formValues={formValues}
+                setFormValues={setFormValues}
+                error={error}
+            />
 
             {(modalViewModel && activeUser.uid===uid)  && <EditFab />}
             

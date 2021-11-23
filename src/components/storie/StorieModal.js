@@ -98,6 +98,7 @@ export const StorieModal = () => {
 
     return (
         <Dialog
+            disableEnforceFocus
             fullScreen
             open={storieModalOpen}
             onClose={handleClose}

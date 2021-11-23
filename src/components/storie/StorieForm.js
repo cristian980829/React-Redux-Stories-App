@@ -56,15 +56,15 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                             } 
 
                             <TextField
-                                required
                                 margin="normal"
+                                required
                                 fullWidth
                                 name="title"
                                 label="Title"
                                 type="text"
                                 autoComplete="off"
-                                    value={ title }
-                                    onChange={ handleInputChange }
+                                value={ title }
+                                onChange={ handleInputChange }
                             />
 
                             <TextField
@@ -77,8 +77,8 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                 multiline
                                 rows={15}
                                 autoComplete="off"
-                                    value={ description }
-                                    onChange={ handleInputChange }
+                                value={ description }
+                                onChange={ handleInputChange }
                             />
                         </Box> 
                 
