@@ -21,7 +21,6 @@ export const startUserSetActive = (id = null) => {
     
                 dispatch( userSetActive( user ) );
             }
-            
 
         } catch (error) {
             Swal.fire('Error', 'There was an error connecting to the server', 'error');
@@ -36,3 +35,24 @@ export const userSetActive = (user) => ({
 });
 
 export const userClearActive = () => ({ type: types.userClearActive});
+
+
+export const userPasswordUpdate = ( userPasswordValues ) => {
+    return async() => {
+
+        try {
+            const resp = await fetchConToken(`user`, userPasswordValues, 'PUT' );
+            const body = await resp.json();
+
+            if ( body.ok ) {
+               console.log('Actualizada')
+            } else {
+                console.log("error: ", body.msg)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}

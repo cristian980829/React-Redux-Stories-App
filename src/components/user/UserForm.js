@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,10 +15,12 @@ import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
 import { theme } from '../../helpers/theme';
-
+import { userPasswordUpdate } from '../../actions/user';
 
 
 export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
+
+    const dispatch = useDispatch();
 
     
     const [error, setError] = useState("");
@@ -71,15 +73,14 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     const handleSubmitPasswordForm = (e) => {
         e.preventDefault();
         if(isPasswordFormValid()){
-            console.log(formPassValues);
-            
-        }
 
+            dispatch( userPasswordUpdate(formPassValues) );      
+        }
     }
 
     const isPasswordFormValid = () => {
         
-        if ( newPassword.length < 5 || password.length < 5 ) {
+        if ( newPassword.length < 6 || password.length < 6 ) {
             setPassError('Password should be at least 6 characters');
             return false
         }

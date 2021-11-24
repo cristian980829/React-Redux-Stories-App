@@ -10,6 +10,7 @@ export const types = {
 
     userSetActive: '[user] User Set Active',
     userClearActive: '[user] Clear active user',
+    userUpdatePassword: '[user] Update passsword',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',
