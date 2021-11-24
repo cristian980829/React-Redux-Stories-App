@@ -19,6 +19,7 @@ import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { userClearActive } from '../../actions/user';
 import { UserForm } from './UserForm';
+import { ReturnFab } from '../ui/ReturnFab';
 
 Modal.setAppElement('#root');
 
@@ -82,7 +83,7 @@ export const UserModal = () => {
                         {
                             !modalViewModel ? <>
                                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                    {activeUser ? 'User' : 'Edit User Information'} 
+                                    {activeUser ? `${name}` : 'Edit User Information'} 
                                 </Typography>
                             </>
                             : <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
@@ -102,6 +103,8 @@ export const UserModal = () => {
             />
 
             {(modalViewModel && activeUser.uid===uid)  && <EditFab />}
+
+            {(activeUser && !modalViewModel) && <ReturnFab />}
             
       </Dialog>
 

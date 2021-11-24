@@ -20,6 +20,7 @@ import { DeleteFab } from '../ui/DeleteFab';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
+import { ReturnFab } from '../ui/ReturnFab';
 
 Modal.setAppElement('#root');
 
@@ -143,6 +144,7 @@ export const StorieModal = () => {
             
             { activeStorie && ((modalViewModel && activeStorie.user._id===uid)  && <EditFab />)}
             
+            {(activeStorie && !modalViewModel) && <ReturnFab />}
       </Dialog>
 
       

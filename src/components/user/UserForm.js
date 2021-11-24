@@ -98,7 +98,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                     fullWidth
                                     type="email"
                                     label="Email Address"
-                                    name="email1"
+                                    name="email"
                                     autoComplete="off"
                                     value={ email || '' }
                                     onChange={ handleInputChange }  
@@ -109,7 +109,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    name="name1"
+                                    name="name"
                                     label="Name"
                                     type="text"
                                     autoComplete="off"

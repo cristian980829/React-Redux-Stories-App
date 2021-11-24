@@ -37,7 +37,7 @@ export const DeleteFab = () => {
     return (
         <>
             <div id="custom-target"></div>
-            <div className="fab"
+            <div className="fab-delete"
                 onClick={ handleDelete}
             >
                 <Fab color="primary" aria-label="add">
