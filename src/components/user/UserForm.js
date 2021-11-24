@@ -20,10 +20,22 @@ import { theme } from '../../helpers/theme';
 
 export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
 
-     const [error, setError] = useState("");
+    
+    const [error, setError] = useState("");
+
+    const [passError, setPassError] = useState("");
     
     const { email, name, urlimage, rol } = formValues;
     
+    const initPassword = {
+        password: '',
+        newPassword: '',
+        email
+    }
+
+    const [formPassValues, setFormPassValues] = useState( initPassword );
+
+    const { password, newPassword } = formPassValues;
 
     const { modalViewModel } = useSelector( state => state.ui );
 
@@ -35,8 +47,16 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
         });
     }
 
+    const handleInputChangePassword = ({ target }) => {
+        setFormPassValues({
+            ...formPassValues,
+            [target.name]: target.value
+        });
+    }
+    
     const handleSubmitForm = (e) => {
         e.preventDefault();
+        console.log(formValues);
         console.log('Buenas noches')
         if(isFormValid()){
             if(activeUser){
@@ -46,6 +66,25 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
             }
         }
 
+    }
+
+    const handleSubmitPasswordForm = (e) => {
+        e.preventDefault();
+        if(isPasswordFormValid()){
+            console.log(formPassValues);
+            
+        }
+
+    }
+
+    const isPasswordFormValid = () => {
+        
+        if ( newPassword.length < 5 || password.length < 5 ) {
+            setPassError('Password should be at least 6 characters');
+            return false
+        }
+        setPassError("");
+       return true;
     }
 
     const isFormValid = () => {
@@ -76,7 +115,6 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                         <>
                             <Box 
                                 component="form"
-                                onClick={handleSubmitForm}
                                 sx={{
                                     marginBottom: 3,
                                 }}
@@ -119,6 +157,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                 />
 
                                 <Button
+                                    onClick={handleSubmitForm}
                                     startIcon={<SaveIcon />}
                                     type="submit"
                                     fullWidth
@@ -135,12 +174,13 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                 sx={{
                                     marginTop: 5,
                                 }}
+                                
                             >
                                 {
-                                    error &&
+                                    passError &&
                                     (
                                         <Stack sx={{ width: '100%' }} spacing={2}>
-                                            <Alert severity="error">{error}</Alert>
+                                            <Alert severity="error">{passError}</Alert>
                                         </Stack>
                                     )
                                 } 
@@ -156,23 +196,24 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                     label="Previous Password"
                                     type="password"
                                     autoComplete="off"
-                                    value={ '' }
-                                    onChange={ handleInputChange }
+                                    value={ password }
+                                    onChange={ handleInputChangePassword }
                                 />
 
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    name="password2"
+                                    name="newPassword"
                                     label="New Password"
                                     type="password"
                                     autoComplete="off"
-                                    value={ '' }
-                                    onChange={ handleInputChange }
+                                    value={ newPassword }
+                                    onChange={ handleInputChangePassword }
                                 />
 
                                 <Button
+                                    onClick={handleSubmitPasswordForm}
                                     startIcon={<SaveIcon />}
                                     type="submit"
                                     fullWidth

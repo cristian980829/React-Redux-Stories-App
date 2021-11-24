@@ -140,11 +140,11 @@ export const StorieModal = () => {
                 error={error}
             />
             
-            {(activeStorie && !modalViewModel) && <DeleteFab />}
+            { (activeStorie && !modalViewModel) && <DeleteFab /> }
             
-            { activeStorie && ((modalViewModel && activeStorie.user._id===uid)  && <EditFab />)}
+            { activeStorie && ((modalViewModel && activeStorie.user._id===uid)  && <EditFab />) }
             
-            {(activeStorie && !modalViewModel) && <ReturnFab />}
+            { (activeStorie && !modalViewModel) && <ReturnFab /> }
       </Dialog>
 
       
