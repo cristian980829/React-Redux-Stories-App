@@ -9,7 +9,7 @@ export const storieLogout =() => ({ type: types.storieLogout });
 export const storieStartAddNew = ( storie ) => {
     return async( dispatch, getState ) => {
 
-        const { uid, name } = getState().auth;
+        const { uid, name } = getState().auth.user;
 
         try {
             const resp = await fetchConToken('stories', storie, 'POST');

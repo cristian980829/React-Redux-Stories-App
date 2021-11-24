@@ -40,7 +40,7 @@ export const StorieModal = () => {
 
     const { storieModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeStorie } = useSelector( state => state.storie );
-    const { uid } = useSelector( state => state.auth );
+    const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
 
     

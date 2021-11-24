@@ -8,7 +8,7 @@ import { StorieModal } from './StorieModal';
 export const MyStoriesScreen = () => {
 
     const { stories } = useSelector( state => state.storie );
-    const { uid } = useSelector( state => state.auth );
+    const { uid } = useSelector( state => state.auth.user );
 
     const dispatch = useDispatch();
 

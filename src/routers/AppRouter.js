@@ -22,7 +22,7 @@ import { ErrorScreen } from '../components/ui/ErrorScreen';
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
-    const { checking, uid, serverError } = useSelector( state => state.auth);
+    const { checking, user, serverError } = useSelector( state => state.auth);
 
     useEffect(() => {
         dispatch( startChecking() );
@@ -57,13 +57,13 @@ export const AppRouter = () => {
                     : <>
                         <PublicRoute 
                             component={ AuthRouter }
-                            isAuthenticated={ !!uid }
+                            isAuthenticated={ !!user.uid }
                             path="/auth"
                         />
 
                         <PrivateRoute 
                             component={ StorieRouter }
-                            isAuthenticated={ !!uid }
+                            isAuthenticated={ !!user.uid }
                             path="/"
                         />
 

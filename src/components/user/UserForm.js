@@ -1,6 +1,5 @@
 import React, { useState }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import validator from 'validator';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -31,8 +30,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     
     const initPassword = {
         password: '',
-        newPassword: '',
-        email
+        newPassword: ''
     }
 
     const [formPassValues, setFormPassValues] = useState( initPassword );
@@ -58,14 +56,8 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        console.log(formValues);
-        console.log('Buenas noches')
         if(isFormValid()){
-            if(activeUser){
-                // dispatch( StartUpdate(formValues) );
-            }else{
-                // dispatch( storieStartAddNew(formValues) );
-            }
+            console.log(formValues);
         }
 
     }
@@ -89,10 +81,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     }
 
     const isFormValid = () => {
-        if ( !validator.isEmail( email ) ) {
-            setError('Email is not valid');
-            return false;
-        } else if ( name.trim().length === 0 ) {
+        if ( name.trim().length === 0 ) {
             setError('Name is required'); 
             return false;
         } 
@@ -131,19 +120,6 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
 
                                 <h3>Update Your User Information</h3>
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    type="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="off"
-                                    value={ email || '' }
-                                    onChange={ handleInputChange }  
-                                    autoFocus
-                                    id="email1"
-                                />
                                 <TextField
                                     margin="normal"
                                     required

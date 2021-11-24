@@ -37,7 +37,7 @@ export const UserModal = () => {
 
     const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
-    const { uid } = useSelector( state => state.auth );
+    const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
 
     

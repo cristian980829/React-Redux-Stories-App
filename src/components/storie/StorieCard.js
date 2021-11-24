@@ -13,7 +13,7 @@ import { uiModalViewModel, uiStorieOpenModal } from '../../actions/ui';
 
 
 export const StorieCard = ( {data} ) => {
-    const { uid } = useSelector( state => state.auth );
+    const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
     const { title, description, registration_date, user  } = data;
     const short_description = description.substring(0, 300) + "...";
