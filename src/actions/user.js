@@ -70,11 +70,20 @@ export const startUserUploading = ( file ) => {
             }
         });
 
-        const fileUrl = await fileUpload( file );
+        try {
+            const fileUrl = await fileUpload( file );
+    
+            dispatch( userUploadImage( fileUrl ) );
 
-        dispatch( userUploadImage( fileUrl ) )
+            dispatch( uploadedImage() );
+    
+            Swal.close();
+            
+        } catch (error) {
+            console.log(error);
+            Swal.close();
+        }
 
-        Swal.close();
     }
 }
 
@@ -83,3 +92,5 @@ const userUploadImage = (fileUrl) => ({
     type: types.userUrlUpload,
     payload: fileUrl
 });
+
+const uploadedImage = () => ({ type: types.uploadedImage});

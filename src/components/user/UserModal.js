@@ -99,7 +99,6 @@ export const UserModal = () => {
         <UserForm 
                 formValues={formValues}
                 setFormValues={setFormValues}
-                activeUser={activeUser}
             />
 
             {(modalViewModel && activeUser.uid===uid)  && <EditFab />}

@@ -19,11 +19,10 @@ import { theme } from '../../helpers/theme';
 import { userPasswordUpdate, startUserUploading } from '../../actions/user';
 
 
-export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
+export const UserForm = ( { formValues, setFormValues } ) => {
 
     const dispatch = useDispatch();
 
-    
     const [error, setError] = useState("");
 
     const [passError, setPassError] = useState("");
@@ -50,6 +49,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
         const file = e.target.files[0];
         if ( file ) {
             dispatch( startUserUploading(file));
+            console.log("UN MOMENTO")
         }
     }
 
