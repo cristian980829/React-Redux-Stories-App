@@ -2,6 +2,7 @@ import { types } from "../types/types";
 import { fetchConToken } from "../helpers/fetch";
 
 import Swal from 'sweetalert2';
+import { fileUpload } from "../helpers/fileUpload";
 
 export const startUserSetActive = (id = null) => {
     return async(dispatch, getState) => {
@@ -57,8 +58,28 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
     }
 }
 
+export const startUserUploading = ( file ) => {
+    return async( dispatch ) => {
 
-export const userUploadImage = () => ({
+        Swal.fire({
+            title: 'Uploading...',
+            text: 'Please wait...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const fileUrl = await fileUpload( file );
+
+        dispatch( userUploadImage( fileUrl ) )
+
+        Swal.close();
+    }
+}
+
+
+const userUploadImage = (fileUrl) => ({
     type: types.userUrlUpload,
-    payload: 'ABCDEFG.jpg'
+    payload: fileUrl
 });

@@ -13,8 +13,10 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 import { theme } from '../../helpers/theme';
-import { userPasswordUpdate, userUploadImage } from '../../actions/user';
+import { userPasswordUpdate, startUserUploading } from '../../actions/user';
 
 
 export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
@@ -39,6 +41,18 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
 
     const { modalViewModel } = useSelector( state => state.ui );
 
+    const handlePictureClick = (e) => {
+        e.preventDefault();
+        document.querySelector('#fileSelector').click();
+    }
+    
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if ( file ) {
+            dispatch( startUserUploading(file));
+        }
+    }
+
     
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -57,10 +71,8 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            dispatch( userUploadImage() );    
             console.log(formValues);
         }
-
     }
 
     const handleSubmitPasswordForm = (e) => {
@@ -132,6 +144,26 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                     value={ name || '' }
                                     onChange={ handleInputChange }
                                 />
+
+                                <input 
+                                    id="fileSelector"
+                                    type="file"
+                                    name="file"
+                                    style={{ display: 'none' }}
+                                    onChange={ handleFileChange }
+                                />
+
+                                <Button
+                                    color = 'secondary'
+                                    onClick={handlePictureClick}
+                                    startIcon={<CloudUploadIcon />}
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{  mb: 2 }}
+                                >
+                                    Upload image
+                                </Button>
 
                                 <Button
                                     onClick={handleSubmitForm}
