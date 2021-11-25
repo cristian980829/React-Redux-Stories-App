@@ -127,8 +127,6 @@ export const userStartUpdate = ( user ) => {
     return async(dispatch) => {
 
         try {
-
-            console.log(user)
             const resp = await fetchConToken(`user`, user, 'PUT' );
             const body = await resp.json();
 

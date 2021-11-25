@@ -57,12 +57,12 @@ export const StorieCard = ( {data} ) => {
                     </div>
 
                     <CardActions>
-                        <Box sx={{ ml: 2 }} />
+                        <Box sx={{ ml: 2 }}  />
                             {!userid && location.pathname !== '/mystories' && user._id !== uid ? 
                                 <Link to={ `./user/${ user._id }/${ user.name }` } className="text-link">
                                     { user.name }
                                 </Link>
-                                : <span>{ user.name }</span>
+                                : <span className="text-off-link">{ user.name }</span>
                             }
                         <Box 
                             sx={{ mr: 2 }}

@@ -88,7 +88,6 @@ export const UserForm = ( { formValues, setFormValues } ) => {
     const handleSubmitPasswordForm = (e) => {
         e.preventDefault();
         if(isPasswordFormValid()){
-
             dispatch( userPasswordUpdate(formPassValues) );      
         }
     }

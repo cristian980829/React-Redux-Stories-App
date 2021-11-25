@@ -22,7 +22,6 @@ export const userReducer = ( state = initialState, action ) => {
             }
 
         case types.userUrlUpload:
-            console.log(action.payload)
             return {
                 ...state,
                 activeUser: { ...state.activeUser, ...action.payload }

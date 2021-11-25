@@ -75,7 +75,6 @@ export const startUserUploading = ( file, name ) => {
     }
 }
 
-
 const userUploadImage = (fileUrl, name) => ({
     type: types.userUrlUpload,
     payload: {fileUrl, name}

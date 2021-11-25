@@ -82,13 +82,13 @@ export const UserModal = () => {
                         </IconButton>
                         
                         {
-                            !modalViewModel ? <>
+                            modalViewModel ? <>
                                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                    {activeUser ? `${name}` : 'Edit User Information'} 
+                                    {`${name}`} 
                                 </Typography>
                             </>
                             : <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                    { name }
+                                    Edit User Information
                                 </Typography>
                         }
 
