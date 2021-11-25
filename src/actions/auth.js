@@ -123,19 +123,20 @@ export const startLogout = () => {
 
 const logout = () => ({ type: types.authLogout });
 
-export const userStartUpdate = ( storie ) => {
+export const userStartUpdate = ( user ) => {
     return async(dispatch) => {
 
         try {
-            const resp = await fetchConToken(`stories/${ storie._id }`, storie, 'PUT' );
+
+            console.log(user)
+            const resp = await fetchConToken(`user`, user, 'PUT' );
             const body = await resp.json();
 
             if ( body.ok ) {
-                dispatch( storieUpdated( storie ) );
+                dispatch( userUpdated( user ) );
             } else {
-                Swal.fire('Error', body.msg, 'error');
+                console.log(body.msg)
             }
-
 
         } catch (error) {
             console.log(error)
@@ -144,7 +145,7 @@ export const userStartUpdate = ( storie ) => {
     }
 }
 
-const storieUpdated = ( storie ) => ({
-    type: types.storieUpdated,
-    payload: storie
+const userUpdated = ( user ) => ({
+    type: types.authUserUpdated,
+    payload: user
 });

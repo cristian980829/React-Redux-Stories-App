@@ -22,9 +22,10 @@ export const userReducer = ( state = initialState, action ) => {
             }
 
         case types.userUrlUpload:
+            console.log(action.payload)
             return {
                 ...state,
-                activeUser: { ...state.activeUser, urlimage: action.payload }
+                activeUser: { ...state.activeUser, ...action.payload }
             }
 
         case types.userUploadedImage:
@@ -38,6 +39,12 @@ export const userReducer = ( state = initialState, action ) => {
                 ...state,
                 uploadedImage: false
             }
+        
+        case types.userUpdateActiveUser:
+        return {
+            ...state,
+            activeUser: action.payload
+        }
 
         default:
             return state;

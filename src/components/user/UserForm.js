@@ -18,7 +18,8 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
 
 import { theme } from '../../helpers/theme';
-import { userPasswordUpdate, startUserUploading } from '../../actions/user';
+import { userPasswordUpdate, startUserUploading, updateActiveUser } from '../../actions/user';
+import { userStartUpdate } from '../../actions/auth';
 
 const Input = styled('input')({
   display: 'none',
@@ -50,14 +51,14 @@ export const UserForm = ( { formValues, setFormValues } ) => {
 
     const handlePictureClick = (e) => {
         e.preventDefault();
-        document.querySelector('#fileSelector').click();
+        document.querySelector('#fileSelectorUser').click();
     }
     
     const handleFileChange = async(e) => {
         setUploading(true);
         const file = e.target.files[0];
         if ( file ) {
-            await dispatch( startUserUploading(file));
+            await dispatch( startUserUploading(file, name));
             setUploading(false);
         }
     }
@@ -76,9 +77,11 @@ export const UserForm = ( { formValues, setFormValues } ) => {
         });
     }
     
-    const handleSubmitForm = (e) => {
+    const handleSubmitForm = async(e) => {
         e.preventDefault();
         if(isFormValid()){
+            await dispatch( userStartUpdate(formValues) );
+            dispatch( updateActiveUser(formValues) );
         }
     }
 
@@ -153,7 +156,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                 />
 
                                 <Stack direction="row" alignItems="left" >
-                                    <Input onChange={ handleFileChange } name="file" id="fileSelector" type="file" />
+                                    <Input onChange={ handleFileChange } name="file" id="fileSelectorUser" type="file" />
                                     <IconButton
                                         onClick={handlePictureClick}
                                         color="primary" 
