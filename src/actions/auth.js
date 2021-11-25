@@ -121,4 +121,30 @@ export const startLogout = () => {
     }
 }
 
-const logout = () => ({ type: types.authLogout })
+const logout = () => ({ type: types.authLogout });
+
+export const userStartUpdate = ( storie ) => {
+    return async(dispatch) => {
+
+        try {
+            const resp = await fetchConToken(`stories/${ storie._id }`, storie, 'PUT' );
+            const body = await resp.json();
+
+            if ( body.ok ) {
+                dispatch( storieUpdated( storie ) );
+            } else {
+                Swal.fire('Error', body.msg, 'error');
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}
+
+const storieUpdated = ( storie ) => ({
+    type: types.storieUpdated,
+    payload: storie
+});

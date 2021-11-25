@@ -10,6 +10,7 @@ export const types = {
 
     userSetActive: '[user] User Set Active',
     userClearActive: '[user] Clear active user',
+    userUrlUpload: '[user] User Url Upload',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',
@@ -26,6 +27,7 @@ export const types = {
     authStartRegister: '[auth] Start Register',
     authStartStartTokenRenew: '[auth] Start token renew',
     authLogout: '[auth] Logout',
-    authSetServerError: '[auth] Set server error'
+    authSetServerError: '[auth] Set server error',
+    authUserUpdated: '[auth] User Updated'
 
 }

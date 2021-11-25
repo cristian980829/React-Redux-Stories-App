@@ -35,6 +35,12 @@ export const authReducer = ( state = initialState, action ) => {
                 serverError: true
             }
 
+        case types.authUserUpdated:
+            return {
+                ...state,
+                user: action.payload,
+            }
+
 
         default:
             return state;

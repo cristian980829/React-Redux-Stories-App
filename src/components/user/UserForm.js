@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
 import { theme } from '../../helpers/theme';
-import { userPasswordUpdate } from '../../actions/user';
+import { userPasswordUpdate, userUploadImage } from '../../actions/user';
 
 
 export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
@@ -57,6 +57,7 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         if(isFormValid()){
+            dispatch( userUploadImage() );    
             console.log(formValues);
         }
 
@@ -130,7 +131,6 @@ export const UserForm = ( { formValues, setFormValues, activeUser } ) => {
                                     autoComplete="off"
                                     value={ name || '' }
                                     onChange={ handleInputChange }
-                                    id="name1"
                                 />
 
                                 <Button

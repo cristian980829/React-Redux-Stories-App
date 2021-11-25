@@ -20,6 +20,12 @@ export const userReducer = ( state = initialState, action ) => {
                 activeUser: {}
             }
 
+        case types.userUrlUpload:
+            return {
+                ...state,
+                activeUser: { ...state.activeUser, urlimage: action.payload }
+            }
+
         default:
             return state;
     }

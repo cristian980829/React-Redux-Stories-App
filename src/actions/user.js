@@ -9,7 +9,7 @@ export const startUserSetActive = (id = null) => {
         try {
 
             if(id === null){
-                const user = getState().auth;
+                const user = getState().auth.user;
                 delete user.checking;
                 delete user.serverError;
                 dispatch( userSetActive( user ) );
@@ -41,7 +41,7 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
     return async() => {
 
         try {
-            const resp = await fetchConToken(`user`, userPasswordValues, 'PUT' );
+            const resp = await fetchConToken(`user/password`, userPasswordValues, 'PUT' );
             const body = await resp.json();
 
             if ( body.ok ) {
@@ -56,3 +56,9 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
 
     }
 }
+
+
+export const userUploadImage = () => ({
+    type: types.userUrlUpload,
+    payload: 'ABCDEFG.jpg'
+});
