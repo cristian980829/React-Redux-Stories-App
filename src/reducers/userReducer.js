@@ -33,6 +33,12 @@ export const userReducer = ( state = initialState, action ) => {
                 uploadedImage: true
             }
 
+        case types.userEndUploadedImage:
+            return {
+                ...state,
+                uploadedImage: false
+            }
+
         default:
             return state;
     }

@@ -61,27 +61,15 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
 export const startUserUploading = ( file ) => {
     return async( dispatch ) => {
 
-        Swal.fire({
-            title: 'Uploading...',
-            text: 'Please wait...',
-            allowOutsideClick: false,
-            onBeforeOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
         try {
             const fileUrl = await fileUpload( file );
     
             dispatch( userUploadImage( fileUrl ) );
 
             dispatch( uploadedImage() );
-    
-            Swal.close();
-            
+                
         } catch (error) {
             console.log(error);
-            Swal.close();
         }
 
     }
@@ -93,4 +81,6 @@ const userUploadImage = (fileUrl) => ({
     payload: fileUrl
 });
 
-const uploadedImage = () => ({ type: types.uploadedImage});
+const uploadedImage = () => ({ type: types.userUploadedImage});
+
+export const endUploadedImage = () => ({ type: types.userEndUploadedImage});

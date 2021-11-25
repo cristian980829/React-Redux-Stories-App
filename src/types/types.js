@@ -12,6 +12,7 @@ export const types = {
     userClearActive: '[user] Clear active user',
     userUrlUpload: '[user] User Url Upload',
     userUploadedImage: '[user] User Uploaded Image',
+    userEndUploadedImage: '[user] User End Uploaded Image',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',

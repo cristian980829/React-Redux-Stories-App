@@ -13,10 +13,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { styled } from '@mui/material/styles';
 
 import { theme } from '../../helpers/theme';
 import { userPasswordUpdate, startUserUploading } from '../../actions/user';
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 
 export const UserForm = ( { formValues, setFormValues } ) => {
@@ -24,6 +30,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
     const dispatch = useDispatch();
 
     const [error, setError] = useState("");
+    const [uploading, setUploading] = useState(false);
 
     const [passError, setPassError] = useState("");
     
@@ -39,20 +46,21 @@ export const UserForm = ( { formValues, setFormValues } ) => {
     const { password, newPassword } = formPassValues;
 
     const { modalViewModel } = useSelector( state => state.ui );
+    const { uploadedImage } = useSelector( state => state.user );
 
     const handlePictureClick = (e) => {
         e.preventDefault();
         document.querySelector('#fileSelector').click();
     }
     
-    const handleFileChange = (e) => {
+    const handleFileChange = async(e) => {
+        setUploading(true);
         const file = e.target.files[0];
         if ( file ) {
-            dispatch( startUserUploading(file));
-            console.log("UN MOMENTO")
+            await dispatch( startUserUploading(file));
+            setUploading(false);
         }
     }
-
     
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -71,7 +79,6 @@ export const UserForm = ( { formValues, setFormValues } ) => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            console.log(formValues);
         }
     }
 
@@ -145,27 +152,25 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                     onChange={ handleInputChange }
                                 />
 
-                                <input 
-                                    id="fileSelector"
-                                    type="file"
-                                    name="file"
-                                    style={{ display: 'none' }}
-                                    onChange={ handleFileChange }
-                                />
+                                <Stack direction="row" alignItems="left" >
+                                    <Input onChange={ handleFileChange } name="file" id="fileSelector" type="file" />
+                                    <IconButton
+                                        onClick={handlePictureClick}
+                                        color="primary" 
+                                        aria-label="upload picture" 
+                                        component="span"
+                                    >
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </Stack>
 
-                                <Button
-                                    color = 'secondary'
-                                    onClick={handlePictureClick}
-                                    startIcon={<CloudUploadIcon />}
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{  mb: 2 }}
-                                >
-                                    Upload image
-                                </Button>
+                                {uploadedImage && <img
+                                    src={`${urlimage}`}
+                                    alt={name}
+                                    className="img"
+                                />}
 
-                                <Button
+                                {!uploading && <Button
                                     onClick={handleSubmitForm}
                                     startIcon={<SaveIcon />}
                                     type="submit"
@@ -174,7 +179,17 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                     sx={{ mt: 3, mb: 2 }}
                                 >
                                     Save
-                                </Button>
+                                </Button>}
+
+                                {uploading && <Button
+                                    startIcon={<SaveIcon />}
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    disabled
+                                >
+                                    Uploading...
+                                </Button>}
 
                             </Box> 
                             <hr />

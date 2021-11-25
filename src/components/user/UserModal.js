@@ -17,7 +17,7 @@ import { uiUserCloseModal, uiModalEditModel } from '../../actions/ui';
 
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
-import { userClearActive } from '../../actions/user';
+import { endUploadedImage, userClearActive } from '../../actions/user';
 import { UserForm } from './UserForm';
 import { ReturnFab } from '../ui/ReturnFab';
 
@@ -58,6 +58,7 @@ export const UserModal = () => {
         dispatch( userClearActive() );
         setFormValues( initUser );
         dispatch( uiModalEditModel() );
+        dispatch( endUploadedImage() );
     };
 
     return (
