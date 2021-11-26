@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-modal';
-
 
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
@@ -21,7 +19,6 @@ import { endUploadedImage, userClearActive } from '../../actions/user';
 import { UserForm } from './UserForm';
 import { ReturnFab } from '../ui/ReturnFab';
 
-Modal.setAppElement('#root');
 
 const initUser = {
     email: '',
@@ -37,7 +34,7 @@ export const UserModal = () => {
 
     const { userModalOpen, modalViewModel } = useSelector( state => state.ui );
     const { activeUser } = useSelector( state => state.user );
-    const { uid } = useSelector( state => state.auth.user );
+    const { uid, rol } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
 
     
@@ -102,7 +99,7 @@ export const UserModal = () => {
                 setFormValues={setFormValues}
             />
 
-            {(modalViewModel && activeUser.uid===uid)  && <EditFab />}
+            {((modalViewModel && activeUser.uid===uid) || rol==='ADMIN')  && <EditFab />}
 
             {(activeUser && !modalViewModel) && <ReturnFab />}
             

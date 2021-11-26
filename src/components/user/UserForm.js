@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useRef, useState }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,20 +13,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
-import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { styled } from '@mui/material/styles';
 
 import { theme } from '../../helpers/theme';
 import { userPasswordUpdate, startUserUploading, updateActiveUser } from '../../actions/user';
 import { userStartUpdate } from '../../actions/auth';
 
-const Input = styled('input')({
-  display: 'none',
-});
 
+export const UserForm = ( { formValues, setFormValues} ) => {
 
-export const UserForm = ( { formValues, setFormValues } ) => {
+    const fileInput = useRef();
 
     const dispatch = useDispatch();
 
@@ -35,7 +31,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
 
     const [passError, setPassError] = useState("");
     
-    const { email, name, urlimage, rol } = formValues;
+    const { email, name, urlimage, rol, uid: userId } = formValues;
     
     const initPassword = {
         password: '',
@@ -48,18 +44,16 @@ export const UserForm = ( { formValues, setFormValues } ) => {
 
     const { modalViewModel } = useSelector( state => state.ui );
     const { uploadedImage } = useSelector( state => state.user );
+    const { uid: authId } = useSelector( state => state.auth.user );
 
-    const handlePictureClick = (e) => {
-        e.preventDefault();
-        document.querySelector('#fileSelectorUser').click();
-    }
-    
+
     const handleFileChange = async(e) => {
         setUploading(true);
         const file = e.target.files[0];
+
         if ( file ) {
-            await dispatch( startUserUploading(file, name));
-            setUploading(false);
+            await dispatch( startUserUploading(file, name, setUploading));
+            // setUploading(false);
         }
     }
     
@@ -93,6 +87,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
     }
 
     const isPasswordFormValid = () => {
+
         
         if ( newPassword.length < 6 || password.length < 6 ) {
             setPassError('Password should be at least 6 characters');
@@ -140,7 +135,9 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                     )
                                 } 
 
-                                <h3>Update Your User Information</h3>
+                                {userId!==authId ?
+                                     <h3>Update {name} User Information</h3> 
+                                     : <h3>Update Your User Information</h3> }
 
                                 <TextField
                                     margin="normal"
@@ -154,16 +151,22 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                     onChange={ handleInputChange }
                                 />
 
-                                <Stack direction="row" alignItems="left" >
-                                    <Input onChange={ handleFileChange } name="file" id="fileSelectorUser" type="file" />
-                                    <IconButton
-                                        onClick={handlePictureClick}
+                               <Stack direction="row" alignItems="left" >
+                                    <Button 
                                         color="primary" 
                                         aria-label="upload picture" 
                                         component="span"
+                                        onClick={()=>fileInput.current.click()}
                                     >
-                                        <PhotoCamera />
-                                    </IconButton>
+                                         <PhotoCamera />
+                                    </Button>
+
+                                    <input 
+                                        onChange={ handleFileChange }
+                                        ref={fileInput} 
+                                        type="file" 
+                                        style={{ display: 'none' }} 
+                                    />
                                 </Stack>
 
                                 {uploadedImage && <img
@@ -195,7 +198,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
 
                             </Box> 
                             <hr />
-                            <Box 
+                            { userId===authId && <Box 
                                 component="form" 
                                 sx={{
                                     marginTop: 5,
@@ -249,7 +252,7 @@ export const UserForm = ( { formValues, setFormValues } ) => {
                                     Save
                                 </Button>
 
-                            </Box> 
+                            </Box> }
                     
                         </>
 

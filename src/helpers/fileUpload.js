@@ -3,6 +3,7 @@
 export const fileUpload = async ( file ) => {
 
     const cloudUrl = 'https://api.cloudinary.com/v1_1/dcsutpqkl/upload';
+    
 
     const formData = new FormData();
     formData.append('upload_preset','stories-app');

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-modal';
 import moment from 'moment';
 
 import Button from '@mui/material/Button';
@@ -22,7 +21,6 @@ import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { ReturnFab } from '../ui/ReturnFab';
 
-Modal.setAppElement('#root');
 
 const initStorie = {
     title: '',

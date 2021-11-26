@@ -58,26 +58,29 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
     }
 }
 
-export const startUserUploading = ( file, name ) => {
+export const startUserUploading = ( file, name, setUploading ) => {
     return async( dispatch ) => {
 
         try {
-            const fileUrl = await fileUpload( file );
+            const urlimage = await fileUpload( file );
     
-            dispatch( userUploadImage( fileUrl, name ) );
+            dispatch( userUploadImage( urlimage, name ) );
 
             dispatch( uploadedImage() );
+
+            setUploading(false);
                 
         } catch (error) {
+            setUploading(false);
             console.log(error);
         }
 
     }
 }
 
-const userUploadImage = (fileUrl, name) => ({
+const userUploadImage = (urlimage, name) => ({
     type: types.userUrlUpload,
-    payload: {fileUrl, name}
+    payload: {urlimage, name}
 });
 
 const uploadedImage = () => ({ type: types.userUploadedImage});
