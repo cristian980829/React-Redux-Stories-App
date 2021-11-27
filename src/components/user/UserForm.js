@@ -136,8 +136,18 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                 } 
 
                                 {userId!==authId ?
-                                     <h3>Update {name} User Information</h3> 
-                                     : <h3>Update Your User Information</h3> }
+                                    <h3>Update {name} User Information</h3> 
+                                    : <h3>Update Your User Information</h3> }
+
+                                {
+                                    <div>
+                                        <img
+                                            src={`${urlimage}`}
+                                            alt={name}
+                                            className="img-register"
+                                        />
+                                    </div>
+                                }
 
                                 <TextField
                                     margin="normal"
@@ -169,11 +179,6 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     />
                                 </Stack>
 
-                                {uploadedImage && <img
-                                    src={`${urlimage}`}
-                                    alt={name}
-                                    className="img"
-                                />}
 
                                 {!uploading && <Button
                                     onClick={handleSubmitForm}
