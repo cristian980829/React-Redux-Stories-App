@@ -58,15 +58,15 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
     }
 }
 
-export const startUserUploading = ( file, name, setUploading ) => {
+export const startUserUploading = ( file, setUploading, name = '' ) => {
     return async( dispatch ) => {
 
         try {
             const urlimage = await fileUpload( file );
-    
-            dispatch( userUploadImage( urlimage, name ) );
 
             dispatch( uploadedImage() );
+
+            dispatch( userUploadImage( urlimage, name ) );
 
             setUploading(false);
                 

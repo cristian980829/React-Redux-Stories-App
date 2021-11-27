@@ -52,8 +52,8 @@ export const UserForm = ( { formValues, setFormValues} ) => {
         const file = e.target.files[0];
 
         if ( file ) {
-            await dispatch( startUserUploading(file, name, setUploading));
-            // setUploading(false);
+            await dispatch( startUserUploading(file, setUploading, name));
+            setUploading(false);
         }
     }
     

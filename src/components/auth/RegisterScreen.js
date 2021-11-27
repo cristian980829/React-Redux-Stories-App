@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import validator from 'validator';
 
@@ -20,14 +21,18 @@ import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
 import { startRegister } from '../../actions/auth';
 import { theme } from '../../helpers/theme';
+import { startUserUploading, userClearActive } from '../../actions/user';
 
 
 
 export const RegisterScreen = () => {
 
+    const fileInput = useRef();
     const dispatch = useDispatch();
-
+    const { uploadedImage, activeUser } = useSelector( state => state.user );
+    const { urlimage } = activeUser;
     const [error, setError] = useState("");
+    const [uploading, setUploading] = useState(false);
 
     const [ formValues, handleInputChange ] = useForm({
         email: '',
@@ -41,9 +46,20 @@ export const RegisterScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            dispatch( startRegister( email, password, name ) );
+            dispatch( startRegister( email, password, name, urlimage ) );
+            dispatch( userClearActive() );
         }
     };
+
+    const handleFileChange = async(e) => {
+        setUploading(true);
+        const file = e.target.files[0];
+
+        if ( file ) {
+            await dispatch( startUserUploading(file, setUploading ));
+            setUploading(false);
+        }
+    }
 
     const isFormValid = () => {
         
@@ -80,7 +96,7 @@ export const RegisterScreen = () => {
                         <Typography component="h1" variant="h5">
                             Sign Up
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
                             {
                                 error &&
                                 (
@@ -89,6 +105,18 @@ export const RegisterScreen = () => {
                                     </Stack>
                                 )
                             }
+
+                            {uploadedImage && 
+                                <div>
+                                    <img
+                                        src={`${urlimage}`}
+                                        alt={name}
+                                        className="img-register"
+                                    />
+                                </div>
+                            }
+                            
+
                             <TextField
                                 margin="normal"
                                 required
@@ -134,19 +162,51 @@ export const RegisterScreen = () => {
                                     value={ password2 }
                                     onChange={ handleInputChange }
                             />
+
+                            <Stack direction="row" alignItems="left" >
+                                    <Button 
+                                        color="primary" 
+                                        aria-label="upload picture" 
+                                        component="span"
+                                        onClick={()=>fileInput.current.click()}
+                                    >
+                                         <PhotoCamera />
+                                    </Button>
+
+                                    <input 
+                                        onChange={ handleFileChange }
+                                        ref={fileInput} 
+                                        type="file" 
+                                        style={{ display: 'none' }} 
+                                    />
+                                </Stack>
                             {/* <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             /> */}
-                            <Button
-                                startIcon={<CreateNewFolderIcon />}
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign Up
-                            </Button>
+                            {!uploading && <Button
+                                    onClick={handleSubmit}
+                                    startIcon={<CreateNewFolderIcon />}
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Sign Up
+                                </Button>}
+
+                                {uploading && <Button
+                                    startIcon={<CreateNewFolderIcon />}
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    disabled
+                                >
+                                    Uploading...
+                                </Button>
+                            }
+
                             <Grid container>
                                 {/* <Grid item xs>
                                 <Link href="#" variant="body2">

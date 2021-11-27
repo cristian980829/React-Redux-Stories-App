@@ -58,3 +58,11 @@
     height: 200px;
     border-radius: 100%;
 }
+
+.img-register {
+    margin: auto;
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+}
