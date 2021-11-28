@@ -9,6 +9,7 @@ import  Navbar  from '../components/ui/Navbar/Navbar';
 import { MyStoriesScreen } from '../components/storie/MyStoriesScreen';
 import { Box } from '@mui/system';
 import { UserInfoScreen } from '../components/user/UserInfoScreen';
+import { UsersScreen } from '../components/user/UsersScreen';
 
 export const StorieRouter = () => {
     return (
@@ -36,6 +37,12 @@ export const StorieRouter = () => {
                             exact
                             path="/mystories"
                             component={ MyStoriesScreen }
+                        />
+
+                        <Route 
+                            exact
+                            path="/users"
+                            component={ UsersScreen }
                         />
 
                         <Redirect to="/" />

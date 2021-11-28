@@ -94,6 +94,14 @@ const AppBarCollapse = props => {
               >
                 <ListItemText primary={'My_Stories'} />
               </ListItem>
+              <ListItem 
+                button 
+                key={'Users'} 
+                onClick={() => history.push('/users')}
+                className={location.pathname === '/users' ? classes.activeButton : null}
+              >
+                <ListItemText primary={'users'} />
+              </ListItem>
           </MenuItem>
         </ButtonAppBarCollapse>
         <div className={props.classes.buttonBar} id="appbar-collapse">
@@ -113,6 +121,14 @@ const AppBarCollapse = props => {
               className={location.pathname === '/mystories' ? classes.active : null}
             >
               <ListItemText primary={'My_Stories'} />
+            </ListItem>
+            <ListItem 
+              button 
+              key={'Users'} 
+              onClick={() => history.push('/users')}
+              className={location.pathname === '/users' ? classes.active : null}
+            >
+              <ListItemText primary={'Users'} />
             </ListItem>
         </Button>
         </div>
