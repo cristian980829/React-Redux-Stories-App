@@ -58,20 +58,18 @@ export const userPasswordUpdate = ( userPasswordValues ) => {
     }
 }
 
-export const startUserUploading = ( file, setUploading, name = '' ) => {
+export const startUserUploading = ( file, name = '' ) => {
     return async( dispatch ) => {
 
         try {
             const urlimage = await fileUpload( file );
 
-            dispatch( uploadedImage() );
-
             dispatch( userUploadImage( urlimage, name ) );
 
-            setUploading(false);
-                
+            dispatch( endUploadImage() );
+
         } catch (error) {
-            setUploading(false);
+            dispatch( endUploadImage() );
             console.log(error);
         }
 
@@ -83,9 +81,9 @@ const userUploadImage = (urlimage, name) => ({
     payload: {urlimage, name}
 });
 
-const uploadedImage = () => ({ type: types.userUploadedImage});
+export const uploadImage = () => ({ type: types.userUploadedImage});
 
-export const endUploadedImage = () => ({ type: types.userEndUploadedImage});
+const endUploadImage = () => ({ type: types.userEndUploadedImage});
 
 export const updateActiveUser = (user) => ({
     type: types.userUpdateActiveUser,

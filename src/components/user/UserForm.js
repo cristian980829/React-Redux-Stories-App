@@ -16,19 +16,18 @@ import SaveIcon from '@mui/icons-material/Save';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { theme } from '../../helpers/theme';
-import { userPasswordUpdate, startUserUploading, updateActiveUser } from '../../actions/user';
+import { userPasswordUpdate, startUserUploading, updateActiveUser, uploadImage } from '../../actions/user';
 import { userStartUpdate } from '../../actions/auth';
 
 
 export const UserForm = ( { formValues, setFormValues} ) => {
 
     const fileInput = useRef();
-
     const dispatch = useDispatch();
-
+    const { modalViewModel } = useSelector( state => state.ui );
+    const { uploadedImage } = useSelector( state => state.user );
+    const { uid: authId } = useSelector( state => state.auth.user );
     const [error, setError] = useState("");
-    const [uploading, setUploading] = useState(false);
-
     const [passError, setPassError] = useState("");
     
     const { email, name, urlimage, rol, uid: userId } = formValues;
@@ -39,21 +38,15 @@ export const UserForm = ( { formValues, setFormValues} ) => {
     }
 
     const [formPassValues, setFormPassValues] = useState( initPassword );
-
     const { password, newPassword } = formPassValues;
 
-    const { modalViewModel } = useSelector( state => state.ui );
-    const { uploadedImage } = useSelector( state => state.user );
-    const { uid: authId } = useSelector( state => state.auth.user );
-
-
     const handleFileChange = async(e) => {
-        setUploading(true);
+        dispatch( uploadImage() );
+
         const file = e.target.files[0];
 
         if ( file ) {
-            await dispatch( startUserUploading(file, setUploading, name));
-            setUploading(false);
+            dispatch( startUserUploading(file, name));
         }
     }
     
@@ -179,8 +172,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     />
                                 </Stack>
 
-
-                                {!uploading && <Button
+                                {!uploadedImage && <Button
                                     onClick={handleSubmitForm}
                                     startIcon={<SaveIcon />}
                                     type="submit"
@@ -191,7 +183,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     Save
                                 </Button>}
 
-                                {uploading && <Button
+                                {uploadedImage && <Button
                                     startIcon={<SaveIcon />}
                                     fullWidth
                                     variant="contained"

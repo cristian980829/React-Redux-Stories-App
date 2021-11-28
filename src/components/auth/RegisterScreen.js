@@ -21,7 +21,7 @@ import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
 import { startRegister } from '../../actions/auth';
 import { theme } from '../../helpers/theme';
-import { startUserUploading, userClearActive } from '../../actions/user';
+import { startUserUploading, uploadImage, userClearActive } from '../../actions/user';
 
 
 
@@ -32,7 +32,6 @@ export const RegisterScreen = () => {
     const { uploadedImage, activeUser } = useSelector( state => state.user );
     const { urlimage } = activeUser;
     const [error, setError] = useState("");
-    const [uploading, setUploading] = useState(false);
 
     const [ formValues, handleInputChange ] = useForm({
         email: '',
@@ -52,12 +51,12 @@ export const RegisterScreen = () => {
     };
 
     const handleFileChange = async(e) => {
-        setUploading(true);
+        dispatch( uploadImage() );
+
         const file = e.target.files[0];
 
         if ( file ) {
-            await dispatch( startUserUploading(file, setUploading ));
-            setUploading(false);
+            dispatch( startUserUploading(file));
         }
     }
 
@@ -106,7 +105,7 @@ export const RegisterScreen = () => {
                                 )
                             }
 
-                            {uploadedImage && 
+                            {(!uploadedImage && urlimage) && 
                                 <div>
                                     <img
                                         src={`${urlimage}`}
@@ -116,7 +115,6 @@ export const RegisterScreen = () => {
                                 </div>
                             }
                             
-
                             <TextField
                                 margin="normal"
                                 required
@@ -129,6 +127,7 @@ export const RegisterScreen = () => {
                                 onChange={ handleInputChange }  
                                 autoFocus
                             />
+
                             <TextField
                                 margin="normal"
                                 required
@@ -137,9 +136,10 @@ export const RegisterScreen = () => {
                                 label="Name"
                                 type="text"
                                 autoComplete="off"
-                                    value={ name }
-                                    onChange={ handleInputChange }
+                                value={ name }
+                                onChange={ handleInputChange }
                             />
+
                             <TextField
                                 margin="normal"
                                 required
@@ -148,8 +148,8 @@ export const RegisterScreen = () => {
                                 label="Password"
                                 type="password"
                                 autoComplete="off"
-                                    value={ password }
-                                    onChange={ handleInputChange }
+                                value={ password }
+                                onChange={ handleInputChange }
                             />
                             <TextField
                                 margin="normal"
@@ -159,32 +159,32 @@ export const RegisterScreen = () => {
                                 label="Confirm password"
                                 type="password"
                                 autoComplete="off"
-                                    value={ password2 }
-                                    onChange={ handleInputChange }
+                                value={ password2 }
+                                onChange={ handleInputChange }
                             />
 
                             <Stack direction="row" alignItems="left" >
-                                    <Button 
-                                        color="primary" 
-                                        aria-label="upload picture" 
-                                        component="span"
-                                        onClick={()=>fileInput.current.click()}
-                                    >
-                                         <PhotoCamera />
-                                    </Button>
+                                <Button 
+                                    color="primary" 
+                                    aria-label="upload picture" 
+                                    component="span"
+                                    onClick={()=>fileInput.current.click()}
+                                >
+                                        <PhotoCamera />
+                                </Button>
 
-                                    <input 
-                                        onChange={ handleFileChange }
-                                        ref={fileInput} 
-                                        type="file" 
-                                        style={{ display: 'none' }} 
-                                    />
-                                </Stack>
+                                <input 
+                                    onChange={ handleFileChange }
+                                    ref={fileInput} 
+                                    type="file" 
+                                    style={{ display: 'none' }} 
+                                />
+                            </Stack>
                             {/* <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             /> */}
-                            {!uploading && <Button
+                            {!uploadedImage && <Button
                                     onClick={handleSubmit}
                                     startIcon={<CreateNewFolderIcon />}
                                     type="submit"
@@ -195,7 +195,7 @@ export const RegisterScreen = () => {
                                     Sign Up
                                 </Button>}
 
-                                {uploading && <Button
+                                {uploadedImage && <Button
                                     startIcon={<CreateNewFolderIcon />}
                                     type="submit"
                                     fullWidth
