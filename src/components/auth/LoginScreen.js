@@ -92,7 +92,6 @@ export const LoginScreen = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
                                 type="email"
                                 label="Email Address"
                                 name="email"
@@ -108,7 +107,6 @@ export const LoginScreen = () => {
                                 name="password"
                                 label="Password"
                                 type="password"
-                                id="password"
                                 autoComplete="off"
                                     value={ password }
                                     onChange={ handleInputChange }

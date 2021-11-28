@@ -14,6 +14,11 @@ import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import SaveIcon from '@mui/icons-material/Save';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 import { theme } from '../../helpers/theme';
 import { userPasswordUpdate, startUserUploading, updateActiveUser, uploadImage } from '../../actions/user';
@@ -26,7 +31,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
     const dispatch = useDispatch();
     const { modalViewModel } = useSelector( state => state.ui );
     const { uploadedImage } = useSelector( state => state.user );
-    const { uid: authId } = useSelector( state => state.auth.user );
+    const { uid: authId, rol: myRol } = useSelector( state => state.auth.user );
     const [error, setError] = useState("");
     const [passError, setPassError] = useState("");
     
@@ -67,6 +72,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
     const handleSubmitForm = async(e) => {
         e.preventDefault();
         if(isFormValid()){
+            // console.log(formValues)
             await dispatch( userStartUpdate(formValues) );
             dispatch( updateActiveUser(formValues) );
         }
@@ -154,6 +160,33 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     onChange={ handleInputChange }
                                 />
 
+                                { (myRol === 'ADMIN' && authId === userId) && 
+                                    <Box 
+                                        sx={{
+                                            marginBottom: 2,
+                                            marginTop: 2
+                                        }}
+                                    >
+                                        <FormControl component="fieldset">
+                                            <FormLabel 
+                                                component="legend" 
+                                                sx={{
+                                                    marginBottom: 1,
+                                                }}
+                                        >User Type</FormLabel>
+                                            <RadioGroup
+                                                row aria-label="rol" 
+                                                name="rol" 
+                                                value={rol || ''}
+                                                onChange={ handleInputChange }
+                                            >
+                                                <FormControlLabel value="ADMIN" control={<Radio />} label="ADMIN" />
+                                                <FormControlLabel value="USER" control={<Radio />} label="USER" />
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Box>
+                                }
+
                                <Stack direction="row" alignItems="left" >
                                     <Button 
                                         color="primary" 
@@ -194,14 +227,14 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                 </Button>}
 
                             </Box> 
-                            <hr />
                             { userId===authId && <Box 
                                 component="form" 
                                 sx={{
-                                    marginTop: 5,
+                                    marginTop: 3,
                                 }}
                                 
                             >
+                            <hr />
                                 {
                                     passError &&
                                     (
@@ -209,8 +242,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                             <Alert severity="error">{passError}</Alert>
                                         </Stack>
                                     )
-                                } 
-
+                                }
                                
                                 <h3>Update Your Password</h3>
 
