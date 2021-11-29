@@ -12,6 +12,7 @@ export const UserFormInfo = ( {formValues} ) => {
 
     return (
         <Box 
+            className="animate__animated animate__fadeIn "
             display="flex" 
             justifyContent="center"
         >

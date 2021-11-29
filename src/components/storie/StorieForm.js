@@ -45,7 +45,9 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                     }}
                 >
                     {!modalViewModel ?
-                        <Box component="form">
+                        <Box
+                            component="form"
+                        >
                             {
                                 error &&
                                 (

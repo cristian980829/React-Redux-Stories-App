@@ -48,6 +48,7 @@ export const UserFormChangePassword = () => {
 
     return (
         <Box 
+            className="animate__animated animate__fadeIn"
             component="form" 
             sx={{
                 marginTop: 3,

@@ -64,7 +64,6 @@ export const UserModal = () => {
             open={userModalOpen}
             onClose={handleClose}
             TransitionComponent={Transition}
-            className="animate__animated animate__fadeIn animate__faster"
         >
             <ThemeProvider theme={theme}>
                 <AppBar color="primary" sx={{ position: 'fixed' }}>

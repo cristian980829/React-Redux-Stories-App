@@ -90,7 +90,6 @@ export const StorieModal = () => {
         dispatch( uiModalEditModel() );
     }
     
-
     const handleClose = () => {
         closeModal();
     };

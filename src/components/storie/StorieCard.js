@@ -34,7 +34,6 @@ export const StorieCard = ( {data} ) => {
         }
     }  
 
-    
     return (
         <>
             <Box 

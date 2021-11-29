@@ -32,7 +32,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                     {
                         !modalViewModel 
                             ?
-                                <UserFormFields 
+                                <UserFormFields
                                     formValues={formValues}
                                     setFormValues={setFormValues} 
                                 />

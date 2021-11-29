@@ -75,6 +75,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
     return (
         <>
             <Box 
+                className="animate__animated animate__fadeIn"
                 component="form"
                 sx={{
                     marginBottom: 3,
@@ -186,7 +187,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
                 </Button>}
 
             </Box> 
-            
+
             { userId===authId && 
                 <UserFormChangePassword />
             }
