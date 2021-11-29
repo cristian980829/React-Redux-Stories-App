@@ -1,7 +1,7 @@
-import { CardActions } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { CardActions } from '@mui/material';
 import { storieStartLoading } from '../../actions/storie';
 import { StorieCard } from '../storie/StorieCard';
 import { UserModal } from '../user/UserModal';

@@ -98,7 +98,8 @@ export const UserModal = () => {
                 setFormValues={setFormValues}
             />
 
-            {((modalViewModel && activeUser.uid===uid) || rol==='ADMIN')  && <EditFab />}
+            {((modalViewModel && activeUser.uid===uid) || 
+            (modalViewModel && rol==='ADMIN' && activeUser.rol==='USER'))  && <EditFab />}
 
             {(activeUser && !modalViewModel) && <ReturnFab />}
             

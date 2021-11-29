@@ -66,3 +66,9 @@
     height: 150px;
     border-radius: 100%;
 }
+
+.text-name-card:hover {
+    opacity: 0.8;
+    transition-duration: 0.4s;
+    color: rgb(79, 183, 252);
+}

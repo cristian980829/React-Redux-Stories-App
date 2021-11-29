@@ -160,7 +160,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     onChange={ handleInputChange }
                                 />
 
-                                { (myRol === 'ADMIN' && authId === userId) && 
+                                { ((myRol === 'ADMIN' && authId === userId) || (myRol === 'ADMIN' && rol === 'USER')) && 
                                     <Box 
                                         sx={{
                                             marginBottom: 2,
