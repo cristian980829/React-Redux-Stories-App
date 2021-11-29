@@ -64,6 +64,7 @@ export const UserModal = () => {
             open={userModalOpen}
             onClose={handleClose}
             TransitionComponent={Transition}
+            className="animate__animated animate__fadeIn animate__faster"
         >
             <ThemeProvider theme={theme}>
                 <AppBar color="primary" sx={{ position: 'fixed' }}>
@@ -94,9 +95,9 @@ export const UserModal = () => {
             
 
         <UserForm 
-                formValues={formValues}
-                setFormValues={setFormValues}
-            />
+            formValues={formValues}
+            setFormValues={setFormValues}
+        />
 
             {((modalViewModel && activeUser.uid===uid) || 
             (modalViewModel && rol==='ADMIN' && activeUser.rol==='USER'))  && <EditFab />}
