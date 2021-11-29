@@ -13,7 +13,8 @@ export const types = {
     userUrlUpload: '[user] User Url Upload',
     userUploadedImage: '[user] User Uploaded Image',
     userEndUploadedImage: '[user] User End Uploaded Image',
-    userUpdateActiveUser: '[auth] User Update Active User',
+    userUpdateActiveUser: '[user] User Update Active User',
+    usersLoaded: '[user] User Get Users',
 
     storieSetActive: '[storie] Set Active',
     storieLogout: '[storie] Logout storie',

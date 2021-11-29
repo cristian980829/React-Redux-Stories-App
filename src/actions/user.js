@@ -89,3 +89,27 @@ export const updateActiveUser = (user) => ({
     type: types.userUpdateActiveUser,
     payload: user
 });
+
+export const usersStartLoading = () => {
+    return async(dispatch) => {
+
+        try {
+            
+            const resp = await fetchConToken( 'user' );
+            const body = await resp.json();
+            
+            const users = body.users;
+
+            dispatch( usersLoaded( users ) );
+
+        } catch (error) {
+            Swal.fire('Error', 'There was an error connecting to the server', 'error');
+        }
+
+    }
+}
+
+const usersLoaded = (users) => ({
+    type: types.usersLoaded,
+    payload: users
+})

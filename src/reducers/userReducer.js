@@ -2,6 +2,7 @@ import { types } from '../types/types';
 
 const initialState = {
     activeUser: {},
+    users: [],
     uploadedImage: false
 }
 
@@ -44,6 +45,12 @@ export const userReducer = ( state = initialState, action ) => {
             ...state,
             activeUser: action.payload
         }
+
+        case types.usersLoaded:
+            return {
+                ...state,
+                users: [ ...action.payload ]
+            }
 
         default:
             return state;
