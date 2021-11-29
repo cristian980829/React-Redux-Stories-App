@@ -92,7 +92,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
 
                 {
                     userId!==authId 
-                        ? <h3>Update {name} User Information</h3> 
+                        ? <h3>Update {activeUser.name} User Information</h3> 
                         : <h3>Update Your User Information</h3> 
                 }
 

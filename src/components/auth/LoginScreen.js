@@ -32,7 +32,7 @@ export const LoginScreen = () => {
     const [error, setError] = useState("");
 
     const [ formValues, handleInputChange ] = useForm({
-        email: 'cristian980829@gmail.com',
+        email: 'admin@gmail.com',
         password: '123456'
     });
 

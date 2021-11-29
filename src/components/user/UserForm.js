@@ -37,9 +37,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     setFormValues={setFormValues} 
                                 />
                             : 
-                                <UserFormInfo 
-                                    formValues={formValues}
-                                />
+                                <UserFormInfo />
                     }
                 </Box>
             </Container>

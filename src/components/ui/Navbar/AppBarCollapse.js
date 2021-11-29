@@ -1,21 +1,20 @@
 import React from "react";
-import { useDispatch } from 'react-redux';
-import { Button, MenuItem } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import ButtonAppBarCollapse from "./ButtonAppBarCollapse";
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import { Button, MenuItem } from "@material-ui/core";
+import { grey } from '@mui/material/colors';
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import { makeStyles } from '@material-ui/core'
-import { startLogout } from "../../../actions/auth";
-
-import LogoutIcon from '@mui/icons-material/Logout';
 import { ListItemIcon } from "@mui/material";
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import { grey } from '@mui/material/colors';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { makeStyles } from '@material-ui/core'
+import { useHistory, useLocation } from 'react-router-dom';
+import { withStyles } from "@material-ui/core/styles";
 
 
+import ButtonAppBarCollapse from "./ButtonAppBarCollapse";
+import { startLogout } from "../../../actions/auth";
 import { startUserSetActive } from '../../../actions/user';
 import { uiUserOpenModal, uiModalViewModel } from '../../../actions/ui';
 import { UserModal } from "../../user/UserModal";
@@ -43,7 +42,7 @@ const styles = theme => ({
 });
 
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     active: {
       background: "#384AA9"
@@ -56,6 +55,9 @@ const useStyles = makeStyles((theme) => {
 
 
 const AppBarCollapse = props => {
+
+  const { rol } = useSelector( state => state.auth.user );
+
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -94,14 +96,14 @@ const AppBarCollapse = props => {
               >
                 <ListItemText primary={'My_Stories'} />
               </ListItem>
-              <ListItem 
+              {rol==='ADMIN' && <ListItem 
                 button 
                 key={'Users'} 
                 onClick={() => history.push('/users')}
                 className={location.pathname === '/users' ? classes.activeButton : null}
               >
                 <ListItemText primary={'users'} />
-              </ListItem>
+              </ListItem>}
           </MenuItem>
         </ButtonAppBarCollapse>
         <div className={props.classes.buttonBar} id="appbar-collapse">
@@ -122,14 +124,14 @@ const AppBarCollapse = props => {
             >
               <ListItemText primary={'My_Stories'} />
             </ListItem>
-            <ListItem 
+            {rol==='ADMIN' && <ListItem 
               button 
               key={'Users'} 
               onClick={() => history.push('/users')}
               className={location.pathname === '/users' ? classes.active : null}
             >
               <ListItemText primary={'Users'} />
-            </ListItem>
+            </ListItem>}
         </Button>
         </div>
     </div>

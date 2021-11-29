@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import { CardActions } from '@mui/material';
@@ -6,9 +7,9 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
 
-export const UserFormInfo = ( {formValues} ) => {
+export const UserFormInfo = () => {
 
-    const { email, name, urlimage, rol } = formValues;
+    const { email, name, urlimage, rol } = useSelector( state => state.user.activeUser );
 
     return (
         <Box 
