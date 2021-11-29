@@ -18,7 +18,7 @@ export const UsersScreen = () => {
     return (
         <div className="animate__animated animate__fadeIn">
             {
-                users.map( user => <UserCard key={user._id} data={user} /> )
+                users.map( user => <UserCard key={user.uid} data={user} /> )
             }
         </div>
     )

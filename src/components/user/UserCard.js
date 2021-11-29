@@ -17,7 +17,7 @@ export const UserCard = ( { data } ) => {
     const dispatch = useDispatch();
 
      const handleViewProfile = () => {
-        dispatch( startUserSetActive(data._id) );
+        dispatch( startUserSetActive(data.uid) );
         dispatch( uiModalViewModel() );
         dispatch( uiUserOpenModal() );
     }

@@ -23,6 +23,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { theme } from '../../helpers/theme';
 import { userPasswordUpdate, startUserUploading, updateActiveUser, uploadImage } from '../../actions/user';
 import { userStartUpdate } from '../../actions/auth';
+import { uiModalViewModel } from '../../actions/ui';
 
 
 export const UserForm = ( { formValues, setFormValues} ) => {
@@ -30,7 +31,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
     const fileInput = useRef();
     const dispatch = useDispatch();
     const { modalViewModel } = useSelector( state => state.ui );
-    const { uploadedImage } = useSelector( state => state.user );
+    const { uploadedImage, activeUser } = useSelector( state => state.user );
     const { uid: authId, rol: myRol } = useSelector( state => state.auth.user );
     const [error, setError] = useState("");
     const [passError, setPassError] = useState("");
@@ -72,9 +73,15 @@ export const UserForm = ( { formValues, setFormValues} ) => {
     const handleSubmitForm = async(e) => {
         e.preventDefault();
         if(isFormValid()){
-            // console.log(formValues)
-            await dispatch( userStartUpdate(formValues) );
-            dispatch( updateActiveUser(formValues) );
+            if(authId!==userId){
+                await dispatch( userStartUpdate(formValues) );
+                dispatch( updateActiveUser(formValues));
+
+            }else{
+                await dispatch( userStartUpdate(formValues, true) );
+                dispatch( updateActiveUser(formValues));
+            }
+            dispatch( uiModalViewModel() );
         }
     }
 
@@ -160,7 +167,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                                     onChange={ handleInputChange }
                                 />
 
-                                { ((myRol === 'ADMIN' && authId === userId) || (myRol === 'ADMIN' && rol === 'USER')) && 
+                                { ((myRol === 'ADMIN' && authId === userId) || (myRol === 'ADMIN' && activeUser.rol === 'USER')) && 
                                     <Box 
                                         sx={{
                                             marginBottom: 2,

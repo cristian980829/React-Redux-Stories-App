@@ -123,7 +123,7 @@ export const startLogout = () => {
 
 const logout = () => ({ type: types.authLogout });
 
-export const userStartUpdate = ( user ) => {
+export const userStartUpdate = ( user, currentUser = false ) => {
     return async(dispatch) => {
 
         try {
@@ -131,7 +131,9 @@ export const userStartUpdate = ( user ) => {
             const body = await resp.json();
 
             if ( body.ok ) {
-                dispatch( userUpdated( user ) );
+                if(currentUser){
+                    dispatch( userUpdated( user ) );
+                }
             } else {
                 console.log(body.msg)
             }

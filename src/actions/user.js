@@ -98,7 +98,17 @@ export const usersStartLoading = () => {
             const resp = await fetchConToken( 'user' );
             const body = await resp.json();
             
-            const users = body.users;
+            let users = body.users;
+            let uid = '';
+
+            users = users.map(user => {
+                uid = user._id;
+                delete user._id;
+                return {
+                    uid,
+                    ...user
+                }
+            })
 
             dispatch( usersLoaded( users ) );
 
