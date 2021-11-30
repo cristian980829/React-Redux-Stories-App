@@ -17,7 +17,6 @@ export const startLogin = ( email, password ) => {
             const body = await resp.json();
             if( body.ok ) {
                 localStorage.setItem('token', body.token );
-                console.log(body.token)
                 localStorage.setItem('token-init-date', new Date().getTime() );
 
                 dispatch( login({
@@ -83,7 +82,6 @@ export const startChecking = () => {
             const body = await resp.json();
             
             if( body.ok ) {
-                console.log(body)
                 localStorage.setItem('token', body.token );
                 localStorage.setItem('token-init-date', new Date().getTime() );
                 dispatch( login({
@@ -136,6 +134,7 @@ export const userStartUpdate = ( user, currentUser = false ) => {
                 if(currentUser){
                     dispatch( userUpdated( user ) );
                 }
+
             } else {
                 console.log(body.msg)
             }

@@ -10,11 +10,14 @@ import { theme } from '../../helpers/theme';
 import { UserFormFields } from './UserFormFields';
 import { UserFormInfo } from './UserFormInfo';
 
+
 export const UserForm = ( { formValues, setFormValues} ) => {
 
-    const { modalViewModel } = useSelector( state => state.ui );
+    const { modalViewModel } = useSelector( state => state.ui );    
 
     return (
+        <>
+        
         <ThemeProvider theme={theme}>
             <Container
                 component="main" 
@@ -42,5 +45,6 @@ export const UserForm = ( { formValues, setFormValues} ) => {
                 </Box>
             </Container>
         </ThemeProvider>
+        </>
     )
 }
