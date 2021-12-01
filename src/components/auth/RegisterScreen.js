@@ -16,6 +16,12 @@ import Stack from '@mui/material/Stack';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import validator from 'validator';
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
@@ -32,6 +38,7 @@ export const RegisterScreen = () => {
     const { uploadedImage, activeUser } = useSelector( state => state.user );
     const { urlimage } = activeUser;
     const [error, setError] = useState("");
+    const [values, setValues] = useState({showPassword: false});
 
     const [ formValues, handleInputChange ] = useForm({
         email: '',
@@ -75,6 +82,17 @@ export const RegisterScreen = () => {
         setError("");
        return true;
     }
+
+    const handleClickShowPassword = () => {
+        setValues({
+        ...values,
+        showPassword: !values.showPassword
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     return (
         <div className="animate__animated animate__fadeIn ">
@@ -151,16 +169,29 @@ export const RegisterScreen = () => {
                                 value={ password }
                                 onChange={ handleInputChange }
                             />
-                            <TextField
-                                margin="normal"
+                            <InputLabel htmlFor="outlined-adornment-password">
+                                Password
+                            </InputLabel>
+                            <OutlinedInput
+                                type={values.showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={handleInputChange}
+                                name="password"
                                 required
                                 fullWidth
-                                name="password2"
-                                label="Confirm password"
-                                type="password"
-                                autoComplete="off"
-                                value={ password2 }
-                                onChange={ handleInputChange }
+                                endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                    >
+                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                                }
+                                label="Password"
                             />
 
                             <Stack direction="row" alignItems="left" >

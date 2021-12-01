@@ -169,18 +169,6 @@ export const LoginScreen = () => {
                                 </Grid>
                             </Grid>
 
-
-                            {/* <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                autoComplete="off"
-                                    value={ password }
-                                    onChange={ handleInputChange }
-                            /> */}
                             {/* <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
