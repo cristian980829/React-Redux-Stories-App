@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
@@ -17,11 +16,11 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import LoginIcon from '@mui/icons-material/Login';
 import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Input from '@mui/material/Input';
+
 
 import validator from 'validator';
 
@@ -48,7 +47,6 @@ export const LoginScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isFormValid()){
-            console.log(email, password)
             dispatch( startLogin( email, password ) );
         }
     };
@@ -64,7 +62,6 @@ export const LoginScreen = () => {
         setError("");
        return true;
     }
-
 
     const handleClickShowPassword = () => {
         setValues({
@@ -108,26 +105,25 @@ export const LoginScreen = () => {
                                     </Stack>
                                 )
                             }
-                            <TextField
-                                margin="normal"
+
+                            <Input
+                                autoComplete="off"
+                                value={email}
+                                onChange={handleInputChange}
+                                name="email"
+                                placeholder="Email"
                                 required
                                 fullWidth
-                                type="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="off"
-                                value={ email }
-                                onChange={ handleInputChange }  
                                 autoFocus
                             />
-                            <InputLabel htmlFor="outlined-adornment-password">
-                                Password
-                            </InputLabel>
-                            <OutlinedInput
-                                type={values.showPassword ? "text" : "password"}
+
+                            <Input
+                                autoComplete="off"
+                                type={values.showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={handleInputChange}
                                 name="password"
+                                placeholder="Passsword"
                                 required
                                 fullWidth
                                 endAdornment={
@@ -136,14 +132,13 @@ export const LoginScreen = () => {
                                     aria-label="toggle password visibility"
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
-                                    edge="end"
                                     >
                                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                                 }
-                                label="Password"
                             />
+
                             <Button
                                 startIcon={<LoginIcon />}
                                 type="submit"
