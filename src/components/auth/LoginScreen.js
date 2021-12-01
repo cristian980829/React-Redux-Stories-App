@@ -16,6 +16,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import LoginIcon from '@mui/icons-material/Login';
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import validator from 'validator';
 
@@ -30,6 +36,7 @@ export const LoginScreen = () => {
     const dispatch = useDispatch();
 
     const [error, setError] = useState("");
+    const [values, setValues] = useState({showPassword: false});
 
     const [ formValues, handleInputChange ] = useForm({
         email: 'admin@gmail.com',
@@ -41,6 +48,7 @@ export const LoginScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isFormValid()){
+            console.log(email, password)
             dispatch( startLogin( email, password ) );
         }
     };
@@ -56,6 +64,18 @@ export const LoginScreen = () => {
         setError("");
        return true;
     }
+
+
+    const handleClickShowPassword = () => {
+        setValues({
+        ...values,
+        showPassword: !values.showPassword
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
 
     return (
@@ -100,21 +120,30 @@ export const LoginScreen = () => {
                                 onChange={ handleInputChange }  
                                 autoFocus
                             />
-                            <TextField
-                                margin="normal"
+                            <InputLabel htmlFor="outlined-adornment-password">
+                                Password
+                            </InputLabel>
+                            <OutlinedInput
+                                type={values.showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={handleInputChange}
+                                name="password"
                                 required
                                 fullWidth
-                                name="password"
+                                endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                    >
+                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                                }
                                 label="Password"
-                                type="password"
-                                autoComplete="off"
-                                    value={ password }
-                                    onChange={ handleInputChange }
                             />
-                            {/* <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            /> */}
                             <Button
                                 startIcon={<LoginIcon />}
                                 type="submit"
@@ -139,6 +168,23 @@ export const LoginScreen = () => {
                                     </Link>
                                 </Grid>
                             </Grid>
+
+
+                            {/* <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                autoComplete="off"
+                                    value={ password }
+                                    onChange={ handleInputChange }
+                            /> */}
+                            {/* <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            /> */}
                         </Box>
                     </Box>
                     <Copyright sx={{ mt: 8, mb: 4 }} />
