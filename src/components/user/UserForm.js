@@ -1,22 +1,48 @@
 import React  from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+
 import { theme } from '../../helpers/theme';
 
 import { UserFormFields } from './UserFormFields';
 import { UserFormInfo } from './UserFormInfo';
+import { uiCloseShowMessage } from '../../actions/ui';
 
 
 export const UserForm = ( { formValues, setFormValues} ) => {
 
-    const { modalViewModel } = useSelector( state => state.ui );    
+    const dispatch = useDispatch();
+
+    const { modalViewModel, showMessage } = useSelector( state => state.ui );   
+
+    const { open, message } = showMessage;
+    
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
+        }
+
+        dispatch( uiCloseShowMessage() );
+    };
 
     return (
         <>
+
+        <Stack spacing={2} sx={{ width: '100%' }}>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
+        </Stack>
         
         <ThemeProvider theme={theme}>
             <Container

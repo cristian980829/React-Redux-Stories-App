@@ -13,7 +13,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import Snackbar from '@mui/material/Snackbar';
+
 
 import { startUserUploading, updateActiveUser, uploadImage } from '../../actions/user';
 import { userStartUpdate } from '../../actions/auth';
@@ -25,7 +25,6 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
 
     const { name, urlimage, rol, uid: userId } = formValues;
 
-    const [openSnack, setOpenSnack] = useState(false);
     const dispatch = useDispatch();
     const fileInput = useRef();
     const [error, setError] = useState("");
@@ -54,11 +53,9 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
         e.preventDefault();
         if(isFormValid()){
             if(authId!==userId){
-                setOpenSnack(true);
                 await dispatch( userStartUpdate(formValues) );
                 dispatch( updateActiveUser(formValues));
             }else{
-                setOpenSnack(true);
                 await dispatch( userStartUpdate(formValues, true) );
                 dispatch( updateActiveUser(formValues));
             }
@@ -75,24 +72,10 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
         return true;
     }
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
-        setOpenSnack(false);
-    };
-
     return (
         <>
 
-            <Stack spacing={2} sx={{ width: '100%' }}>
-                <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Successfully Updated!
-                    </Alert>
-                </Snackbar>
-            </Stack>
+            
             <Box 
                 className="animate__animated animate__fadeIn"
                 component="form"

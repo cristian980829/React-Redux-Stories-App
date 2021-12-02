@@ -2,6 +2,7 @@ import { fetchConToken, fetchSinToken } from '../helpers/fetch';
 import { types } from '../types/types';
 import Swal from 'sweetalert2';
 import { storieLogout } from './storie';
+import { uiOpenShowMessage } from './ui';
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
@@ -135,8 +136,10 @@ export const userStartUpdate = ( user, currentUser = false ) => {
                     dispatch( userUpdated( user ) );
                 }
 
+                dispatch( uiOpenShowMessage("Successfully Updated!") );
+
             } else {
-                console.log(body.msg)
+                dispatch( uiOpenShowMessage(body.msg) );
             }
 
         } catch (error) {
