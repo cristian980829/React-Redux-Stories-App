@@ -6,7 +6,8 @@ const initialState = {
     modalViewModel: false,
     showMessage: {
         open: false,
-        message: ""
+        message: "",
+        error: false
     }
 }
 
@@ -49,12 +50,23 @@ export const uiReducer = ( state = initialState, action ) => {
                 modalViewModel: false
             }
 
-        case types.uiOpenShowMessage:
+        case types.uiOpenShowSuccessMessage:
+            return {
+                ...state,
+                showMessage: {
+                    ...state.showMessage,
+                    open: true,
+                    message: action.payload
+                }
+            }
+
+        case types.uiOpenShowErrorMessage:
             return {
                 ...state,
                 showMessage: {
                     open: true,
-                    message: action.payload
+                    message: action.payload,
+                    error: true
                 }
             }
 
@@ -62,6 +74,7 @@ export const uiReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 showMessage: {
+                    ...state.showMessage,
                     open: false,
                     message: ""
                 }

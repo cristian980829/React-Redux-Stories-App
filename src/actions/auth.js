@@ -2,7 +2,7 @@ import { fetchConToken, fetchSinToken } from '../helpers/fetch';
 import { types } from '../types/types';
 import Swal from 'sweetalert2';
 import { storieLogout } from './storie';
-import { uiOpenShowMessage } from './ui';
+import { uiOpenShowSuccessMessage, uiOpenShowErrorMessage } from './ui';
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
@@ -136,10 +136,10 @@ export const userStartUpdate = ( user, currentUser = false ) => {
                     dispatch( userUpdated( user ) );
                 }
 
-                dispatch( uiOpenShowMessage("Successfully Updated!") );
+                dispatch( uiOpenShowSuccessMessage("Successfully Updated!") );
 
             } else {
-                dispatch( uiOpenShowMessage(body.msg) );
+                dispatch( uiOpenShowErrorMessage(body.msg) );
             }
 
         } catch (error) {

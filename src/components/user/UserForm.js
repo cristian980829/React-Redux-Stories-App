@@ -23,7 +23,7 @@ export const UserForm = ( { formValues, setFormValues} ) => {
 
     const { modalViewModel, showMessage } = useSelector( state => state.ui );   
 
-    const { open, message } = showMessage;
+    const { open, message, error } = showMessage;
     
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -38,11 +38,13 @@ export const UserForm = ( { formValues, setFormValues} ) => {
 
         <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     {message}
                 </Alert>
             </Snackbar>
         </Stack>
+
+        
         
         <ThemeProvider theme={theme}>
             <Container

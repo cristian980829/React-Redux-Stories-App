@@ -9,5 +9,6 @@ export const uiUserOpenModal = () => ({ type: types.uiUserOpenModal });
 export const uiUserCloseModal = () => ({ type: types.uiUserCloseModal });
 
 
-export const uiOpenShowMessage = (message) => ({ type: types.uiOpenShowMessage, payload: message });
+export const uiOpenShowSuccessMessage = (message) => ({ type: types.uiOpenShowSuccessMessage, payload: message });
+export const uiOpenShowErrorMessage = (message) => ({ type: types.uiOpenShowErrorMessage, payload: message });
 export const uiCloseShowMessage = () => ({ type: types.uiCloseShowMessage });

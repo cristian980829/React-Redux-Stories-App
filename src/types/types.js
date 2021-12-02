@@ -7,7 +7,8 @@ export const types = {
     uiStorieCloseModal: '[ui] Close storie modal',
     uiModalViewModel: '[ui] Modal View Model',
     uiModalEditModel: '[ui] Modal Edit Model',
-    uiOpenShowMessage: '[ui] Open Show Message',
+    uiOpenShowSuccessMessage: '[ui] Open Show Success Message',
+    uiOpenShowErrorMessage: '[ui] Open Show Error Message',
     uiCloseShowMessage: '[ui] Close Show Message',
 
     userSetActive: '[user] User Set Active',
