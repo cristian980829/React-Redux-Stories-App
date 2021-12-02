@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -16,12 +15,7 @@ import Stack from '@mui/material/Stack';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import validator from 'validator';
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import IconButton from "@mui/material/IconButton";
+import Input from '@mui/material/Input';
 
 import { Copyright } from './Copyright';
 import { useForm } from '../../hooks/useForm';
@@ -38,7 +32,6 @@ export const RegisterScreen = () => {
     const { uploadedImage, activeUser } = useSelector( state => state.user );
     const { urlimage } = activeUser;
     const [error, setError] = useState("");
-    const [values, setValues] = useState({showPassword: false});
 
     const [ formValues, handleInputChange ] = useForm({
         email: '',
@@ -83,17 +76,6 @@ export const RegisterScreen = () => {
        return true;
     }
 
-    const handleClickShowPassword = () => {
-        setValues({
-        ...values,
-        showPassword: !values.showPassword
-        });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
     return (
         <div className="animate__animated animate__fadeIn ">
             <ThemeProvider theme={theme}>
@@ -132,67 +114,52 @@ export const RegisterScreen = () => {
                                     />
                                 </div>
                             }
-                            
-                            <TextField
-                                margin="normal"
+   
+
+                            <Input
+                                autoComplete="off"
+                                value={email}
+                                onChange={handleInputChange}
+                                name="email"
+                                placeholder="Email"
                                 required
                                 fullWidth
-                                type="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="off"
-                                value={ email }
-                                onChange={ handleInputChange }  
                                 autoFocus
                             />
 
-                            <TextField
-                                margin="normal"
+                            <Input
+                                autoComplete="off"
+                                value={name}
+                                onChange={handleInputChange}
+                                name="name"
+                                placeholder="Name"
                                 required
                                 fullWidth
-                                name="name"
-                                label="Name"
-                                type="text"
-                                autoComplete="off"
-                                value={ name }
-                                onChange={ handleInputChange }
+                                autoFocus
                             />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
+                            <Input
                                 autoComplete="off"
-                                value={ password }
-                                onChange={ handleInputChange }
-                            />
-                            <InputLabel htmlFor="outlined-adornment-password">
-                                Password
-                            </InputLabel>
-                            <OutlinedInput
-                                type={values.showPassword ? "text" : "password"}
+                                type='password'
                                 value={password}
                                 onChange={handleInputChange}
                                 name="password"
+                                placeholder="Passsword"
                                 required
                                 fullWidth
-                                endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                    >
-                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                                }
-                                label="Password"
                             />
+
+                            <Input
+                                autoComplete="off"
+                                type= 'password'
+                                value={password2}
+                                onChange={handleInputChange}
+                                name="password2"
+                                placeholder="Repeat Passsword"
+                                required
+                                fullWidth
+                            />
+                            
 
                             <Stack direction="row" alignItems="left" >
                                 <Button 
