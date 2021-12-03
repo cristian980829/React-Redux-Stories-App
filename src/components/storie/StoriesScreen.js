@@ -6,8 +6,7 @@ import { StorieCard } from './StorieCard';
 import { StorieModal } from './StorieModal';
 
 import { AddNewFab } from '../ui/AddNewFab';
-
-
+import { MessageSnack } from '../ui/MessageSnack';
 
 export const StoriesScreen = () => {
 
@@ -30,6 +29,8 @@ export const StoriesScreen = () => {
             <AddNewFab />
 
             <StorieModal/>
+
+            <MessageSnack/>
 
         </div>
     )

@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { fetchConToken } from "../helpers/fetch";
 import { prepareStories } from "../helpers/prepareStories";
 import { types } from "../types/types";
+import { uiOpenShowSuccessMessage, uiOpenShowErrorMessage } from './ui';
 
 export const storieLogout =() => ({ type: types.storieLogout });
 
@@ -23,10 +24,14 @@ export const storieStartAddNew = ( storie ) => {
                     name: name
                 }
                 dispatch( storieAddNew( storie ) );
+                dispatch( uiOpenShowSuccessMessage("Successfully Created!") );
+            }else{
+                dispatch( uiOpenShowErrorMessage(body.msg) );
             }
 
 
         } catch (error) {
+            dispatch( uiOpenShowErrorMessage('An error ocurred!') );
             console.log(error);
         }
     }
@@ -46,12 +51,14 @@ export const storieStartUpdate = ( storie ) => {
 
             if ( body.ok ) {
                 dispatch( storieUpdated( storie ) );
+                dispatch( uiOpenShowSuccessMessage("Successfully Updated!") );
             } else {
-                Swal.fire('Error', body.msg, 'error');
+                dispatch( uiOpenShowErrorMessage(body.msg) );
             }
 
 
         } catch (error) {
+            dispatch( uiOpenShowErrorMessage('An error ocurred!') );
             console.log(error)
         }
 

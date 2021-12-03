@@ -20,6 +20,7 @@ export const StorieRouter = () => {
         <>
             <div className="animate__animated animate__fadeIn">
                 <Navbar />
+                
 
                 <Box sx={{ mt: 6 }} />
                 <CssBaseline />

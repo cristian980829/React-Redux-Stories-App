@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { storieStartLoading } from '../../actions/storie';
+import { MessageSnack } from '../ui/MessageSnack';
 import { StorieCard } from './StorieCard';
 import { StorieModal } from './StorieModal';
 
@@ -23,7 +24,10 @@ export const MyStoriesScreen = () => {
             {
                 stories.map( storie => (storie.user._id===uid) && <StorieCard key={storie._id} data={storie} /> )
             }
+            
             <StorieModal/>
+
+            <MessageSnack/>
         </div>
     )
 }
