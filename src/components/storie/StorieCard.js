@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import { storieSetActive } from '../../actions/storie';
 import { uiModalViewModel, uiStorieOpenModal } from '../../actions/ui';
 
-
 export const StorieCard = ( {data} ) => {
     const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();

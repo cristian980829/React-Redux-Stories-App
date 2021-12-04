@@ -1,5 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
+
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,32 +10,23 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-import { startUserSetActive } from '../../actions/user';
-import { uiUserOpenModal, uiModalViewModel } from '../../actions/ui';
-
 export const UserCard = ( { data } ) => {
-
-    const dispatch = useDispatch();
-
-     const handleViewProfile = () => {
-        dispatch( startUserSetActive(data.uid) );
-        dispatch( uiModalViewModel() );
-        dispatch( uiUserOpenModal() );
-    }
 
     return (
         <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar 
-                    onClick={handleViewProfile}
-                    className="pointer"
                 >
                     <Avatar alt="Remy Sharp" src={data.urlimage} />
                 </ListItemAvatar>
                 <ListItemText
-                    onClick={handleViewProfile}
-                    className="text-name-card pointer"
-                    primary={data.name}
+                    className="text-name-card"
+                    primary={
+                        <Link to={ `./user/${ data.uid }/${ data.name }` } className="text-link">
+                            { data.name }
+                        </Link>
+                    }
+                    
                     secondary={
                     <React.Fragment>
                     <Typography
