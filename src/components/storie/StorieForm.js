@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ImgList } from './ImageList';
 
 
 const theme = createTheme();
@@ -113,6 +114,12 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                     </Typography>
                                 </Box>
                             </CardActions>
+
+
+                             <ImgList />
+
+
+
                             <CardActions>
                                 <CardContent>
                                     <Typography variant="p">
@@ -128,3 +135,5 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
         </ThemeProvider>
     )
 }
+
+

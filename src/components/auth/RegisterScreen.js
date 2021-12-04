@@ -135,7 +135,6 @@ export const RegisterScreen = () => {
                                 placeholder="Name"
                                 required
                                 fullWidth
-                                autoFocus
                             />
 
                             <Input
