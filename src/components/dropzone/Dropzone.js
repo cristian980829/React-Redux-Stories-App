@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
 
 import './Dropzone.css';
 
@@ -114,48 +113,9 @@ const Dropzone = () => {
         }
     }
 
-    const openImageModal = (file) => {
-        const reader = new FileReader();
-        modalRef.current.style.display = "block";
-        reader.readAsDataURL(file);
-        reader.onload = function(e) {
-            modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
-        }
-    }
-
     const closeModal = () => {
         modalRef.current.style.display = "none";
         modalImageRef.current.style.backgroundImage = 'none';
-    }
-
-    const uploadFiles = async () => {
-        uploadModalRef.current.style.display = 'block';
-        uploadRef.current.innerHTML = 'File(s) Uploading...';
-        for (let i = 0; i < validFiles.length; i++) {
-            const formData = new FormData();
-            formData.append('file', validFiles[i]);
-            formData.append('upload_preset', 'stories-app');
-
-            axios.post('https://api.cloudinary.com/v1_1/dcsutpqkl/upload', formData, {
-                onUploadProgress: (progressEvent) => {
-                    const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
-                    progressRef.current.innerHTML = `${uploadPercentage}%`;
-                    progressRef.current.style.width = `${uploadPercentage}%`;
-
-                    if (uploadPercentage === 100) {
-                        uploadRef.current.innerHTML = 'File(s) Uploaded';
-                        validFiles.length = 0;
-                        setValidFiles([...validFiles]);
-                        setSelectedFiles([...validFiles]);
-                        setUnsupportedFiles([...validFiles]);
-                    }
-                },
-            })
-            .catch(() => {
-                uploadRef.current.innerHTML = `<span class="error">Error Uploading File(s)</span>`;
-                progressRef.current.style.backgroundColor = 'red';
-            })
-        }
     }
 
     const closeUploadModal = () => {
@@ -166,16 +126,15 @@ const Dropzone = () => {
     return (
         <>
             <div className="container">
-                {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Upload Files</button> : ''} 
                 {unsupportedFiles.length ? <p>Please remove all unsupported files.</p> : ''}
-                <div className="drop-container"
+                <div className="drop-container pointer"
                     onDragOver={dragOver}
                     onDragEnter={dragEnter}
                     onDragLeave={dragLeave}
                     onDrop={fileDrop}
                     onClick={fileInputClicked}
                 >
-                    <div className="drop-message">
+                    <div className="drop-message pointer">
                         <div className="upload-icon"></div>
                         Drag & Drop files here or click to select file(s)
                     </div>
@@ -191,13 +150,11 @@ const Dropzone = () => {
                     {
                         validFiles.map((data, i) => 
                             <div className="file-status-bar" key={i}>
-                                <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
                                     <div className="file-type-logo"></div>
                                     <div className="file-type">{fileType(data.name)}</div>
                                     <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
                                     <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
-                                </div>
-                                <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                                    <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
                             </div>
                         )
                     }

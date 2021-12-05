@@ -16,6 +16,11 @@
     transform: translateY(-100%);
 }
 
+.drop-message:hover{
+    opacity: 0.6;
+    transition-duration: 0.4s;
+}
+
 .container p {
     color: red;
     text-align: center;
@@ -26,7 +31,7 @@
     align-items: center;
     justify-content: center;
     margin: 0;
-    width: 800px;
+    width: 250;
     height: 200px;
     border: 4px dashed #4aa1f3;
 }
@@ -46,6 +51,7 @@
     color: #4aa1f3;
     font-family: Arial;
     font-size: 20px;
+    margin: 20px;
 }
 
 .file-progressBar {
@@ -73,8 +79,8 @@
 }
   
 .file-display-container {
-    position: fixed;
-    width: 805px;
+    position: absolute;
+    width: 320px;
 }
   
 .file-status-bar{

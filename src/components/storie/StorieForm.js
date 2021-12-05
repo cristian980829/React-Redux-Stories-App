@@ -9,8 +9,8 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ImgList } from './ImageList';
@@ -47,9 +47,9 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                     }}
                 >
                     {!modalViewModel ?
-                    <>
                         <Box
                             component="form"
+                            justifyContent="center"
                         >
                             {
                                 error &&
@@ -59,8 +59,6 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                     </Stack>
                                 )
                             } 
-
-                                
 
                             <TextField
                                 margin="normal"
@@ -87,13 +85,12 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                 value={ description }
                                 onChange={ handleInputChange }
                             />
+                                        
+                            <div className="content">
+                                <Dropzone />
+                            </div>
 
                         </Box> 
-                            <p className="title">React Drag and Drop Image Upload</p>
-                                <div className="content">
-                                    <Dropzone />
-                                </div>
-                                </>
                 
                     : <Box 
                         display="flex" 
