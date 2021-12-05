@@ -159,3 +159,8 @@ export const storieAddImage = (file) => ({
     type: types.storieAddImages,
     payload: file
 });
+
+export const storieRemoveImages = (images) => ({
+    type: types.storieRemoveImages,
+    payload: images
+});

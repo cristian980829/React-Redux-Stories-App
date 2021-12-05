@@ -59,10 +59,15 @@ export const storieReducer = ( state = initialState, action ) => {
             }
 
         case types.storieAddImages:
-            console.log(action.payload)
             return {
                 ...state,
                 images: [ ...state.images, action.payload ]
+            }
+            
+        case types.storieRemoveImages:
+            return {
+                ...state,
+                images: action.payload 
             }
 
         default:

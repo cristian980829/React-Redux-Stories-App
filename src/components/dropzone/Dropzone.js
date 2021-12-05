@@ -1,22 +1,26 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { storieAddImage } from '../../actions/storie';
+import { useDispatch, useSelector } from 'react-redux';
+import { storieAddImage, storieRemoveImages } from '../../actions/storie';
 
 import './Dropzone.css';
 
 const Dropzone = () => {
+    const initialImage = {
+        name: '',
+        file: ''
+    }
     const fileInputRef = useRef();
-    const [selectedFiles, setSelectedFiles] = useState([]);
     const [validFiles, setValidFiles] = useState([]);
     const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const [imagePreview, setImagePreview] = useState('')
+    const [imagePreview, setImagePreview] = useState(initialImage)
 
 
     const dispatch = useDispatch();
+    const { images } = useSelector( state => state.storie );
 
     useEffect(() => {
-        let filteredArr = selectedFiles.reduce((acc, current) => {
+        let filteredArr = images.reduce((acc, current) => {
             const x = acc.find(item => item.name === current.name);
             if (!x) {
               return acc.concat([current]);
@@ -25,7 +29,7 @@ const Dropzone = () => {
             }
         }, []);
         setValidFiles([...filteredArr]);
-    }, [selectedFiles]);
+    }, [images]);
 
     const preventDefault = (e) => {
         e.preventDefault();
@@ -67,12 +71,9 @@ const Dropzone = () => {
         for(let i = 0; i < files.length; i++) {
             if (validateFile(files[i])) {
                 dispatch(storieAddImage(files[i]));
-                // console.log(files[i])
-                setSelectedFiles(prevArray => [...prevArray, files[i]]);
             } else {
                 files[i]['invalid'] = true;
                 dispatch(storieAddImage(files[i]));
-                setSelectedFiles(prevArray => [...prevArray, files[i]]);
                 setErrorMessage('File type not permitted');
                 setUnsupportedFiles(prevArray => [...prevArray, files[i]]);
             }
@@ -102,20 +103,20 @@ const Dropzone = () => {
         return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
     }
 
-    const removeFile = (name) => {
-        const index = validFiles.findIndex(e => e.name === name);
-        const index2 = selectedFiles.findIndex(e => e.name === name);
-        const index3 = unsupportedFiles.findIndex(e => e.name === name);
+    const removeFile = (file) => {
+        console.log(file)
+        const index = validFiles.findIndex(e => e.name === file.name);
+        const index3 = unsupportedFiles.findIndex(e => e.name === file.name);
         validFiles.splice(index, 1);
-        selectedFiles.splice(index2, 1);
         setValidFiles([...validFiles]);
-        setSelectedFiles([...selectedFiles]);
+        dispatch(storieRemoveImages([...validFiles]));
+        
         if (index3 !== -1) {
             unsupportedFiles.splice(index3, 1);
             setUnsupportedFiles([...unsupportedFiles]);
         }
-        if(validFiles.length < 1){
-            setImagePreview('');
+        if(imagePreview.name===file.name || validFiles.length < 1){
+            setImagePreview(initialImage);
         }
     }
 
@@ -123,10 +124,9 @@ const Dropzone = () => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(e) {
-            setImagePreview(e.target.result)
+            setImagePreview({name:file.name, file: e.target.result})
         }
     }
-
 
     return (
         <>
@@ -161,15 +161,15 @@ const Dropzone = () => {
                                 <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
                                 <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                             </div>
-                                <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                                <div className="file-remove" onClick={() => removeFile(data)}>X</div>
                         </div>
                     )
                 }
 
-                {(validFiles.length > 0 && imagePreview) && <div>
+                {(validFiles.length > 0 && imagePreview.file) && <div>
                     <img
-                        src={`${imagePreview}`}
-                        alt={imagePreview}
+                        src={`${imagePreview.file}`}
+                        alt={imagePreview.file}
                         className="img-storie"
                     />
                 </div>}
