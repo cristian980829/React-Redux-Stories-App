@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { storieAddImage } from '../../actions/storie';
 
 import './Dropzone.css';
 
@@ -9,6 +11,9 @@ const Dropzone = () => {
     const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [imagePreview, setImagePreview] = useState('')
+
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -61,9 +66,12 @@ const Dropzone = () => {
     const handleFiles = (files) => {
         for(let i = 0; i < files.length; i++) {
             if (validateFile(files[i])) {
+                dispatch(storieAddImage(files[i]));
+                // console.log(files[i])
                 setSelectedFiles(prevArray => [...prevArray, files[i]]);
             } else {
                 files[i]['invalid'] = true;
+                dispatch(storieAddImage(files[i]));
                 setSelectedFiles(prevArray => [...prevArray, files[i]]);
                 setErrorMessage('File type not permitted');
                 setUnsupportedFiles(prevArray => [...prevArray, files[i]]);

@@ -27,6 +27,7 @@ export const types = {
     storieUpdated: '[storie] Storie updated',
     storieDeleted: '[storie] Storie deleted',
     storieLoaded: '[storie] Stories loaded',
+    storieAddImages: '[storie] Storie  Add Image',
 
     authCheckingFinish: '[auth] Finish checking login state',
     authStartLogin: '[auth] Start login',

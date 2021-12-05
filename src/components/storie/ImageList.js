@@ -16,7 +16,9 @@ const srcset = (image, width, height, rows = 1, cols = 1) => {
 
 export const ImgList = () => {
 
-  const { urlImages } = useSelector( state => state.storie );
+  const { images } = useSelector( state => state.storie );
+
+  console.log(images)
 
     return (
     <Box 
@@ -32,15 +34,15 @@ export const ImgList = () => {
         rowHeight={150}
         gap={1}
       >
-        {urlImages.map((item, index) => {
+        {images.map((item, index) => {
           const cols = 2;
           const rows = 2;
 
           return (
             <ImageListItem key={index} cols={cols} rows={rows}>
               <img
-                {...srcset(item, 200, 150, rows, cols)}
-                alt={item}
+                {...srcset(item.url, 200, 150, rows, cols)}
+                alt={item.url}
                 loading="lazy"
               />
             </ImageListItem>

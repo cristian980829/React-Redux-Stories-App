@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 
 import { fetchConToken } from "../helpers/fetch";
+import { fileUpload } from '../helpers/fileUpload';
 import { prepareStories } from "../helpers/prepareStories";
 import { types } from "../types/types";
 import { uiOpenShowSuccessMessage, uiOpenShowErrorMessage } from './ui';
@@ -130,3 +131,31 @@ const storieLoaded = (stories) => ({
     type: types.storieLoaded,
     payload: stories
 })
+
+export const startStorieUploading = ( file, name = '' ) => {
+    return async( dispatch ) => {
+
+        try {
+            const urlimage = await fileUpload( file );
+
+            dispatch( storieUploadImage( urlimage, name ) );
+
+            // dispatch( endUploadImage() );
+
+        } catch (error) {
+            // dispatch( endUploadImage() );
+            console.log(error);
+        }
+
+    }
+}
+
+const storieUploadImage = (urlimage, name) => ({
+    type: types.userUrlUpload,
+    payload: {urlimage, name}
+});
+
+export const storieAddImage = (file) => ({
+    type: types.storieAddImages,
+    payload: file
+});
