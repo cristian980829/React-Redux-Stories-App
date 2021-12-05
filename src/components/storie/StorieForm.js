@@ -14,6 +14,7 @@ import { CardActions } from '@mui/material';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ImgList } from './ImageList';
+import Dropzone from '../dropzone/Dropzone';
 
 
 const theme = createTheme();
@@ -46,6 +47,7 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                     }}
                 >
                     {!modalViewModel ?
+                    <>
                         <Box
                             component="form"
                         >
@@ -57,6 +59,8 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                     </Stack>
                                 )
                             } 
+
+                                
 
                             <TextField
                                 margin="normal"
@@ -83,7 +87,13 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                 value={ description }
                                 onChange={ handleInputChange }
                             />
+
                         </Box> 
+                            <p className="title">React Drag and Drop Image Upload</p>
+                                <div className="content">
+                                    <Dropzone />
+                                </div>
+                                </>
                 
                     : <Box 
                         display="flex" 
