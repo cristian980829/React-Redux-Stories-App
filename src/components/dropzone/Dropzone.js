@@ -1,14 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { storieAddImage, storieRemoveImages } from '../../actions/storie';
+import { storieAddImage, storieIsValidImages, storieRemoveImages } from '../../actions/storie';
 
 import './Dropzone.css';
 
 const Dropzone = () => {
+
     const initialImage = {
         name: '',
         file: ''
     }
+
     const fileInputRef = useRef();
     const [validFiles, setValidFiles] = useState([]);
     const [unsupportedFiles, setUnsupportedFiles] = useState([]);
@@ -29,7 +31,12 @@ const Dropzone = () => {
             }
         }, []);
         setValidFiles([...filteredArr]);
-    }, [images]);
+        if(unsupportedFiles.length > 0){
+            dispatch(storieIsValidImages(false));
+        }else{
+            dispatch(storieIsValidImages(true));
+        }
+    }, [images, unsupportedFiles, dispatch]);
 
     const preventDefault = (e) => {
         e.preventDefault();
@@ -81,7 +88,7 @@ const Dropzone = () => {
     }
 
     const validateFile = (file) => {
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/x-icon', 'image/webp'];
+        const validTypes = [ 'image/gif', 'image/x-icon', 'image/webp'];
         if (validTypes.indexOf(file.type) === -1) {
             return false;
         }
@@ -104,17 +111,17 @@ const Dropzone = () => {
     }
 
     const removeFile = (file) => {
-        console.log(file)
         const index = validFiles.findIndex(e => e.name === file.name);
         const index3 = unsupportedFiles.findIndex(e => e.name === file.name);
         validFiles.splice(index, 1);
         setValidFiles([...validFiles]);
         dispatch(storieRemoveImages([...validFiles]));
-        
+
         if (index3 !== -1) {
             unsupportedFiles.splice(index3, 1);
             setUnsupportedFiles([...unsupportedFiles]);
         }
+
         if(imagePreview.name===file.name || validFiles.length < 1){
             setImagePreview(initialImage);
         }
@@ -131,7 +138,6 @@ const Dropzone = () => {
     return (
         <>
             <div className="container">
-                {unsupportedFiles.length ? <p>Please remove all unsupported files.</p> : ''}
                 <div className="drop-container pointer"
                     onDragOver={dragOver}
                     onDragEnter={dragEnter}
@@ -152,13 +158,15 @@ const Dropzone = () => {
                     />
                 </div>
 
+                {unsupportedFiles.length ? <p>Please remove all unsupported files.</p> : ''}
+                
                 {
                     validFiles.map((data, i) => 
                         <div className="file-status-bar" key={i}>
                             <div className="pointer" onClick={!data.invalid ? () => openImageView(data) : () => removeFile(data.name)}>
                                 <div className="file-type-logo"></div>
                                 <div className="file-type">{fileType(data.name)}</div>
-                                <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
+                                <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name.substring(0, 16) + "..."}</span>
                                 <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                             </div>
                                 <div className="file-remove" onClick={() => removeFile(data)}>X</div>

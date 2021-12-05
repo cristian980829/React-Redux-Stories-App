@@ -29,6 +29,7 @@ export const types = {
     storieLoaded: '[storie] Stories loaded',
     storieAddImages: '[storie] Storie  Add Image',
     storieRemoveImages: '[storie] Storie Remove Image',
+    storieIsValidImages: '[storie] Storie Valid Images',
 
     authCheckingFinish: '[auth] Finish checking login state',
     authStartLogin: '[auth] Start login',

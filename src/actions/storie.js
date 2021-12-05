@@ -164,3 +164,8 @@ export const storieRemoveImages = (images) => ({
     type: types.storieRemoveImages,
     payload: images
 });
+
+export const storieIsValidImages = (valid) => ({
+    type: types.storieIsValidImages,
+    payload: valid
+});

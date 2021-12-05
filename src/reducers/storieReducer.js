@@ -3,7 +3,8 @@ import { types } from '../types/types';
 const initialState = {
     stories: [],
     activeStorie: null,
-    images: []
+    images: [],
+    isValidImages: true
 };
 
 export const storieReducer = ( state = initialState, action ) => {
@@ -68,6 +69,12 @@ export const storieReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 images: action.payload 
+            }
+
+        case types.storieIsValidImages:
+            return {
+                ...state,
+                isValidImages: action.payload 
             }
 
         default:
