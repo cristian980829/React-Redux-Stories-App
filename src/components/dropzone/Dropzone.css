@@ -12,9 +12,6 @@
     margin-bottom: 5px;
 }
 
-.container {
-    transform: translateY(-100%);
-}
 
 .drop-message:hover{
     opacity: 0.6;
@@ -26,14 +23,17 @@
     text-align: center;
 }
 
+.container{
+    margin-bottom: 35px;
+}
+
 .drop-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    width: 250;
-    height: 200px;
-    border: 4px dashed #4aa1f3;
+    margin-top: 10px;
+    height: 150px;
+    border: 2px dashed #3f51b5;
 }
 
 .upload-icon {
@@ -42,15 +42,15 @@
     background: url(../../images/upload.png) no-repeat center center;
     background-size: 100%;
     text-align: center;
-    margin: 0 auto;
+    margin: 15px auto;
     padding-top: 30px;
 }
 
 .drop-message {
     text-align: center;
-    color: #4aa1f3;
+    color: #3f51b5;
     font-family: Arial;
-    font-size: 20px;
+    font-size: 18px;
     margin: 20px;
 }
 
@@ -78,11 +78,7 @@
     font-size: 13px;
 }
   
-.file-display-container {
-    position: absolute;
-    width: 320px;
-}
-  
+
 .file-status-bar{
     width: 100%;
     vertical-align:top;

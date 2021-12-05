@@ -4,15 +4,11 @@ import './Dropzone.css';
 
 const Dropzone = () => {
     const fileInputRef = useRef();
-    const modalImageRef = useRef();
-    const modalRef = useRef();
-    const progressRef = useRef();
-    const uploadRef = useRef();
-    const uploadModalRef = useRef();
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [validFiles, setValidFiles] = useState([]);
     const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [imagePreview, setImagePreview] = useState('')
 
     useEffect(() => {
         let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -24,7 +20,6 @@ const Dropzone = () => {
             }
         }, []);
         setValidFiles([...filteredArr]);
-        
     }, [selectedFiles]);
 
     const preventDefault = (e) => {
@@ -49,7 +44,7 @@ const Dropzone = () => {
         const files = e.dataTransfer.files;
         if (files.length) {
             handleFiles(files);
-            console.log(selectedFiles)
+            
         }
     }
 
@@ -111,15 +106,17 @@ const Dropzone = () => {
             unsupportedFiles.splice(index3, 1);
             setUnsupportedFiles([...unsupportedFiles]);
         }
+        if(validFiles.length < 1){
+            setImagePreview('');
+        }
     }
 
-    const closeModal = () => {
-        modalRef.current.style.display = "none";
-        modalImageRef.current.style.backgroundImage = 'none';
-    }
-
-    const closeUploadModal = () => {
-        uploadModalRef.current.style.display = 'none';
+    const openImageView = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e) {
+            setImagePreview(e.target.result)
+        }
     }
 
 
@@ -146,36 +143,32 @@ const Dropzone = () => {
                         onChange={filesSelected}
                     />
                 </div>
-                <div className="file-display-container">
-                    {
-                        validFiles.map((data, i) => 
-                            <div className="file-status-bar" key={i}>
-                                    <div className="file-type-logo"></div>
-                                    <div className="file-type">{fileType(data.name)}</div>
-                                    <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
-                                    <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
-                                    <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
-            <div className="modal" ref={modalRef}>
-                <div className="overlay"></div>
-                <span className="close" onClick={(() => closeModal())}>X</span>
-                <div className="modal-image" ref={modalImageRef}></div>
-            </div>
 
-            <div className="upload-modal" ref={uploadModalRef}>
-                <div className="overlay"></div>
-                <div className="close" onClick={(() => closeUploadModal())}>X</div>
-                <div className="progress-container">
-                    <span ref={uploadRef}></span>
-                    <div className="progress">
-                        <div className="progress-bar" ref={progressRef}></div>
-                    </div>
-                </div>
+                {
+                    validFiles.map((data, i) => 
+                        <div className="file-status-bar" key={i}>
+                            <div className="pointer" onClick={!data.invalid ? () => openImageView(data) : () => removeFile(data.name)}>
+                                <div className="file-type-logo"></div>
+                                <div className="file-type">{fileType(data.name)}</div>
+                                <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
+                                <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
+                            </div>
+                                <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                        </div>
+                    )
+                }
+
+                {(validFiles.length > 0 && imagePreview) && <div>
+                    <img
+                        src={`${imagePreview}`}
+                        alt={imagePreview}
+                        className="img-storie"
+                    />
+                </div>}
+
             </div>
+            
+
         </>
     );
 }

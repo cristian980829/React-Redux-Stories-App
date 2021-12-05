@@ -86,9 +86,9 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                 onChange={ handleInputChange }
                             />
                                         
-                            <div className="content">
+                            {/* <div className="content"> */}
                                 <Dropzone />
-                            </div>
+                            {/* </div> */}
 
                         </Box> 
                 

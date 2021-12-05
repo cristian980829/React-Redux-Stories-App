@@ -59,6 +59,13 @@
     border-radius: 100%;
 }
 
+.img-storie {
+    margin: auto;
+    display: block;
+    width: 150px;
+    height: 150px;
+}
+
 .img-register {
     margin: auto;
     display: block;
