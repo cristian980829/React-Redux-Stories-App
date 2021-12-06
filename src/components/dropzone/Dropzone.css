@@ -156,6 +156,11 @@
     margin-right: -10px;
 }
 
+.file-remove:hover {
+    opacity: 0.6;
+    transition-duration: 0.4s;
+}
+
 .modal{
     z-index: 999;
     display: none;

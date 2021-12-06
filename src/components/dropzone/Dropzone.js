@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { storieAddImage, storieIsValidImages, storieRemoveImages } from '../../actions/storie';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import './Dropzone.css';
 
@@ -169,7 +170,7 @@ const Dropzone = () => {
                                 <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name.substring(0, 16) + "..."}</span>
                                 <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                             </div>
-                                <div className="file-remove" onClick={() => removeFile(data)}>X</div>
+                                <div className="file-remove" onClick={() => removeFile(data)}><DeleteIcon/></div>
                         </div>
                     )
                 }
