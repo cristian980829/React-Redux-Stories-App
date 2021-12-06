@@ -77,8 +77,7 @@ export const uiReducer = ( state = initialState, action ) => {
                 ...state,
                 showMessage: {
                     ...state.showMessage,
-                    open: false,
-                    message: ""
+                    open: false
                 }
             }
 

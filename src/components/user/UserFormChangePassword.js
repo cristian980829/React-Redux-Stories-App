@@ -7,6 +7,9 @@ import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
+import { ShowLoading } from '../ui/ShowLoading';
+import { uiShowLoading } from '../../actions/ui';
+
 import { userPasswordUpdate } from '../../actions/user';
 
 export const UserFormChangePassword = () => {
@@ -30,11 +33,14 @@ export const UserFormChangePassword = () => {
         });
     }
 
-    const handleSubmitPasswordForm = (e) => {
+    const handleSubmitPasswordForm = async(e) => {
         e.preventDefault();
         if(isPasswordFormValid()){
-            dispatch( userPasswordUpdate(formPassValues) );      
+            dispatch(uiShowLoading(true));
+            await dispatch( userPasswordUpdate(formPassValues) );   
         }
+        setFormPassValues(initPassword);
+        dispatch(uiShowLoading(false));
     }
 
     const isPasswordFormValid = () => {
@@ -101,6 +107,8 @@ export const UserFormChangePassword = () => {
             >
                 Save
             </Button>
+
+            <ShowLoading/>
 
         </Box> 
     )

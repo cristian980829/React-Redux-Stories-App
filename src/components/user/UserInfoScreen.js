@@ -11,12 +11,10 @@ import { StorieModal } from '../storie/StorieModal';
 
 export const UserInfoScreen = () => {
 
+    const dispatch = useDispatch();
     const { stories } = useSelector( state => state.storie );
 
     const { userid, username } = useParams();
-
-
-    const dispatch = useDispatch();
 
     const handleViewProfile = () => {
         dispatch( startUserSetActive(userid) );
@@ -33,7 +31,7 @@ export const UserInfoScreen = () => {
     return (
         <div className="animate__animated animate__fadeIn">
 
-            <h1>Historias de  {username}</h1>
+            <h1>Historias de {username}</h1>
             <hr/>
 
             <CardActions>
@@ -45,8 +43,6 @@ export const UserInfoScreen = () => {
             {
                 stories.map( storie => (storie.user._id===userid) && <StorieCard key={storie._id} data={storie} /> )
             }
-
-            {/* <AddNewFab /> */}
 
             <StorieModal/>
 

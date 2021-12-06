@@ -16,9 +16,10 @@ import TextField from '@mui/material/TextField';
 
 import { startUserUploading, updateActiveUser, uploadImage } from '../../actions/user';
 import { userStartUpdate } from '../../actions/auth';
-import { uiModalViewModel } from '../../actions/ui';
+import { uiShowLoading } from '../../actions/ui';
 import { Radio } from '@mui/material';
 import { UserFormChangePassword } from './UserFormChangePassword';
+import { ShowLoading } from '../ui/ShowLoading';
 
 export const UserFormFields = ( { formValues, setFormValues} ) => {
 
@@ -51,6 +52,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
     const handleSubmitForm = async(e) => {
         e.preventDefault();
         if(isFormValid()){
+            dispatch(uiShowLoading(true));
             if(authId!==userId){
                 await dispatch( userStartUpdate(formValues) );
                 dispatch( updateActiveUser(formValues));
@@ -58,7 +60,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
                 await dispatch( userStartUpdate(formValues, true) );
                 dispatch( updateActiveUser(formValues));
             }
-            dispatch( uiModalViewModel() );
+            dispatch(uiShowLoading(false));
         }
     }
 
@@ -73,7 +75,7 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
 
     return (
         <>
-
+            <ShowLoading/>
             
             <Box 
                 className="animate__animated animate__fadeIn"
@@ -93,8 +95,8 @@ export const UserFormFields = ( { formValues, setFormValues} ) => {
 
                 {
                     userId!==authId 
-                        ? <h3>Update {activeUser.name} User Information</h3> 
-                        : <h3>Update Your User Information</h3> 
+                        ? <h3 align="center">Update {activeUser.name} User Information</h3> 
+                        : <h3 align="center">Update Your User Information</h3> 
                 }
 
                 {

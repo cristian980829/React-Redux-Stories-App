@@ -18,6 +18,13 @@ export const UserFormInfo = () => {
             justifyContent="center"
         >
             <Card sx={{ maxWidth: 1000 }}>
+                <div>
+                    <img
+                        src={`${urlimage}`}
+                        alt={name}
+                        className="img-register"
+                    />
+                </div>
                 <CardActions>
                     <Box
                         sx={{ ml: 2 }}
@@ -68,14 +75,6 @@ export const UserFormInfo = () => {
                         alignItems="left"
                         justifyContent="left"
                     >
-                        <Typography variant="body1" color="text.secondary">
-                            
-                            <img
-                                src={`${urlimage}`}
-                                alt={name}
-                                className="img"
-                            />
-                        </Typography>
                     </Box>
                 </CardActions>
             </Card>

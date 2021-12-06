@@ -15,9 +15,6 @@ import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import List from '@mui/material/List';
 
-
-
-
 import { ImgList } from './ImageList';
 import Dropzone from '../dropzone/Dropzone';
 import { StorieImageCard } from './StorieImageCard';

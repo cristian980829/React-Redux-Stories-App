@@ -143,7 +143,7 @@ export const userStartUpdate = ( user, currentUser = false ) => {
             }
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
             dispatch( uiOpenShowErrorMessage('An error ocurred!') );
         }
 

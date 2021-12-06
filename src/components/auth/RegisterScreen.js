@@ -115,7 +115,6 @@ export const RegisterScreen = () => {
                                 </div>
                             }
    
-
                             <Input
                                 autoComplete="off"
                                 value={email}
@@ -158,7 +157,6 @@ export const RegisterScreen = () => {
                                 required
                                 fullWidth
                             />
-                            
 
                             <Stack direction="row" alignItems="left" >
                                 <Button 
@@ -177,10 +175,7 @@ export const RegisterScreen = () => {
                                     style={{ display: 'none' }} 
                                 />
                             </Stack>
-                            {/* <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            /> */}
+
                             {!uploadedImage && <Button
                                     onClick={handleSubmit}
                                     startIcon={<CreateNewFolderIcon />}
@@ -205,11 +200,7 @@ export const RegisterScreen = () => {
                             }
 
                             <Grid container>
-                                {/* <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                                </Grid> */}
+
                                 <Grid item>
                                     <Link 
                                         to="/auth/signin"

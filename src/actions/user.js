@@ -3,6 +3,7 @@ import { fetchConToken } from "../helpers/fetch";
 
 import Swal from 'sweetalert2';
 import { fileUpload } from "../helpers/fileUpload";
+import { uiOpenShowErrorMessage, uiOpenShowSuccessMessage } from "./ui";
 
 export const startUserSetActive = (id = null) => {
     return async(dispatch, getState) => {
@@ -39,20 +40,22 @@ export const userClearActive = () => ({ type: types.userClearActive});
 
 
 export const userPasswordUpdate = ( userPasswordValues ) => {
-    return async() => {
+    return async(dispatch) => {
 
         try {
             const resp = await fetchConToken(`user/password`, userPasswordValues, 'PUT' );
             const body = await resp.json();
 
             if ( body.ok ) {
-               console.log('Actualizada')
+               dispatch( uiOpenShowSuccessMessage("Successfully Updated!") );
             } else {
+                dispatch( uiOpenShowErrorMessage(body.msg) );
                 console.log("error: ", body.msg)
             }
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            dispatch( uiOpenShowErrorMessage('An error ocurred!') );
         }
 
     }
