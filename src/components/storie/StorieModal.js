@@ -21,7 +21,6 @@ import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { ReturnFab } from '../ui/ReturnFab';
 
-
 const initStorie = {
     title: '',
     description: '',
@@ -55,7 +54,7 @@ export const StorieModal = () => {
         }
     }, [activeStorie, setFormValues])
 
-    const handleSubmitForm = (e) => {
+    const handleSubmitForm = async(e) => {
         e.preventDefault();
 
         if(isFormValid()){
@@ -63,7 +62,7 @@ export const StorieModal = () => {
                 formValues.registration_date = moment().toDate();
                 dispatch( storieStartUpdate(formValues) );
             }else{
-                dispatch( storieStartAddNew(formValues, images) );
+                await dispatch( storieStartAddNew(formValues, images) );
             }
             closeModal();
         }

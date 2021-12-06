@@ -77,6 +77,15 @@ export const storieReducer = ( state = initialState, action ) => {
                 isValidImages: action.payload 
             }
 
+        case types.storieClearImages:
+            return {
+                ...state,
+                images: [] 
+            }
+
+
+            
+
         default:
             return state;
     }

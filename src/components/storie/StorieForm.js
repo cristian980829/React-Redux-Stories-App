@@ -21,7 +21,7 @@ const theme = createTheme();
 
 export const StorieForm = ( { formValues, setFormValues, error } ) => {
 
-    const { description, title, registration_date, user } = formValues;
+    const { description, title, registration_date, user, urlImages } = formValues;
     
     const date_format = moment(registration_date).format('lll');
 
@@ -86,9 +86,7 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                                 onChange={ handleInputChange }
                             />
                                         
-                            {/* <div className="content"> */}
-                                <Dropzone />
-                            {/* </div> */}
+                            <Dropzone />
 
                         </Box> 
                 
@@ -123,8 +121,7 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                             </CardActions>
 
 
-                             <ImgList />
-
+                            {urlImages.length > 0 && <ImgList />}
 
 
                             <CardActions>

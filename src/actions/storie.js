@@ -22,8 +22,6 @@ export const storieStartAddNew = ( storie, images ) => {
                 urlImages
             }
 
-            console.log(urlImages);
-
             const resp = await fetchConToken('stories', storie, 'POST');
             const body = await resp.json();
 
@@ -35,13 +33,16 @@ export const storieStartAddNew = ( storie, images ) => {
                     name: name
                 }
                 dispatch( storieAddNew( storie ) );
+                dispatch(storieClearImages());
                 dispatch( uiOpenShowSuccessMessage("Successfully Created!") );
             }else{
                 dispatch( uiOpenShowErrorMessage(body.msg) );
+                dispatch(storieClearImages());
             }
 
 
         } catch (error) {
+            dispatch(storieClearImages());
             dispatch( uiOpenShowErrorMessage('An error ocurred!') );
             console.log(error);
         }
@@ -53,7 +54,9 @@ const storieAddNew = (storie) => ({
     payload: storie
 });
 
-
+const storieClearImages = () => ({
+    type: types.storieClearImages
+})
 
 export const storieStartUpdate = ( storie ) => {
     return async(dispatch) => {

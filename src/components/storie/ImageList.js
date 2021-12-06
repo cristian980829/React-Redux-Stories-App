@@ -18,7 +18,6 @@ export const ImgList = () => {
 
   const { urlImages } = useSelector( state => state.storie.activeStorie );
 
-  console.log(urlImages)
 
     return (
     <Box 
