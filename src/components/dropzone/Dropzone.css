@@ -145,7 +145,7 @@
     font-weight: 700;
     font-size: 14px;
 }
-  
+
 .file-remove  {
     position: absolute;
     top: 20px;
@@ -153,7 +153,7 @@
     line-height: 15px;
     cursor: pointer;
     color: rgb(175, 67, 67);
-    margin-right: -10px;
+    margin-right: 70px;
 }
 
 .file-remove:hover {

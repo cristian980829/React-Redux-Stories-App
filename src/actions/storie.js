@@ -58,23 +58,33 @@ export const storieClearImages = () => ({
     type: types.storieClearImages
 })
 
-export const storieStartUpdate = ( storie ) => {
+export const storieStartUpdate = ( storie, images ) => {
     return async(dispatch) => {
 
         try {
+            const urlImages = await filesUpload(images);
+
+            storie = {
+                ...storie,
+                urlImages: [...storie.urlImages, ...urlImages ]
+            }
+
             const resp = await fetchConToken(`stories/${ storie._id }`, storie, 'PUT' );
             const body = await resp.json();
 
             if ( body.ok ) {
                 dispatch( storieUpdated( storie ) );
                 dispatch( uiOpenShowSuccessMessage("Successfully Updated!") );
+            dispatch(storieClearImages());
             } else {
                 dispatch( uiOpenShowErrorMessage(body.msg) );
+            dispatch(storieClearImages());
             }
 
 
         } catch (error) {
             dispatch( uiOpenShowErrorMessage('An error ocurred!') );
+            dispatch(storieClearImages());
             console.log(error)
         }
 

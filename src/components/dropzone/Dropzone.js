@@ -167,10 +167,10 @@ const Dropzone = () => {
                             <div className="pointer" onClick={!data.invalid ? () => openImageView(data) : () => removeFile(data.name)}>
                                 <div className="file-type-logo"></div>
                                 <div className="file-type">{fileType(data.name)}</div>
-                                <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name.substring(0, 16) + "..."}</span>
+                                <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name.substring(0, 6) + ".."}</span>
                                 <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                             </div>
-                                <div className="file-remove" onClick={() => removeFile(data)}><DeleteIcon/></div>
+                            <div className="file-remove" onClick= {() => removeFile(data)}><DeleteIcon/></div>
                         </div>
                     )
                 }
