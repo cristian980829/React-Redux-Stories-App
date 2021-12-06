@@ -28,12 +28,13 @@ const theme = createTheme();
 export const StorieForm = ( { formValues, setFormValues, error } ) => {
 
     const { description, title, registration_date, user, urlImages } = formValues;
-    
+
     const date_format = moment(registration_date).format('lll');
 
     const { modalViewModel } = useSelector( state => state.ui );
 
-    
+    const { activeStorie } = useSelector( state => state.storie );
+
     const handleInputChange = ({ target }) => {
         setFormValues({
             ...formValues,
@@ -53,99 +54,101 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
                     }}
                 >
                     {!modalViewModel ?
-                        <Box
-                            component="form"
+                        <div>
+                            <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
+                                {activeStorie && activeStorie.urlImages.map(urlImage => <StorieImageCard 
+                                    key={urlImage} 
+                                    urlImage={urlImage} />)
+                                }
+                            </List>
+                            <Box
+                                component="form"
+                                justifyContent="center"
+                            >
+                                {
+                                    error &&
+                                    (
+                                        <Stack sx={{ width: '100%' }} spacing={2}>
+                                            <Alert severity="error">{error}</Alert>
+                                        </Stack>
+                                    )
+                                } 
+
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="title"
+                                    label="Title"
+                                    type="text"
+                                    autoComplete="off"
+                                    value={ title }
+                                    onChange={ handleInputChange }
+                                />
+
+                                <TextField
+                                    required
+                                    margin="normal"
+                                    fullWidth
+                                    name="description"
+                                    label="Description"
+                                    type="text"
+                                    multiline
+                                    rows={15}
+                                    autoComplete="off"
+                                    value={ description }
+                                    onChange={ handleInputChange }
+                                />
+                                            
+                                <Dropzone />
+
+                            </Box> 
+                        </div>
+                    
+                        : <Box 
+                            display="flex" 
                             justifyContent="center"
                         >
-                            {
-                                error &&
-                                (
-                                    <Stack sx={{ width: '100%' }} spacing={2}>
-                                        <Alert severity="error">{error}</Alert>
-                                    </Stack>
-                                )
-                            } 
+                            <Card sx={{ maxWidth: 1000 }}>
+                                <CardActions>
+                                    <Box
+                                        sx={{ ml: 2 }}
+                                        display="flex" 
+                                        width={890}
+                                        alignItems="left"
+                                        justifyContent="left"
+                                    >
+                                        <Typography variant="body1" color="text.secondary">
+                                            Author: { user.name }
+                                        </Typography>
+                                    </Box>
+                                    <Box 
+                                        sx={{ mr: 2 }}
+                                        display="flex"
+                                        width={890}
+                                        alignItems="right"
+                                        justifyContent="right"
+                                    >
+                                        <Typography variant="caption" color="text.secondary">
+                                            Published on { date_format }
+                                        </Typography>
+                                    </Box>
+                                </CardActions>
 
 
-                            <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
-                                {urlImages.map(urlImage => <StorieImageCard urlImage={urlImage} />)}
-                            </List>
+                                {urlImages.length > 0 && <ImgList />}
 
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="title"
-                                label="Title"
-                                type="text"
-                                autoComplete="off"
-                                value={ title }
-                                onChange={ handleInputChange }
-                            />
-
-                            <TextField
-                                required
-                                margin="normal"
-                                fullWidth
-                                name="description"
-                                label="Description"
-                                type="text"
-                                multiline
-                                rows={15}
-                                autoComplete="off"
-                                value={ description }
-                                onChange={ handleInputChange }
-                            />
-                                        
-                            <Dropzone />
-
+                                <CardActions>
+                                    <CardContent>
+                                        <Typography variant="p">
+                                            {description}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActions>
+                            </Card>
                         </Box> 
-                
-                    : <Box 
-                        display="flex" 
-                        justifyContent="center"
-                    >
-                        <Card sx={{ maxWidth: 1000 }}>
-                            <CardActions>
-                                <Box
-                                    sx={{ ml: 2 }}
-                                    display="flex" 
-                                    width={890}
-                                    alignItems="left"
-                                    justifyContent="left"
-                                >
-                                    <Typography variant="body1" color="text.secondary">
-                                        Author: { user.name }
-                                    </Typography>
-                                </Box>
-                                <Box 
-                                    sx={{ mr: 2 }}
-                                    display="flex"
-                                    width={890}
-                                    alignItems="right"
-                                    justifyContent="right"
-                                >
-                                    <Typography variant="caption" color="text.secondary">
-                                        Published on { date_format }
-                                    </Typography>
-                                </Box>
-                            </CardActions>
-
-
-                            {urlImages.length > 0 && <ImgList />}
-
-
-                            <CardActions>
-                                <CardContent>
-                                    <Typography variant="p">
-                                        {description}
-                                    </Typography>
-                                </CardContent>
-                            </CardActions>
-                        </Card>
-                    </Box> 
-                    }
+                    }        
                 </Box>
             </Container>
         </ThemeProvider>

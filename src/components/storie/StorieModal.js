@@ -65,7 +65,9 @@ export const StorieModal = () => {
         if(isFormValid()){
             dispatch(uiShowLoading(true));
             if(activeStorie){
+                formValues.urlImages=activeStorie.urlImages;
                 formValues.registration_date = moment().toDate();
+                console.log(formValues)
                 dispatch( storieStartUpdate(formValues) );
             }else{
                 await dispatch( storieStartAddNew(formValues, images) );

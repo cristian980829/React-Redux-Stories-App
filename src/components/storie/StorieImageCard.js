@@ -4,8 +4,17 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from 'react-redux';
+import { storieRemoveOneImage } from '../../actions/storie';
 
 export const StorieImageCard = ( { urlImage } ) => {
+
+    const dispatch = useDispatch();
+
+    const deleteImg = () => {
+        dispatch( storieRemoveOneImage(urlImage) );
+    }
+
     return (
         <>
             <ListItem alignItems="flex-start">
@@ -15,7 +24,7 @@ export const StorieImageCard = ( { urlImage } ) => {
                 <ListItemText
                     primary={
                         <div className="img-align pointer">
-                            <DeleteIcon/>
+                            <DeleteIcon onClick={deleteImg} />
                         </div>
                     }
                 />

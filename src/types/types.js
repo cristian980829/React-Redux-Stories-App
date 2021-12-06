@@ -32,6 +32,7 @@ export const types = {
     storieRemoveImages: '[storie] Storie Remove Image',
     storieIsValidImages: '[storie] Storie Valid Images',
     storieClearImages: '[storie] Storie Clear Images',
+    storieRemoveOneImage: '[storie] Storie Remove One Image', 
 
     authCheckingFinish: '[auth] Finish checking login state',
     authStartLogin: '[auth] Start login',

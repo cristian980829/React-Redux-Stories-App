@@ -81,7 +81,18 @@ export const storieReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 images: [] 
-            }     
+            } 
+        
+            case types.storieRemoveOneImage:
+            return {
+                ...state,
+                activeStorie: {
+                    ...state.activeStorie,
+                    urlImages: state.activeStorie.urlImages.filter(img => img !== action.payload)
+                }
+            } 
+
+            
 
         default:
             return state;
