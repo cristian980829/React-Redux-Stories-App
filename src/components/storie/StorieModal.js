@@ -20,6 +20,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { ReturnFab } from '../ui/ReturnFab';
+import { ShowLoading } from '../ui/ShowLoading';
 
 const initStorie = {
     title: '',
@@ -136,6 +137,8 @@ export const StorieModal = () => {
                 setFormValues={setFormValues}
                 error={error}
             />
+
+            <ShowLoading/>
             
             { (activeStorie && !modalViewModel) && <DeleteFab /> }
             
