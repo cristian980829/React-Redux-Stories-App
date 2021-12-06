@@ -54,7 +54,7 @@ const storieAddNew = (storie) => ({
     payload: storie
 });
 
-const storieClearImages = () => ({
+export const storieClearImages = () => ({
     type: types.storieClearImages
 })
 

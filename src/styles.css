@@ -79,3 +79,14 @@
     transition-duration: 0.4s;
     color: rgb(79, 183, 252);
 }
+
+.img-align {
+    position: absolute;
+    top: 40%;
+    color: rgb(175, 67, 67);
+}
+
+.img-align:hover {
+    opacity: 0.6;
+    transition-duration: 0.4s;
+}

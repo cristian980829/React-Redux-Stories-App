@@ -12,7 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
 import { uiStorieCloseModal, uiModalEditModel, uiShowLoading, uiOpenShowErrorMessage } from '../../actions/ui';
-import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
+import { storieClearActiveStorie, storieClearImages, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
 
@@ -22,7 +22,6 @@ import { EditFab } from '../ui/EditFab';
 import { ReturnFab } from '../ui/ReturnFab';
 import { ShowLoading } from '../ui/ShowLoading';
 import { MessageSnack } from '../ui/MessageSnack';
-
 
 const initStorie = {
     title: '',
@@ -95,6 +94,7 @@ export const StorieModal = () => {
         dispatch( storieClearActiveStorie() );
         setFormValues( initStorie );
         dispatch( uiModalEditModel() );
+        dispatch(storieClearImages());
     }
     
     const handleClose = () => {

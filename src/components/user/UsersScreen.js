@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { usersStartLoading } from '../../actions/user';
 import { UserCard } from './UserCard';
 
+import List from '@mui/material/List';
+
 export const UsersScreen = () => {
 
     const { users } = useSelector( state => state.user );
@@ -17,9 +19,11 @@ export const UsersScreen = () => {
 
     return (
         <div className="animate__animated animate__fadeIn">
-            {
-                users.map( user => <UserCard key={user.uid} data={user} /> )
-            }
+            <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
+                {
+                    users.map( user => <UserCard key={user.uid} data={user} /> )
+                }
+            </List>
         </div>
     )
 }
