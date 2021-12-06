@@ -81,10 +81,7 @@ export const storieReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 images: [] 
-            }
-
-
-            
+            }     
 
         default:
             return state;

@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
-import { uiStorieCloseModal, uiModalEditModel, uiShowLoading } from '../../actions/ui';
+import { uiStorieCloseModal, uiModalEditModel, uiShowLoading, uiOpenShowErrorMessage } from '../../actions/ui';
 import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
@@ -21,6 +21,8 @@ import { theme } from '../../helpers/theme';
 import { EditFab } from '../ui/EditFab';
 import { ReturnFab } from '../ui/ReturnFab';
 import { ShowLoading } from '../ui/ShowLoading';
+import { MessageSnack } from '../ui/MessageSnack';
+
 
 const initStorie = {
     title: '',
@@ -37,7 +39,7 @@ export const StorieModal = () => {
     const [error, setError] = useState("");
 
     const { storieModalOpen, modalViewModel } = useSelector( state => state.ui );
-    const { activeStorie, images } = useSelector( state => state.storie );
+    const { activeStorie, images, isValidImages } = useSelector( state => state.storie );
     const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
 
@@ -57,6 +59,10 @@ export const StorieModal = () => {
 
     const handleSubmitForm = async(e) => {
         e.preventDefault();
+        if(!isValidImages){
+            dispatch( uiOpenShowErrorMessage('You must select valid image format!.') );
+            return;
+        }
         if(isFormValid()){
             dispatch(uiShowLoading(true));
             if(activeStorie){
@@ -139,6 +145,8 @@ export const StorieModal = () => {
             />
 
             <ShowLoading/>
+
+            <MessageSnack/>
             
             { (activeStorie && !modalViewModel) && <DeleteFab /> }
             
