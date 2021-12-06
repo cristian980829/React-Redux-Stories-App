@@ -14,17 +14,13 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 
 import { ImgList } from './ImageList';
 import Dropzone from '../dropzone/Dropzone';
+import { StorieImageCard } from './StorieImageCard';
 
 
 const theme = createTheme();
@@ -72,20 +68,7 @@ export const StorieForm = ( { formValues, setFormValues, error } ) => {
 
 
                             <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
-                                <ListItem alignItems="flex-start">
-                                    <ListItemAvatar>
-                                        <Avatar alt="Remy Sharp" src={title} />
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={
-                                            <div className="img-align pointer">
-                                                <DeleteIcon/>
-                                            </div>
-                                        }
-                                    />
-                                    
-                                </ListItem>
-                                <Divider variant="inset" component="li" />
+                                {urlImages.map(urlImage => <StorieImageCard urlImage={urlImage} />)}
                             </List>
 
 
