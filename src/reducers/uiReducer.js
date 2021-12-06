@@ -8,7 +8,8 @@ const initialState = {
         open: false,
         message: "",
         error: false
-    }
+    },
+    showLoading: false
 }
 
 export const uiReducer = ( state = initialState, action ) => {
@@ -78,6 +79,12 @@ export const uiReducer = ( state = initialState, action ) => {
                     open: false,
                     message: ""
                 }
+            }
+
+        case types.uiShowLoading:
+            return {
+                ...state,
+                showLoading: action.payload
             }
     
         default:

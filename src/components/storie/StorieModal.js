@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
-import { uiStorieCloseModal, uiModalEditModel } from '../../actions/ui';
+import { uiStorieCloseModal, uiModalEditModel, uiShowLoading } from '../../actions/ui';
 import { storieClearActiveStorie, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
 import { DeleteFab } from '../ui/DeleteFab';
@@ -56,8 +56,8 @@ export const StorieModal = () => {
 
     const handleSubmitForm = async(e) => {
         e.preventDefault();
-
         if(isFormValid()){
+            dispatch(uiShowLoading(true));
             if(activeStorie){
                 formValues.registration_date = moment().toDate();
                 dispatch( storieStartUpdate(formValues) );
@@ -65,6 +65,7 @@ export const StorieModal = () => {
                 await dispatch( storieStartAddNew(formValues, images) );
             }
             closeModal();
+            dispatch(uiShowLoading(false));
         }
     }
 

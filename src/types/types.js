@@ -10,6 +10,7 @@ export const types = {
     uiOpenShowSuccessMessage: '[ui] Open Show Success Message',
     uiOpenShowErrorMessage: '[ui] Open Show Error Message',
     uiCloseShowMessage: '[ui] Close Show Message',
+    uiShowLoading: '[ui] Show Loading',
 
     userSetActive: '[user] User Set Active',
     userClearActive: '[user] Clear active user',

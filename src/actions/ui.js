@@ -12,3 +12,7 @@ export const uiUserCloseModal = () => ({ type: types.uiUserCloseModal });
 export const uiOpenShowSuccessMessage = (message) => ({ type: types.uiOpenShowSuccessMessage, payload: message });
 export const uiOpenShowErrorMessage = (message) => ({ type: types.uiOpenShowErrorMessage, payload: message });
 export const uiCloseShowMessage = () => ({ type: types.uiCloseShowMessage });
+
+export const uiShowLoading = (loading) => ({ type: types.uiShowLoading, payload: loading });
+
+
