@@ -88,7 +88,7 @@ const Dropzone = () => {
     }
 
     const validateFile = (file) => {
-        const validTypes = [ 'image/gif', 'image/x-icon', 'image/webp'];
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/x-icon', 'image/webp'];
         if (validTypes.indexOf(file.type) === -1) {
             return false;
         }

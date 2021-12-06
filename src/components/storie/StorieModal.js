@@ -37,7 +37,7 @@ export const StorieModal = () => {
     const [error, setError] = useState("");
 
     const { storieModalOpen, modalViewModel } = useSelector( state => state.ui );
-    const { activeStorie } = useSelector( state => state.storie );
+    const { activeStorie, images } = useSelector( state => state.storie );
     const { uid } = useSelector( state => state.auth.user );
     const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ export const StorieModal = () => {
                 formValues.registration_date = moment().toDate();
                 dispatch( storieStartUpdate(formValues) );
             }else{
-                dispatch( storieStartAddNew(formValues) );
+                dispatch( storieStartAddNew(formValues, images) );
             }
             closeModal();
         }
