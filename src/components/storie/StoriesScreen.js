@@ -5,7 +5,7 @@ import { StorieCard } from './StorieCard';
 
 import { StorieModal } from './StorieModal';
 
-import { AddNewFab } from '../ui/AddNewFab';
+import { AddNewFab } from '../ui/fab/AddNewFab';
 import { MessageSnack } from '../ui/MessageSnack';
 
 export const StoriesScreen = () => {

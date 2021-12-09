@@ -14,10 +14,10 @@ import { ThemeProvider } from '@mui/material/styles';
 import { uiUserCloseModal, uiModalEditModel } from '../../actions/ui';
 
 import { theme } from '../../helpers/theme';
-import { EditFab } from '../ui/EditFab';
+import { EditFab } from '../ui/fab/EditFab';
 import { userClearActive } from '../../actions/user';
 import { UserForm } from './UserForm';
-import { ReturnFab } from '../ui/ReturnFab';
+import { ReturnFab } from '../ui/fab/ReturnFab';
 
 
 const initUser = {

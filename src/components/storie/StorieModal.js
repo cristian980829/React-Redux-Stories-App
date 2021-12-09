@@ -14,12 +14,11 @@ import Slide from '@mui/material/Slide';
 import { uiStorieCloseModal, uiModalEditModel, uiShowLoading, uiOpenShowErrorMessage } from '../../actions/ui';
 import { storieClearActiveStorie, storieClearImages, storieStartAddNew, storieStartUpdate } from '../../actions/storie';
 import { StorieForm } from './StorieForm';
-import { DeleteFab } from '../ui/DeleteFab';
-
+import { DeleteFab } from '../ui/fab/DeleteFab';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../helpers/theme';
-import { EditFab } from '../ui/EditFab';
-import { ReturnFab } from '../ui/ReturnFab';
+import { EditFab } from '../ui/fab/EditFab';
+import { ReturnFab } from '../ui/fab/ReturnFab';
 import { ShowLoading } from '../ui/ShowLoading';
 import { MessageSnack } from '../ui/MessageSnack';
 

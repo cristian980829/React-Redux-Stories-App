@@ -1,8 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Fab from "@material-ui/core/Fab";
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux';
-import { uiModalEditModel } from '../../actions/ui';
+import { uiModalEditModel } from '../../../actions/ui';
+
 
 export const EditFab = () => {
 

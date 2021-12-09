@@ -1,26 +1,24 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { uiStorieOpenModal } from '../../actions/ui';
-import AddIcon from '@mui/icons-material/Add';
-
 import Fab from "@material-ui/core/Fab";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { uiModalViewModel } from '../../../actions/ui';
 
 
-export const AddNewFab = () => {
+export const ReturnFab = () => {
 
     const dispatch = useDispatch();
 
-    const handleClickNew = () => {
-        dispatch( uiStorieOpenModal() );
+    const handleViewModel = () => {
+        dispatch( uiModalViewModel() );
     }
-
 
     return (
         <div className="fab"
-            onClick={ handleClickNew}
+            onClick={ handleViewModel}
         >
             <Fab color="primary" aria-label="add">
-                <AddIcon />
+                <ArrowBackIcon />
             </Fab>
         </div>
     )

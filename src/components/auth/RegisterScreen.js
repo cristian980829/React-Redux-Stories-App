@@ -52,9 +52,7 @@ export const RegisterScreen = () => {
 
     const handleFileChange = async(e) => {
         dispatch( uploadImage() );
-
         const file = e.target.files[0];
-
         if ( file ) {
             dispatch( startUserUploading(file));
         }

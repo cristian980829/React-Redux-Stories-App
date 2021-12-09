@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Fab from "@material-ui/core/Fab";
 import Swal from 'sweetalert2';
-
-import { storieStartDelete } from '../../actions/storie';
-import { uiStorieCloseModal } from '../../actions/ui';
+import { storieStartDelete } from '../../../actions/storie';
+import { uiStorieCloseModal } from '../../../actions/ui';
 
 
 export const DeleteFab = () => {
